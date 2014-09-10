@@ -34,9 +34,9 @@ public class JanelaPrincipal extends Application {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         //texto logo acima dos botões
-        Text scenetitle = new Text("War UFF");
-        grid.add(scenetitle, 0, 0, 2, 1);
-        scenetitle.setId("Titulo");
+//        Text scenetitle = new Text("War UFF");
+//        grid.add(scenetitle, 0, 0, 2, 1);
+//        scenetitle.setId("Titulo");
 
         //botão de novo jogo
         Button btnNovo = new Button("Novo jogo");
@@ -89,9 +89,9 @@ public class JanelaPrincipal extends Application {
         });
 
         //Mostrar
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
-        //scene.getStylesheets().add(TelaInicial.class.getResource("TelaInicial.css").toExternalForm());
+        scene.getStylesheets().add(JanelaPrincipal.class.getResource("JanelaPrincipal.css").toExternalForm());
         primaryStage.show();
     }
 

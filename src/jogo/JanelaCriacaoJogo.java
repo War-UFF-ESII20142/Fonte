@@ -32,9 +32,9 @@ public class JanelaCriacaoJogo {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text scenetitle = new Text("Novo Jogo");
-        grid.add(scenetitle, 0, 0, 2, 1);
-        scenetitle.setId("Titulo");
+//        Text scenetitle = new Text("Novo Jogo");
+//        grid.add(scenetitle, 0, 0, 2, 1);
+//        scenetitle.setId("Titulo");
 
         Button btnNovo = new Button("Novo jogo");
         btnNovo.setPrefWidth(100);
@@ -43,9 +43,10 @@ public class JanelaCriacaoJogo {
         hbBtnNovo.getChildren().add(btnNovo);
         grid.add(hbBtnNovo, 1, 1);
         
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
-        //scene.getStylesheets().add(TelaInicial.class.getResource("TelaInicial.css").toExternalForm());
+        scene.getStylesheets().add(JanelaPrincipal.class.getResource("JanelaPrincipal.css").toExternalForm());
+        primaryStage.setTitle(" Criação de novo Jogo ");
         primaryStage.show();
     }
     

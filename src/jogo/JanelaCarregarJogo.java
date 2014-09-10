@@ -29,6 +29,7 @@ public class JanelaCarregarJogo {
         primaryStage.setTitle("War UFF");
 
         TableView table = new TableView();
+        table.setId("tableView");
         
         final Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
@@ -37,34 +38,48 @@ public class JanelaCarregarJogo {
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
-        grid.getChildren().addAll(label, table);
+        grid.setPadding(new Insets(50, 25, 25, 25));
+        grid.add(table, 0, 0);
+        //grid.getChildren().addAll(table);
 
-        Text scenetitle = new Text("Carregar jogo");
-        grid.add(scenetitle, 0, 0, 2, 1);
-        scenetitle.setId("Titulo");
+//        Text scenetitle = new Text("Carregar jogo");
+//        grid.add(scenetitle, 0, 0, 2, 1);
+//        scenetitle.setId("Titulo");
 
         Button btnCarregar = new Button("Carregar");
         btnCarregar.setPrefWidth(100);
         HBox hbBtnCarregar = new HBox(10);
-        hbBtnCarregar.setAlignment(Pos.CENTER);
+        hbBtnCarregar.setAlignment(Pos.CENTER_RIGHT);
         hbBtnCarregar.getChildren().add(btnCarregar);
-        grid.add(hbBtnCarregar, 1, 1);
+        grid.add(hbBtnCarregar, 0, 1);
         
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
-        //scene.getStylesheets().add(TelaInicial.class.getResource("TelaInicial.css").toExternalForm());
-        primaryStage.setTitle("Table View Sample");
-        primaryStage.setWidth(300);
-        primaryStage.setHeight(500);
+        scene.getStylesheets().add(JanelaPrincipal.class
+                        .getResource("JanelaPrincipal.css")
+                        .toExternalForm());
+        primaryStage.setTitle("Carregar Jogo Salvo");
+//        primaryStage.setWidth(800);
+//        primaryStage.setHeight(600);
 
         table.setEditable(true);
 
-        TableColumn firstNameCol = new TableColumn("First Name");
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        TableColumn emailCol = new TableColumn("Email");
+        TableColumn nomeJogo = new TableColumn("Nome do jogo");
+        TableColumn dataCriacao = new TableColumn( "Data de Criacao" );
+        TableColumn dataSalvo = new TableColumn( "Data de Pausa" );
+        TableColumn nomeJogador = new TableColumn("Nome do jogador ");
+        TableColumn emailCol = new TableColumn("Cor do jogador");
+        TableColumn numeroDeJogadores = new TableColumn( "Numero de Jogadores" );
+        TableColumn numeroDeBots = new TableColumn( "Numero de Bots" );
+        TableColumn Mapa = new TableColumn( "Mapa Utilizado" );
+        
 
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(nomeJogo, dataCriacao, dataSalvo,
+                nomeJogador, emailCol, numeroDeJogadores, numeroDeBots,Mapa );
+        table.setStyle(
+        ".table { -fx-position: center; }"
+        );
+        
 
 //        final VBox vbox = new VBox();
 //        vbox.setSpacing(5);
