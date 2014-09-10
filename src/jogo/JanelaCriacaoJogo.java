@@ -8,6 +8,8 @@ package jogo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,12 +38,20 @@ public class JanelaCriacaoJogo {
 //        grid.add(scenetitle, 0, 0, 2, 1);
 //        scenetitle.setId("Titulo");
 
-        Button btnNovo = new Button("Novo jogo");
+        Button btnNovo = new Button("Voltar");
         btnNovo.setPrefWidth(100);
         HBox hbBtnNovo = new HBox(10);
-        hbBtnNovo.setAlignment(Pos.CENTER);
+        hbBtnNovo.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtnNovo.getChildren().add(btnNovo);
         grid.add(hbBtnNovo, 1, 1);
+        
+        btnNovo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                JanelaPrincipal jp = new JanelaPrincipal();
+                jp.start(primaryStage);
+            }
+        });
         
         Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);

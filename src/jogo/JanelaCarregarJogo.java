@@ -6,6 +6,8 @@
 
 package jogo;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -46,12 +48,34 @@ public class JanelaCarregarJogo {
 //        grid.add(scenetitle, 0, 0, 2, 1);
 //        scenetitle.setId("Titulo");
 
+        GridPane bottonGrid = new GridPane();
+        bottonGrid.setAlignment(Pos.BASELINE_RIGHT);
+        //bottonGrid.setHgap(10);
+        //bottonGrid.setVgap(10);
+        //bottonGrid.setPadding(new Insets(0, 25, 25, 25));
+        grid.add(bottonGrid, 0, 1);
+        
         Button btnCarregar = new Button("Carregar");
         btnCarregar.setPrefWidth(100);
         HBox hbBtnCarregar = new HBox(10);
         hbBtnCarregar.setAlignment(Pos.CENTER_RIGHT);
         hbBtnCarregar.getChildren().add(btnCarregar);
-        grid.add(hbBtnCarregar, 0, 1);
+        bottonGrid.add(hbBtnCarregar, 0, 0);
+        
+        Button btnVoltar = new Button("Voltar");
+        btnVoltar.setPrefWidth(100);
+        HBox hbBtnNovo = new HBox(10);
+        hbBtnNovo.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtnNovo.getChildren().add(btnVoltar);
+        bottonGrid.add(hbBtnNovo, 1, 0);
+        
+        btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                JanelaPrincipal jp = new JanelaPrincipal();
+                jp.start(primaryStage);
+            }
+        });
         
         Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
