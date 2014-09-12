@@ -33,26 +33,15 @@ public class JanelaCarregarJogo {
         TableView table = new TableView();
         table.setId("tableView");
         
-        final Label label = new Label("Address Book");
-        label.setFont(new Font("Arial", 20));
-        
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(50, 25, 25, 25));
         grid.add(table, 0, 0);
-        //grid.getChildren().addAll(table);
-
-//        Text scenetitle = new Text("Carregar jogo");
-//        grid.add(scenetitle, 0, 0, 2, 1);
-//        scenetitle.setId("Titulo");
-
+        
         GridPane bottonGrid = new GridPane();
         bottonGrid.setAlignment(Pos.BASELINE_RIGHT);
-        //bottonGrid.setHgap(10);
-        //bottonGrid.setVgap(10);
-        //bottonGrid.setPadding(new Insets(0, 25, 25, 25));
         grid.add(bottonGrid, 0, 1);
         
         Button btnCarregar = new Button("Carregar");
@@ -77,40 +66,28 @@ public class JanelaCarregarJogo {
             }
         });
         
-        Scene scene = new Scene(grid, 800, 600);
+        Scene scene = new Scene(grid, primaryStage.getWidth(), primaryStage.getHeight());
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(JanelaPrincipal.class
-                        .getResource("JanelaPrincipal.css")
+        scene.getStylesheets().add(JanelaCarregarJogo.class
+                        .getResource("JanelaCarregarJogo.css")
                         .toExternalForm());
         primaryStage.setTitle("Carregar Jogo Salvo");
-//        primaryStage.setWidth(800);
-//        primaryStage.setHeight(600);
 
         table.setEditable(true);
 
-        TableColumn nomeJogo = new TableColumn("Nome do jogo");
-        TableColumn dataCriacao = new TableColumn( "Data de Criacao" );
-        TableColumn dataSalvo = new TableColumn( "Data de Pausa" );
-        TableColumn nomeJogador = new TableColumn("Nome do jogador ");
-        TableColumn emailCol = new TableColumn("Cor do jogador");
-        TableColumn numeroDeJogadores = new TableColumn( "Numero de Jogadores" );
-        TableColumn numeroDeBots = new TableColumn( "Numero de Bots" );
-        TableColumn Mapa = new TableColumn( "Mapa Utilizado" );
+        TableColumn nomeJogo = new TableColumn("Jogo");
+        TableColumn dataCriacao = new TableColumn( "Criacao" );
+        TableColumn dataSalvo = new TableColumn( "Pausa" );
+        TableColumn nomeJogador = new TableColumn("Nome");
+        TableColumn emailCol = new TableColumn("Cor");
+        TableColumn numeroDeJogadores = new TableColumn( "Nº Jogadores" );
+        TableColumn numeroDeBots = new TableColumn( "Nº Bots" );
+        TableColumn Mapa = new TableColumn( "Mapa " );
         
 
         table.getColumns().addAll(nomeJogo, dataCriacao, dataSalvo,
                 nomeJogador, emailCol, numeroDeJogadores, numeroDeBots,Mapa );
-        table.setStyle(
-        ".table { -fx-position: center; }"
-        );
         
-
-//        final VBox vbox = new VBox();
-//        vbox.setSpacing(5);
-//        vbox.setPadding(new Insets(10, 0, 0, 10));
-//        vbox.getChildren().addAll(label, table);
-
-        //((Group) scene.getRoot()).getChildren().addAll(grid);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

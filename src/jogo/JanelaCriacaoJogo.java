@@ -14,6 +14,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -34,16 +36,51 @@ public class JanelaCriacaoJogo {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-//        Text scenetitle = new Text("Novo Jogo");
-//        grid.add(scenetitle, 0, 0, 2, 1);
-//        scenetitle.setId("Titulo");
+        TableView table = new TableView();
+        table.setId("tableView");
+        
+        grid.add(table,0,0);
+        
+        GridPane bottonGrid = new GridPane();
+        bottonGrid.setAlignment(Pos.CENTER);
+        
+        grid.add(bottonGrid,0,1);
 
         Button btnNovo = new Button("Voltar");
         btnNovo.setPrefWidth(100);
         HBox hbBtnNovo = new HBox(10);
         hbBtnNovo.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtnNovo.getChildren().add(btnNovo);
-        grid.add(hbBtnNovo, 1, 1);
+        bottonGrid.add(hbBtnNovo, 4, 1);
+        
+        
+        Button addHuman = new Button("+H");
+        addHuman.setPrefWidth(100);
+        HBox addHumanBox = new HBox(10);
+        addHumanBox.setAlignment(Pos.BOTTOM_LEFT);
+        addHumanBox.getChildren().add(addHuman);
+        bottonGrid.add(addHumanBox, 0, 1);
+        
+        Button removeHuman = new Button("-H");
+        removeHuman.setPrefWidth(100);
+        HBox removeHumanBox = new HBox(10);
+        removeHumanBox.setAlignment(Pos.BOTTOM_LEFT);
+        removeHumanBox.getChildren().add(removeHuman);
+        bottonGrid.add(removeHumanBox, 1, 1);
+        
+        Button addBot = new Button("+B");
+        addBot.setPrefWidth(100);
+        HBox addBotBox = new HBox(10);
+        addBotBox.setAlignment(Pos.BOTTOM_LEFT);
+        addBotBox.getChildren().add(addBot);
+        bottonGrid.add(addBotBox, 2, 1);
+        
+        Button removeBot = new Button("-B");
+        removeBot.setPrefWidth(100);
+        HBox removeBotBox = new HBox(10);
+        removeBotBox.setAlignment(Pos.BOTTOM_LEFT);
+        removeBotBox.getChildren().add(removeBot);
+        bottonGrid.add(removeBotBox, 3, 1);
         
         btnNovo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -53,9 +90,19 @@ public class JanelaCriacaoJogo {
             }
         });
         
-        Scene scene = new Scene(grid, 800, 600);
+        
+        table.setEditable(true);
+
+        TableColumn nomeJogador = new TableColumn("Nome");
+        TableColumn cor = new TableColumn("Cor");
+        TableColumn tipo = new TableColumn( "Tipo" );
+        
+        table.getColumns().addAll(nomeJogador, cor, tipo);
+        //table.setStyle(".table { -fx-position: center; }");
+        
+        Scene scene = new Scene(grid, primaryStage.getWidth(), primaryStage.getHeight());
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(JanelaPrincipal.class.getResource("JanelaPrincipal.css").toExternalForm());
+        scene.getStylesheets().add(JanelaCriacaoJogo.class.getResource("JanelaCriacaoJogo.css").toExternalForm());
         primaryStage.setTitle(" Criação de novo Jogo ");
         primaryStage.show();
     }

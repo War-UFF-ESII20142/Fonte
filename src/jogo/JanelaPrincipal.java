@@ -25,6 +25,7 @@ public class JanelaPrincipal extends Application {
     public void start(Stage primaryStage) {
         //Título da janela
         primaryStage.setTitle("War UFF");
+        primaryStage.setResizable(false);
 
         //a grade onde ficam os botões
         GridPane grid = new GridPane();
@@ -32,11 +33,6 @@ public class JanelaPrincipal extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
-        //texto logo acima dos botões
-//        Text scenetitle = new Text("War UFF");
-//        grid.add(scenetitle, 0, 0, 2, 1);
-//        scenetitle.setId("Titulo");
 
         //botão de novo jogo
         Button btnNovo = new Button("Novo jogo");
