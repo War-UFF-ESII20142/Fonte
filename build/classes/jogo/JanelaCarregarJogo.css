@@ -4,9 +4,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 07/09/2014, 02:30:05
-    Author     : AleGomes
+    Created on : 11/09/2014, 21:25:22
+    Author     : Claudio
 */
+
 .root {
     -fx-background-image: url('war-uff.png');
     -fx-background-repeat: no-repeat ;
@@ -18,9 +19,3 @@ and open the template in the editor.
     -fx-background-color: white ;
     -fx-font: 15px sans-serif ;
 }
-
-#tableView {
-    //-fx-background-color: black;
-    -fx-alignment: CENTER;
-}
-
