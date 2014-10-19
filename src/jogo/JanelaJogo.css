@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18/10/2014, 15:33:00
+    Author     : Claudio
+*/
+
+.circle {
+    -fx-fill: rgba(255,0,0,1.0);
+}
+
+.circle:hover {
+    -fx-fill: rgba(255,0,0,0.5);
+}
+
+.gameImage {
+    -fx-background-color: lightblue;
+}
+
+#PraiaVermelha {
+    -fx-fill: rgba(0,0,255,1.0);
+}
+
+#Gragoata {
+    -fx-fill: rgba(255,0,0,1.0);
+}
+
+#Valonguinho {
+    -fx-fill: rgba(255,255,0,1.0);
+}
+
+#UnidadesIsoladas {
+    -fx-fill:rgba(0,255,0,1.0);
+}
+

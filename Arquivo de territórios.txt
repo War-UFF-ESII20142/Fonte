@@ -1,0 +1,39 @@
+PraiaVermelha 6 
+	Engenharia 504.0 405.0
+	Computacao 433.0 412.0
+	Fisica 350.0 438.0
+	Geografia 360.0 514.0
+	Geofisica 435.0 490.0
+	Arquitetura 507.0 457.0
+	
+Gragoata 12
+	Historia 313.0 509.0
+	Educaçãofísica 306.0 447.0
+	Psicologia 248.0 462.0
+	Letras 221.0 416.0
+	Pedagogia 259.0 410.0
+	ServiçoSocial 199.0 377.0
+	CiênciasSociais 207.0 327.0
+	CiênciasPolíticas 238.0 342.0
+	RelaçõesInternacionais 269.0 325.0
+	Bandejão 264.0 372.0
+	MoradiaEstudantil 299.0 408.0
+	Filosofia 234.0 384.0
+	
+Valonguinho  6
+	Matematica 166.0 240.0
+	Economia 191.0 189.0
+	Biologia 149.0 159.0
+	Quimica 88.0 154.0
+	Administracao 69.0 195.0
+	Odontologia 109.0 217.0
+	
+UnidadesIsoladas  8 
+	Direito 497.0 362.0
+	IACS 426.0 355.0
+	Enfermagem 377.0 310.0
+	Economia 329.0 233.0
+	Farmácia 353.0 165.0
+	Veterinária 384.0 135.0
+	HUAP 426.0 176.0
+	Reitoria 461.0 228.0

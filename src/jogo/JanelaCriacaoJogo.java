@@ -154,6 +154,22 @@ public class JanelaCriacaoJogo {
                 jp.start(primaryStage);
             }
         });
+        
+        Button criaJogo = new Button("Criar Jogo");
+        criaJogo.setPrefWidth(100);
+        HBox criaJogoBox = new HBox(10);
+        criaJogoBox.setAlignment(Pos.BOTTOM_LEFT);
+        criaJogoBox.getChildren().add(criaJogo);
+        bottonGrid.add(criaJogoBox, 5, 1);
+        
+        criaJogo.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                new JanelaJogo().start(new Stage());
+                primaryStage.close();
+            }
+        });
 
         table.setItems(Players);
         Scene scene = new Scene(grid, primaryStage.getWidth(), primaryStage.getHeight());
