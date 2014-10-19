@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07/09/2014, 02:30:05
+    Author     : AleGomes
+*/
+.root {
+    -fx-background-image: url('../resources/war-uff.png');
+    -fx-background-repeat: no-repeat ;
+    -fx-background-position: top ;
+    -fx-background-color: white;
+}
+
+.button{
+    -fx-background-color: white ;
+    -fx-font: 15px sans-serif ;
+}
+
+#tableView {
+    //-fx-background-color: black;
+    -fx-alignment: CENTER;
+}
+
