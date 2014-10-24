@@ -23,6 +23,7 @@ public class Continente {
         this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.paises = paises;
+        //comentario de teste git
     }
 
     public int getId() {
