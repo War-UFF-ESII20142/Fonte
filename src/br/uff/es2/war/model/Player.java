@@ -26,7 +26,6 @@ public class Player {
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
-        System.out.println("Jogador "+this.nome+" ta criado");
     }
 
     /**

@@ -38,12 +38,3 @@ Icon
 /dist/
 /nbproject/private/
 /build/
-
-# Problem files by netbeans
-build/built-jar.properties
-dist/Jogo.html
-dist/Jogo.jar
-dist/Jogo.jnlp
-dist/web-files/dtjava.js
-nbproject/configs/Run_as_WebStart.properties
-nbproject/configs/Run_in_Browser.properties
