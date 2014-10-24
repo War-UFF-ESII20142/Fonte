@@ -17,6 +17,7 @@ public class Continente {
     private SimpleIntegerProperty id;
     private SimpleStringProperty nome;
     private ArrayList<Pais> paises;
+    //teste de configuracao
     
     public Continente(int id, String nome,ArrayList<Pais> paises)
     {
