@@ -23,19 +23,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import br.uff.es2.war.model.Player;
+import br.uff.es2.war.interfaces.Player;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import br.uff.es2.war.model.HumanPlayer;
+
 
 /**
  *
- * @author AleGomes
+ * @author Grupo1
  */
 public class JanelaCriacaoJogo extends Application{
 
-    private final ObservableList<Player> Players = FXCollections.observableArrayList();
+    private final ObservableList<HumanPlayer> Players = FXCollections.observableArrayList();
     private ComboBox cBoxCor;
     private AnchorPane pane;
     private Button btnAddHuman;
@@ -44,17 +46,16 @@ public class JanelaCriacaoJogo extends Application{
     private Button btnVoltar;
     private Button btnCreateGame;
     private HBox horizontalButtonBox;
-    private TableView<Player> tbPlayers;
-    private TableColumn<Player,String> tcNamePlayer; 
-    private TableColumn<Player,String> tcColorPlayer;
-    private TableColumn<Player,String> tcTypePlayer;
+    private TableView<HumanPlayer> tbPlayers;
+    private TableColumn<HumanPlayer,String> tcNamePlayer; 
+    private TableColumn<HumanPlayer,String> tcColorPlayer;
+    private TableColumn<HumanPlayer,String> tcTypePlayer;
     private Stage stage;
     private WindowManager windowController;
     private ImageView imgLogo;
 
     @Override
-    public void start(Stage primaryStage) 
-    {
+    public void start(Stage primaryStage) {
         initComponenets();
         
         setStage(primaryStage);
@@ -68,7 +69,6 @@ public class JanelaCriacaoJogo extends Application{
         
         initListeners();
         initLayout();
-
     }
     
     public void setWindowController( WindowManager manager )
@@ -172,13 +172,13 @@ public class JanelaCriacaoJogo extends Application{
         tcColorPlayer = new TableColumn<>("Cor");
         tcTypePlayer = new TableColumn("Tipo");
 
-        tcNamePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("nome") );
+        tcNamePlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("nome") );
         tcNamePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
         
-        tcColorPlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("cor") );
+        tcColorPlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("cor") );
         tcColorPlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
         
-        tcTypePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("tipo") );
+        tcTypePlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("tipo") );
         tcTypePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
 
         tbPlayers.getColumns().addAll(tcNamePlayer, tcColorPlayer, tcTypePlayer);
@@ -235,7 +235,7 @@ public class JanelaCriacaoJogo extends Application{
         });
 
         btnOk.setOnAction((ActionEvent x) -> {
-            Player p = new Player(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
+            HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
             Players.add(p);
             cBoxCor.getItems().remove(cBoxCor.getValue().toString());
             newPlayerStage.close();
