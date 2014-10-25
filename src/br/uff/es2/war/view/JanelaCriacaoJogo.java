@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import br.uff.es2.war.interfaces.Player;
+import br.uff.es2.war.interfaces.iWindow;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,7 +36,7 @@ import br.uff.es2.war.model.HumanPlayer;
  *
  * @author Grupo1
  */
-public class JanelaCriacaoJogo extends Application{
+public class JanelaCriacaoJogo extends Application implements iWindow{
 
     private final ObservableList<HumanPlayer> Players = FXCollections.observableArrayList();
     private ComboBox cBoxCor;
@@ -117,8 +118,7 @@ public class JanelaCriacaoJogo extends Application{
         btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                windowController.startMainWindow();
-                stage.close();
+                windowController.startMainWindow(JanelaCriacaoJogo.this);
             }
         });
         
@@ -126,8 +126,7 @@ public class JanelaCriacaoJogo extends Application{
 
             @Override
             public void handle(ActionEvent event) {
-                new JanelaJogo().start(new Stage());
-                stage.close();
+                windowController.startGamePlay();
             }
         });
     }
@@ -188,11 +187,13 @@ public class JanelaCriacaoJogo extends Application{
         pane.getChildren().addAll(imgLogo,tbPlayers,horizontalButtonBox);
     }
     
+    @Override
     public void setStage( Stage stage )
     {
         this.stage = stage;
     }
     
+    @Override
     public Stage getStage()
     {
         return stage;

@@ -1,6 +1,7 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.WindowManager;
+import br.uff.es2.war.interfaces.iWindow;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
  *
  * @author AleGomes
  */
-public class JanelaPrincipal extends Application {
+public class JanelaPrincipal extends Application implements iWindow{
     private AnchorPane pane;
     private Button btnNovo;
     private Button btnCarregar;
@@ -59,7 +60,7 @@ public class JanelaPrincipal extends Application {
         btnNovo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                windowController.startCreateGameWindow();
+                windowController.startCreateGameWindow(JanelaPrincipal.this);
                 stage.close();
             }
         });
@@ -68,7 +69,7 @@ public class JanelaPrincipal extends Application {
         btnCarregar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                windowController.startLoadGameWindow();
+                windowController.startLoadGameWindow(JanelaPrincipal.this);
                 getStage().close();
             }
         });
@@ -82,12 +83,14 @@ public class JanelaPrincipal extends Application {
         });        
     }
     
-    private Stage getStage()
+    @Override
+    public Stage getStage()
     {
         return stage;
     }
     
-    private void setStage(Stage stage)
+    @Override
+    public void setStage(Stage stage)
     {
         this.stage = stage;
     }

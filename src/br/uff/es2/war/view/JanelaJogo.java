@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.view;
 
+import br.uff.es2.war.WindowManager;
 import com.sun.javafx.iio.ImageStorage;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -302,9 +303,4 @@ public class JanelaJogo extends Application
         }
         
     }
-    
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }

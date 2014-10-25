@@ -19,7 +19,6 @@ public class MainClass extends Application
     @Override
     public void start(Stage primaryStage) throws Exception {
         WindowManager manager = new WindowManager();
-        manager.startMainWindow();
         primaryStage.close();
     }
     

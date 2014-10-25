@@ -7,6 +7,7 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.WindowManager;
+import br.uff.es2.war.interfaces.iWindow;
 import br.uff.es2.war.model.Partida;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
  *
  * @author AleGomes
  */
-public class JanelaCarregarJogo extends Application{
+public class JanelaCarregarJogo extends Application implements iWindow{
     private AnchorPane pane;
     private Button btnCarregar;
     private Button btnVoltar;
@@ -85,8 +86,7 @@ public class JanelaCarregarJogo extends Application{
         btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                windowController.startMainWindow();
-                stage.close();
+                windowController.startMainWindow(JanelaCarregarJogo.this);
             }
         });
     }
@@ -152,10 +152,17 @@ public class JanelaCarregarJogo extends Application{
         pane.getChildren().addAll(imgLogo, tbPartidas,horizontalButtonBox);
         
     }
-
-    private void setStage(Stage primaryStage) 
+    
+    @Override
+    public Stage getStage()
     {
-        this.stage = primaryStage;
+        return stage;
+    }
+    
+    @Override
+    public void setStage(Stage stage) 
+    {
+        this.stage = stage;
     }
     
 }
