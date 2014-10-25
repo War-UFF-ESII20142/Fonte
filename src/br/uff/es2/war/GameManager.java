@@ -23,6 +23,7 @@ public class GameManager
     public GameManager(ArrayList<Player> players)
     {
         gameLoop = new GameLoop(players);
+        gameLoop.principalLoop();
     }
 
     public ObservableList<Player> getOlPlayers() {

@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import br.uff.es2.war.model.HumanPlayer;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -60,7 +61,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
     public void start(Stage primaryStage) {
         initComponenets();
         
-        setStage(primaryStage);
+        this.stage = primaryStage;
         
         primaryStage.setTitle("War UFF");
         Scene scene = new Scene(pane, primaryStage.getWidth(), primaryStage.getHeight());
@@ -131,8 +132,16 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         btnCreateGame.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
-            public void handle(ActionEvent event) {
-                windowController.startGamePlay();
+            public void handle(ActionEvent event) 
+            {
+                if(tbPlayers.getItems().size() > 2)
+                {
+                    windowController.startGamePlay(JanelaCriacaoJogo.this);
+                }
+                else
+                {
+                    JOptionPane.showConfirmDialog(null, "Há somente: "+tbPlayers.getItems().size()+"  elementos na lista ","Quantidade Minima não alcancaçada",JOptionPane.OK_CANCEL_OPTION);
+                }
             }
         });
     }
@@ -244,10 +253,17 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         });
 
         btnOk.setOnAction((ActionEvent x) -> {
-            HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
-            olPlayers.add(p);
-            cBoxCor.getItems().remove(cBoxCor.getValue().toString());
-            newPlayerStage.close();
+            if(cBoxCor.getValue() != null)
+            {
+                HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
+                olPlayers.add(p);
+                cBoxCor.getItems().remove(cBoxCor.getValue().toString());
+                newPlayerStage.close();
+            }
+            else
+            {
+                JOptionPane.showConfirmDialog(null, "nenhuma cor selecionada", "Erro!", JOptionPane.OK_CANCEL_OPTION);
+            }
         });
 
     }

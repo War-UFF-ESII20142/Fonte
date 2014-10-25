@@ -45,13 +45,14 @@ public class JanelaJogo extends Application
     {
         initComponents();
         
+        stage = primaryStage;
         Scene scene = new Scene(pane);
         scene.getStylesheets().add("/stylesheet/JanelaJogo.css");
         primaryStage.setTitle("War UFF");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-        stage = primaryStage;
+        
         
         initCircles();
         

@@ -5,6 +5,8 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.interfaces.Player;
+import br.uff.networks.domino_mania.model.CyclicIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,20 +17,25 @@ import java.util.Iterator;
 public class GameLoop {
     
     
-    ArrayList<HumanPlayer> players;
-    Iterator<HumanPlayer> it;
+    ArrayList<Player> players;
+    Iterator<Player> it;
     
     
-    public GameLoop(ArrayList players){
-        players = this.players;
+    public GameLoop(ArrayList<Player> players){
+        this.players = players;
         it = players.iterator();
-      
     }
     
-    public void principalLoop(){
+    public void principalLoop()
+    {
+        while(it.hasNext())
+        {
+            System.out.println("Nome: "+it.next().getNome());
+        }
         
-        while(true /*enquanto ninguem ganhou. Implementar as checagens de vitoria*/){
-            HumanPlayer currentPlayer = it.next();
+        /**
+        while(true){  //enquanto ninguem ganhou. Implementar as checagens de vitoria){
+            Player currentPlayer = it.next();
             
             //if(clicou atacar){
             currentPlayer.attack(currentPlayer);
@@ -41,9 +48,8 @@ public class GameLoop {
             
             //if(clicou finalizar)
             currentPlayer = it.next();
-            
           
-        }
+        }**/
         
         
     }

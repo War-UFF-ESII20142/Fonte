@@ -8,6 +8,7 @@ package br.uff.es2.war;
 
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iWindow;
+import br.uff.es2.war.util.Tools;
 import br.uff.es2.war.view.JanelaCarregarJogo;
 import br.uff.es2.war.view.JanelaCriacaoJogo;
 import br.uff.es2.war.view.JanelaJogo;
@@ -59,16 +60,19 @@ public class WindowManager
         window.getStage().close();
     }
     
-    public void startGamePlay()
+    public void startGamePlay(iWindow window)
     {
         windowGame = new JanelaJogo();
         windowGame.start(new Stage());
         
-        ArrayList<Player> players = (ArrayList<Player>)windowCreateGame.getPlayerList();
+        ObservableList<Player> players = windowCreateGame.getPlayerList();
+        ArrayList<Player> arrayPlayer = Tools.convertObservableToArrayList(players);
         
-        GameManager gameManager = new GameManager(players);
+        GameManager gameManager = new GameManager(arrayPlayer);
         
         windowGame.setGameControler(gameManager);
+        
+        window.getStage().close();
     }
     
     public void onExit( Stage stage )
