@@ -5,11 +5,9 @@
  */
 package br.uff.es2.war.view;
 
-import br.uff.es2.war.WindowManager;
-import com.sun.javafx.iio.ImageStorage;
-import java.io.FileNotFoundException;
+import br.uff.es2.war.GameManager;
+import br.uff.es2.war.interfaces.Player;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -21,14 +19,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import br.uff.es2.war.util.AdministradorDeArquivo;
+import java.io.FileNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 /**
@@ -41,6 +37,8 @@ public class JanelaJogo extends Application
     private ImageView gameImage;
     private static Stage stage;
     private Label info;
+    private ObservableList<Player> olPlayers;//essa lista será incluida na tabela que executará para informar qual jogador está na jogada
+    private GameManager gameController;
     
     @Override
     public void start(Stage primaryStage) 
@@ -60,8 +58,25 @@ public class JanelaJogo extends Application
         initLayout();
     }
     
+    public void setGameControler(GameManager manager)
+    {
+        this.gameController = manager;
+    }
+    
+    public void setPlayerList(ObservableList<Player> players)
+    {
+        this.olPlayers = players;
+    }
+    
+    public ObservableList<Player> getPlayerList()
+    {
+        return olPlayers;
+    }
+    
     private void initComponents()
     {
+        olPlayers= FXCollections.observableArrayList();
+        
         pane = new AnchorPane();
         pane.setPrefSize(1000, 600);
         

@@ -90,6 +90,11 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         horizontalButtonBox.setLayoutY( pane.getHeight() - 40 - horizontalButtonBox.getHeight());
     }
     
+    public ObservableList<Player> getPlayerList()
+    {
+        return olPlayers;
+    }
+    
     private void initListeners()
     {
         //Remover jogador

@@ -6,12 +6,15 @@
 
 package br.uff.es2.war;
 
+import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iWindow;
 import br.uff.es2.war.view.JanelaCarregarJogo;
 import br.uff.es2.war.view.JanelaCriacaoJogo;
 import br.uff.es2.war.view.JanelaJogo;
 import br.uff.es2.war.view.JanelaPrincipal;
+import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
@@ -60,6 +63,12 @@ public class WindowManager
     {
         windowGame = new JanelaJogo();
         windowGame.start(new Stage());
+        
+        ArrayList<Player> players = (ArrayList<Player>)windowCreateGame.getPlayerList();
+        
+        GameManager gameManager = new GameManager(players);
+        
+        windowGame.setGameControler(gameManager);
     }
     
     public void onExit( Stage stage )
