@@ -62,15 +62,15 @@ public class WindowManager
     
     public void startGamePlay(iWindow window)
     {
-        windowGame = new JanelaJogo();
-        windowGame.start(new Stage());
-        
         ObservableList<Player> players = windowCreateGame.getPlayerList();
         ArrayList<Player> arrayPlayer = Tools.convertObservableToArrayList(players);
         
+        windowGame = new JanelaJogo();
         GameManager gameManager = new GameManager(arrayPlayer);
-        
         windowGame.setGameControler(gameManager);
+        windowGame.setGameLoop(gameManager.getGameLoop());
+        windowGame.start(new Stage());
+        windowGame.updateGameImage();
         
         window.getStage().close();
     }

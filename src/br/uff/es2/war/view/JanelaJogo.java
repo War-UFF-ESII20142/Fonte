@@ -7,6 +7,8 @@ package br.uff.es2.war.view;
 
 import br.uff.es2.war.GameManager;
 import br.uff.es2.war.interfaces.Player;
+import br.uff.es2.war.interfaces.iObserver;
+import br.uff.es2.war.model.GameLoop;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,20 +27,25 @@ import br.uff.es2.war.util.AdministradorDeArquivo;
 import java.io.FileNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 
 
 /**
  *
  * @author AleGomes
  */
-public class JanelaJogo extends Application
+public class JanelaJogo extends Application implements iObserver
 {
     private AnchorPane pane;
     private ImageView gameImage;
-    private static Stage stage;
+    private Stage stage;
     private Label info;
     private ObservableList<Player> olPlayers;//essa lista será incluida na tabela que executará para informar qual jogador está na jogada
     private GameManager gameController;
+    private GameLoop gameLoop;
+    private Button btnTerminarRodada;
+    ArrayList<TerritorioTela> listaTerritorioTela;
     
     @Override
     public void start(Stage primaryStage) 
@@ -55,8 +62,13 @@ public class JanelaJogo extends Application
         
         
         initCircles();
-        
+        initListeners();
         initLayout();
+    }
+    
+    public void setGameLoop( GameLoop game )
+    {
+        this.gameLoop = game;
     }
     
     public void setGameControler(GameManager manager)
@@ -80,6 +92,7 @@ public class JanelaJogo extends Application
         
         pane = new AnchorPane();
         pane.setPrefSize(1000, 600);
+        pane.getStyleClass().add("pane");
         
         gameImage = new ImageView(new Image("resources/gamePlus1.png"));
         gameImage.getStyleClass().add("gameImage");
@@ -88,6 +101,67 @@ public class JanelaJogo extends Application
         
         info = new Label();
         
+        btnTerminarRodada = new Button("Terminar");
+        btnTerminarRodada.getStyleClass().add("button");
+        
+        pane.getChildren().addAll(gameImage,info,btnTerminarRodada);
+        //constroiCirculos();
+        
+        gameLoop.addObserver(this);
+        
+    }
+    
+    private void initLayout()
+    {
+        gameImage.setLayoutX(10);
+        gameImage.setLayoutY(20);
+        
+        btnTerminarRodada.setLayoutX( pane.getWidth() - 10 - btnTerminarRodada.getWidth() );
+        btnTerminarRodada.setLayoutY( pane.getHeight() - 10 - btnTerminarRodada.getHeight() );
+    }
+    
+    public Stage getStage()
+    {
+        return stage;
+    }
+    
+    private void initCircles() 
+    {
+        listaTerritorioTela = new ArrayList<>();
+        try {
+            listaTerritorioTela = AdministradorDeArquivo.listaTerritorios();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        for(TerritorioTela t : listaTerritorioTela)
+        {
+            Circle circle = t.getCirculo();
+            pane.getChildren().addAll(circle);
+        }
+        
+        for(TerritorioTela t:listaTerritorioTela)
+        {
+            Label label = t.getLabel();
+            pane.getChildren().add(label);
+        }
+        
+    }
+    
+    @Override
+    public void updateGameImage()
+    {
+        Player aux = gameLoop.getCurrentPlayer();
+        stage.setTitle(aux.getNome());
+        int value = (int)(Math.random()*21);
+        System.out.println(value);
+        Label temp = listaTerritorioTela.get(value).getLabel();
+        temp.setText(Integer.toString(Integer.parseInt(temp.getText()) + 1));
+        listaTerritorioTela.get(value).setLabel(temp);
+    }
+
+    private void initListeners() {
         gameImage.setOnMouseMoved(new EventHandler<MouseEvent>()
         {
             @Override
@@ -176,10 +250,13 @@ public class JanelaJogo extends Application
             
         });
         
-        
-        pane.getChildren().addAll(gameImage,info);
-        //constroiCirculos();
-        
+        btnTerminarRodada.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                gameController.roundTerminou();
+            }
+        });
     }
     
     private String inValonguinho(int red)
@@ -285,38 +362,4 @@ public class JanelaJogo extends Application
         return ("Está no: " + pais+" do continente UnidadeIsolada");
     }
     
-    private void initLayout()
-    {
-        gameImage.setLayoutX(10);
-        gameImage.setLayoutY(20);
-    }
-    
-    public static Stage getStage()
-    {
-        return stage;
-    }
-    
-    private void initCircles() 
-    {
-        ArrayList<TerritorioTela> lista = new ArrayList<>();
-        try {
-            lista = AdministradorDeArquivo.listaTerritorios();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        for(TerritorioTela t : lista)
-        {
-            Circle circle = t.getCirculo();
-            pane.getChildren().addAll(circle);
-        }
-        
-        for(TerritorioTela t:lista)
-        {
-            Label label = t.getLabel();
-            pane.getChildren().add(label);
-        }
-        
-    }
 }

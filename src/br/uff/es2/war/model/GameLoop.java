@@ -6,6 +6,8 @@
 package br.uff.es2.war.model;
 
 import br.uff.es2.war.interfaces.Player;
+import br.uff.es2.war.interfaces.iObservable;
+import br.uff.es2.war.interfaces.iObserver;
 import br.uff.networks.domino_mania.model.CyclicIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,25 +16,44 @@ import java.util.Iterator;
  *
  * @author RulffdaCosta
  */
-public class GameLoop {
+public class GameLoop implements iObservable{
     
     
-    ArrayList<Player> players;
-    Iterator<Player> it;
+    private ArrayList<Player> players;
+    private Iterator<Player> it;
+    private int currentIndex;
+    
+    ArrayList<iObserver> observerList;
     
     
     public GameLoop(ArrayList<Player> players){
         this.players = players;
         it = players.iterator();
+        observerList = new ArrayList<>();
+        currentIndex = 0;
+    }
+    
+    public Player getCurrentPlayer()
+    {
+        return players.get(currentIndex);
+    }
+    
+    private int getCurrentIndex()
+    {
+        return currentIndex;
+    }
+    
+    private int increaseIndex()
+    {
+        currentIndex++;
+        if(currentIndex > players.size()-1) currentIndex = 0;
+        avisaMudancas();
+        return currentIndex;
     }
     
     public void principalLoop()
     {
-        while(it.hasNext())
-        {
-            System.out.println("Nome: "+it.next().getNome());
-        }
-        
+        increaseIndex();
         /**
         while(true){  //enquanto ninguem ganhou. Implementar as checagens de vitoria){
             Player currentPlayer = it.next();
@@ -52,6 +73,25 @@ public class GameLoop {
         }**/
         
         
+    }
+
+    @Override
+    public void addObserver(iObserver observer) {
+        observerList.add(observer);
+    }
+
+    @Override
+    public void removeObserver(iObserver observer) {
+        observerList.remove(observer);
+    }
+    
+    @Override
+    public void avisaMudancas()
+    {
+        for(iObserver o : observerList)
+        {
+            o.updateGameImage();
+        }
     }
     
 }

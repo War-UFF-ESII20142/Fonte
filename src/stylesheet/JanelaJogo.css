@@ -19,3 +19,12 @@ and open the template in the editor.
 .gameImage {
     -fx-background-color: lightblue;
 }
+
+.button {
+    -fx-background-color: white;
+}
+
+.pane {
+    -fx-background-color: white;
+}
+

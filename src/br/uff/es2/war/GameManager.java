@@ -23,7 +23,6 @@ public class GameManager
     public GameManager(ArrayList<Player> players)
     {
         gameLoop = new GameLoop(players);
-        gameLoop.principalLoop();
     }
 
     public ObservableList<Player> getOlPlayers() {
@@ -34,4 +33,13 @@ public class GameManager
         this.olPlayers = olPlayers;
     }
     
+    public void roundTerminou()
+    {
+        gameLoop.principalLoop();
+    }
+    
+    public GameLoop getGameLoop()
+    {
+        return gameLoop;
+    }
 }
