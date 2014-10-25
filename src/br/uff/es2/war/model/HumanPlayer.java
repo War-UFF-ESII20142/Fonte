@@ -6,13 +6,15 @@
 
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.interfaces.Player;
+import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
  * @author AleGomes
  */
-public class Player {
+public class HumanPlayer implements Player {
 //    String tipo;
 //    String cor;
 //    String nome;
@@ -20,9 +22,10 @@ public class Player {
     private SimpleStringProperty nome = new SimpleStringProperty();
     private SimpleStringProperty cor = new SimpleStringProperty();
     private SimpleStringProperty tipo = new SimpleStringProperty();
+    private ArrayList<Carta> cards = new ArrayList<>();
     
     
-    public Player(String nome, String cor, String tipo){
+    public HumanPlayer(String nome, String cor, String tipo){
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
@@ -68,5 +71,22 @@ public class Player {
      */
     public void setTipo(String tipo) {
         this.tipo.set(tipo);
+    }
+    
+    public void attack(Player player){
+        //param: Another Player to be attacked
+        
+    }
+    
+    public void buyCard(){
+        
+    }
+    
+    public void tradeCards(){
+        
+    }
+    
+    public void finalize(){
+        
     }
 }

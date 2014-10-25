@@ -28,7 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import br.uff.es2.war.model.Player;
+import br.uff.es2.war.model.HumanPlayer;
 
 /**
  *
@@ -36,7 +36,7 @@ import br.uff.es2.war.model.Player;
  */
 public class JanelaCriacaoJogo {
 
-    final ObservableList<Player> Players = FXCollections.observableArrayList();
+    final ObservableList<HumanPlayer> Players = FXCollections.observableArrayList();
     ComboBox cBoxCor = new ComboBox();
 
     void start(Stage primaryStage) {
@@ -49,7 +49,7 @@ public class JanelaCriacaoJogo {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         //
-        TableView<Player> table = new TableView<>();
+        TableView<HumanPlayer> table = new TableView<>();
         //
         table.setId("tableView");
 
@@ -114,14 +114,11 @@ public class JanelaCriacaoJogo {
         table.getColumns().addAll(nomeJogador, cor, tipo);
         //table.setStyle(".table { -fx-position: center; }");
 
-        nomeJogador.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("nome")
+        nomeJogador.setCellValueFactory(new PropertyValueFactory<HumanPlayer, String>("nome")
         );
-        cor.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("cor")
+        cor.setCellValueFactory(new PropertyValueFactory<HumanPlayer, String>("cor")
         );
-        tipo.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("tipo")
+        tipo.setCellValueFactory(new PropertyValueFactory<HumanPlayer, String>("tipo")
         );
 
         //Remover jogador
@@ -219,7 +216,7 @@ public class JanelaCriacaoJogo {
         });
 
         btnOk.setOnAction((ActionEvent x) -> {
-            Player p = new Player(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
+            HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
             Players.add(p);
             cBoxCor.getItems().remove(cBoxCor.getValue().toString());
             newPlayerStage.close();
