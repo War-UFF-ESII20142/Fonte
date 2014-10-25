@@ -6,14 +6,11 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.WindowManager;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,9 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import br.uff.es2.war.model.Player;
 import javafx.application.Application;
@@ -165,7 +159,7 @@ public class JanelaCriacaoJogo extends Application{
         btnCreateGame = new Button("Criar Jogo");
         btnCreateGame.getStyleClass().add("button");
         
-        horizontalButtonBox = new HBox(10);
+        horizontalButtonBox = new HBox(15);
         horizontalButtonBox.getChildren().addAll(btnAddHuman,btnAddBot,btnRemovePlayers,btnVoltar,btnCreateGame);
 
         cBoxCor = new ComboBox();

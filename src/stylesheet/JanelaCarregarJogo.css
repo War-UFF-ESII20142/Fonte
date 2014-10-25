@@ -8,10 +8,7 @@ and open the template in the editor.
     Author     : Claudio
 */
 
-.root {
-    -fx-background-image: url('war-uff.png');
-    -fx-background-repeat: no-repeat ;
-    -fx-background-position: top ;
+.pane {
     -fx-background-color: white;
 }
 

@@ -68,7 +68,8 @@ public class JanelaPrincipal extends Application {
         btnCarregar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                
+                windowController.startLoadGameWindow();
+                getStage().close();
             }
         });
 

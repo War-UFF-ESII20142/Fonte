@@ -6,6 +6,7 @@
 
 package br.uff.es2.war;
 
+import br.uff.es2.war.view.JanelaCarregarJogo;
 import br.uff.es2.war.view.JanelaCriacaoJogo;
 import br.uff.es2.war.view.JanelaPrincipal;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ public class WindowManager
 {
     private JanelaPrincipal mainWindow;
     private JanelaCriacaoJogo windowCreateGame;
+    private JanelaCarregarJogo windowLoadGame;
     
     public void startMainWindow()
     {
@@ -30,7 +32,15 @@ public class WindowManager
     public void startCreateGameWindow()
     {
         windowCreateGame = new JanelaCriacaoJogo();
+        windowCreateGame.setWindowController(this);
         windowCreateGame.start(new Stage());
+    }
+    
+    public void startLoadGameWindow()
+    {
+        windowLoadGame = new JanelaCarregarJogo();
+        windowLoadGame.setWindowController(this);
+        windowLoadGame.start(new Stage());
     }
     
     public void onExit( Stage stage )
