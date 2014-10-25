@@ -18,7 +18,8 @@ public class MainClass extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new JanelaPrincipal().start(new Stage());
+        WindowManager manager = new WindowManager();
+        manager.startMainWindow();
         primaryStage.close();
     }
     

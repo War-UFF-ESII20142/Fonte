@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.view;
 
+import br.uff.es2.war.WindowManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,160 +30,181 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import br.uff.es2.war.model.Player;
+import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author AleGomes
  */
-public class JanelaCriacaoJogo {
+public class JanelaCriacaoJogo extends Application{
 
-    final ObservableList<Player> Players = FXCollections.observableArrayList();
-    ComboBox cBoxCor = new ComboBox();
+    private final ObservableList<Player> Players = FXCollections.observableArrayList();
+    private ComboBox cBoxCor;
+    private AnchorPane pane;
+    private Button btnAddHuman;
+    private Button btnAddBot;
+    private Button btnRemovePlayers;
+    private Button btnVoltar;
+    private Button btnCreateGame;
+    private HBox horizontalButtonBox;
+    private TableView<Player> tbPlayers;
+    private TableColumn<Player,String> tcNamePlayer; 
+    private TableColumn<Player,String> tcColorPlayer;
+    private TableColumn<Player,String> tcTypePlayer;
+    private Stage stage;
+    private WindowManager windowController;
+    private ImageView imgLogo;
 
-    void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) 
+    {
+        initComponenets();
+        
+        setStage(primaryStage);
+        
         primaryStage.setTitle("War UFF");
-
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
-
-        //
-        TableView<Player> table = new TableView<>();
-        //
-        table.setId("tableView");
-
-        grid.add(table, 0, 0);
-
-        GridPane bottonGrid = new GridPane();
-        bottonGrid.setAlignment(Pos.CENTER);
-
-        grid.add(bottonGrid, 0, 1);
-
-        Button btnNovo = new Button("Voltar");
-        btnNovo.setPrefWidth(100);
-        HBox hbBtnNovo = new HBox(10);
-        hbBtnNovo.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtnNovo.getChildren().add(btnNovo);
-        bottonGrid.add(hbBtnNovo, 4, 1);
-
-        Button addHuman = new Button("+H");
-        addHuman.setPrefWidth(100);
-        HBox addHumanBox = new HBox(10);
-        addHumanBox.setAlignment(Pos.BOTTOM_LEFT);
-        addHumanBox.getChildren().add(addHuman);
-        bottonGrid.add(addHumanBox, 0, 1);
-
-        cBoxCor.getItems().addAll(
-                "Verde", "Vermelho", "Preto", "Azul", "Branco",
-                "Amarelo"
-        );
-
-//        Button removeHuman = new Button("-H");
-//        removeHuman.setPrefWidth(100);
-//        HBox removeHumanBox = new HBox(10);
-//        removeHumanBox.setAlignment(Pos.BOTTOM_LEFT);
-//        removeHumanBox.getChildren().add(removeHuman);
-//        bottonGrid.add(removeHumanBox, 1, 1);
-        Button addBot = new Button("+B");
-        addBot.setPrefWidth(100);
-        HBox addBotBox = new HBox(10);
-        addBotBox.setAlignment(Pos.BOTTOM_LEFT);
-        addBotBox.getChildren().add(addBot);
-        bottonGrid.add(addBotBox, 2, 1);
-
-//        Button removeBot = new Button("-B");
-//        removeBot.setPrefWidth(100);
-//        HBox removeBotBox = new HBox(10);
-//        removeBotBox.setAlignment(Pos.BOTTOM_LEFT);
-//        removeBotBox.getChildren().add(removeBot);
-//        bottonGrid.add(removeBotBox, 3, 1);
-        Button remove = new Button("Remove");
-        remove.setPrefWidth(100);
-        HBox removeBox = new HBox(10);
-        removeBox.setAlignment(Pos.BOTTOM_LEFT);
-        removeBox.getChildren().add(remove);
-        bottonGrid.add(removeBox, 3, 1);
-
-        table.setEditable(true);
-
-        TableColumn nomeJogador = new TableColumn("Nome");
-        TableColumn cor = new TableColumn("Cor");
-        TableColumn tipo = new TableColumn("Tipo");
-
-        table.getColumns().addAll(nomeJogador, cor, tipo);
-        //table.setStyle(".table { -fx-position: center; }");
-
-        nomeJogador.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("nome")
-        );
-        cor.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("cor")
-        );
-        tipo.setCellValueFactory(
-                new PropertyValueFactory<Player, String>("tipo")
-        );
-
-        //Remover jogador
-        remove.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                removePlayer(primaryStage);
-            }
-        });
-
-        //Adicionar bot
-        addBot.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                addNewPlayer(cBoxCor, "Bot", primaryStage);
-            }
-        });
-
-        // Adicionar jogador humano
-        addHuman.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                addNewPlayer(cBoxCor, "Humano", primaryStage);
-            }
-        });
-
-        btnNovo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                JanelaPrincipal jp = new JanelaPrincipal();
-                jp.start(primaryStage);
-            }
-        });
-        
-        Button criaJogo = new Button("Criar Jogo");
-        criaJogo.setPrefWidth(100);
-        HBox criaJogoBox = new HBox(10);
-        criaJogoBox.setAlignment(Pos.BOTTOM_LEFT);
-        criaJogoBox.getChildren().add(criaJogo);
-        bottonGrid.add(criaJogoBox, 5, 1);
-        
-        criaJogo.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                new JanelaJogo().start(new Stage());
-                primaryStage.close();
-            }
-        });
-
-        table.setItems(Players);
-        Scene scene = new Scene(grid, primaryStage.getWidth(), primaryStage.getHeight());
+        Scene scene = new Scene(pane, primaryStage.getWidth(), primaryStage.getHeight());
         primaryStage.setScene(scene);
         scene.getStylesheets().add("/stylesheet/JanelaCriacaoJogo.css");
         primaryStage.setTitle(" Criação de novo Jogo ");
         primaryStage.show();
+        
+        initListeners();
+        initLayout();
 
-        //
     }
+    
+    public void setWindowController( WindowManager manager )
+    {
+        windowController = manager;
+    }
+    
+    private void initLayout()
+    {
+        imgLogo.setLayoutX(200);
+        imgLogo.setLayoutY(10);
+        
+        tbPlayers.setLayoutX( (pane.getWidth() - tbPlayers.getWidth())/2 );
+        tbPlayers.setLayoutY(110);
+        
+        horizontalButtonBox.setLayoutX( (pane.getWidth() - horizontalButtonBox.getWidth())/2 );
+        horizontalButtonBox.setLayoutY( pane.getHeight() - 40 - horizontalButtonBox.getHeight());
+    }
+    
+    private void initListeners()
+    {
+        //Remover jogador
+        btnRemovePlayers.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                removePlayer(stage);
+            }
+        });
 
-    public void addNewPlayer(ComboBox cBoxCor, String tipo, Stage primaryStage) {
+        //Adicionar bot
+        btnAddBot.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                addNewPlayer(cBoxCor, "Bot", new Stage());
+            }
+        });
+
+        // Adicionar jogador humano
+        btnAddHuman.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                addNewPlayer(cBoxCor, "Humano", new Stage());
+            }
+        });
+
+        btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                windowController.startMainWindow();
+                stage.close();
+            }
+        });
+        
+        btnCreateGame.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                new JanelaJogo().start(new Stage());
+                stage.close();
+            }
+        });
+    }
+    
+    private void initComponenets()
+    {
+        pane = new AnchorPane();
+        pane.setPrefSize(800, 600);
+        pane.getStyleClass().add("pane");
+
+        tbPlayers = new TableView<>();
+        tbPlayers.getStyleClass().add("tbPlayers");
+        tbPlayers.setMinWidth(500);
+        tbPlayers.setItems(Players);
+        tbPlayers.setEditable(true);
+        
+        btnAddHuman = new Button("+H");
+        btnAddHuman.getStyleClass().add("button");
+        
+        btnAddBot = new Button("+B");
+        btnAddBot.getStyleClass().add("button");
+        
+        btnRemovePlayers = new Button("Remove");
+        btnRemovePlayers.getStyleClass().add("button");
+        
+        btnVoltar = new Button("Voltar");
+        btnVoltar.getStyleClass().add("button");
+        
+        btnCreateGame = new Button("Criar Jogo");
+        btnCreateGame.getStyleClass().add("button");
+        
+        horizontalButtonBox = new HBox(10);
+        horizontalButtonBox.getChildren().addAll(btnAddHuman,btnAddBot,btnRemovePlayers,btnVoltar,btnCreateGame);
+
+        cBoxCor = new ComboBox();
+        cBoxCor.getItems().addAll(
+                "Verde", "Vermelho", "Preto", "Azul", "Branco",
+                "Amarelo"
+        );
+        
+        tcNamePlayer = new TableColumn<>("Nome");
+        tcColorPlayer = new TableColumn<>("Cor");
+        tcTypePlayer = new TableColumn("Tipo");
+
+        tcNamePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("nome") );
+        tcNamePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
+        
+        tcColorPlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("cor") );
+        tcColorPlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
+        
+        tcTypePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("tipo") );
+        tcTypePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
+
+        tbPlayers.getColumns().addAll(tcNamePlayer, tcColorPlayer, tcTypePlayer);
+        
+        imgLogo = new ImageView(new Image("resources/war-uff.png"));
+        
+        pane.getChildren().addAll(imgLogo,tbPlayers,horizontalButtonBox);
+    }
+    
+    public void setStage( Stage stage )
+    {
+        this.stage = stage;
+    }
+    
+    public Stage getStage()
+    {
+        return stage;
+    }
+            
+    private void addNewPlayer(ComboBox cBoxCor, String tipo, Stage primaryStage) {
         TextField TFNome = new TextField();
         TFNome.setPromptText("Nome");
 

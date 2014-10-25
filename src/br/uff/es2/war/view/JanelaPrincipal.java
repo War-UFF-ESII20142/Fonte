@@ -1,5 +1,6 @@
 package br.uff.es2.war.view;
 
+import br.uff.es2.war.WindowManager;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ public class JanelaPrincipal extends Application {
     private ImageView imgLogo;
     private VBox verticalButtonBox;
     private Stage stage;
+    private WindowManager windowController;
     
     @Override
     public void start(Stage primaryStage) 
@@ -46,14 +48,19 @@ public class JanelaPrincipal extends Application {
         initListeners();
     }
     
+    public void setWindowController( WindowManager manager )
+    {
+        windowController = manager;
+    }
+    
     private void initListeners()
     {
         //Ação do botão Novo
         btnNovo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                JanelaCriacaoJogo JJogo = new JanelaCriacaoJogo();
-               // JJogo.start(primaryStage);
+                windowController.startCreateGameWindow();
+                stage.close();
             }
         });
 
@@ -61,8 +68,7 @@ public class JanelaPrincipal extends Application {
         btnCarregar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                JanelaCarregarJogo JCarregar = new JanelaCarregarJogo();
-               // JCarregar.start(primaryStage);
+                
             }
         });
 
@@ -70,7 +76,7 @@ public class JanelaPrincipal extends Application {
         btnSair.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                //primaryStage.close();
+                stage.close();
             }
         });        
     }
