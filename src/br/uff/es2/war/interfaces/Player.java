@@ -16,5 +16,6 @@ public interface Player {
     public void buyCard();
     public void tradeCards();
 
-    public Object getNome();
+    public String getNome();
+    public String getCor();
 }

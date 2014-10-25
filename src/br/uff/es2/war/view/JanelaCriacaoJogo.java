@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import br.uff.es2.war.model.HumanPlayer;
+import java.util.Iterator;
 
 
 /**
@@ -38,7 +39,7 @@ import br.uff.es2.war.model.HumanPlayer;
  */
 public class JanelaCriacaoJogo extends Application implements iWindow{
 
-    private final ObservableList<HumanPlayer> Players = FXCollections.observableArrayList();
+    private ObservableList<Player> olPlayers;
     private ComboBox cBoxCor;
     private AnchorPane pane;
     private Button btnAddHuman;
@@ -47,10 +48,10 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
     private Button btnVoltar;
     private Button btnCreateGame;
     private HBox horizontalButtonBox;
-    private TableView<HumanPlayer> tbPlayers;
-    private TableColumn<HumanPlayer,String> tcNamePlayer; 
-    private TableColumn<HumanPlayer,String> tcColorPlayer;
-    private TableColumn<HumanPlayer,String> tcTypePlayer;
+    private TableView<Player> tbPlayers;
+    private TableColumn<Player,String> tcNamePlayer; 
+    private TableColumn<Player,String> tcColorPlayer;
+    private TableColumn<Player,String> tcTypePlayer;
     private Stage stage;
     private WindowManager windowController;
     private ImageView imgLogo;
@@ -133,6 +134,8 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
     
     private void initComponenets()
     {
+        olPlayers = FXCollections.observableArrayList();
+        
         pane = new AnchorPane();
         pane.setPrefSize(800, 600);
         pane.getStyleClass().add("pane");
@@ -140,7 +143,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         tbPlayers = new TableView<>();
         tbPlayers.getStyleClass().add("tbPlayers");
         tbPlayers.setMinWidth(500);
-        tbPlayers.setItems(Players);
+        tbPlayers.setItems(olPlayers);
         tbPlayers.setEditable(true);
         
         btnAddHuman = new Button("+H");
@@ -171,13 +174,13 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         tcColorPlayer = new TableColumn<>("Cor");
         tcTypePlayer = new TableColumn("Tipo");
 
-        tcNamePlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("nome") );
+        tcNamePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("nome") );
         tcNamePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
         
-        tcColorPlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("cor") );
+        tcColorPlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("cor") );
         tcColorPlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
         
-        tcTypePlayer.setCellValueFactory( new PropertyValueFactory<HumanPlayer, String>("tipo") );
+        tcTypePlayer.setCellValueFactory( new PropertyValueFactory<Player, String>("tipo") );
         tcTypePlayer.setPrefWidth( tbPlayers.getMinWidth()/3 );
 
         tbPlayers.getColumns().addAll(tcNamePlayer, tcColorPlayer, tcTypePlayer);
@@ -237,55 +240,27 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
 
         btnOk.setOnAction((ActionEvent x) -> {
             HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
-            Players.add(p);
+            olPlayers.add(p);
             cBoxCor.getItems().remove(cBoxCor.getValue().toString());
             newPlayerStage.close();
         });
 
     }
 
-    private void removePlayer(Stage primaryStage) {
-        TextField TFNome = new TextField();
-        TFNome.setPromptText("Nome");
-
-        Button btnOk = new Button("Ok");
-        Button btnCancelar = new Button("Cancelar");
-        GridPane grid = new GridPane();
-
-        grid.setVgap(10);
-        grid.setHgap(10);
-        grid.setPadding(new Insets(5, 5, 5, 5));
-        grid.add(new Label("Nome: "), 0, 0);
-        grid.add(TFNome, 1, 0);
-
-        grid.add(btnOk, 0, 4);
-        grid.add(btnCancelar, 1, 4);
-
-        Scene newPlayerScene = new Scene(new Group(), 250, 150);
-        Stage newPlayerStage = new Stage();
-        newPlayerStage.setTitle("New Player");
-        Group root = (Group) newPlayerScene.getRoot();
-        root.getChildren().add(grid);
-        newPlayerStage.setScene(newPlayerScene);
-        newPlayerStage.setX(primaryStage.getX() + 250);
-        newPlayerStage.setY(primaryStage.getY() + 100);
-        newPlayerStage.show();
-
-        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                newPlayerStage.close();
-            }
-        });
-
-        btnOk.setOnAction((ActionEvent x) -> {
-            for (int i = 0; i < Players.size(); i++) {
-                if (Players.get(i).getNome().equals(TFNome.getText())) {
-                    cBoxCor.getItems().add(Players.get(i).getCor());
-                    Players.remove(i);
-                }
-            }
-            newPlayerStage.close();
-        });
+    private void removePlayer(Stage primaryStage) 
+    {
+        ObservableList<Player> tempList = tbPlayers.getSelectionModel().getSelectedItems();
+        
+        Iterator<Player> itObservableList = tempList.iterator();
+        
+        while(itObservableList.hasNext())
+        {
+            Player aux = itObservableList.next();
+            
+            cBoxCor.getItems().add(aux.getCor());
+            
+            olPlayers.remove(aux);
+            
+        }
     }
 }
