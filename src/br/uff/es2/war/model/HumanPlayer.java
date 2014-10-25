@@ -73,19 +73,23 @@ public class HumanPlayer implements Player {
         this.tipo.set(tipo);
     }
     
+    @Override
     public void attack(Player player){
         //param: Another Player to be attacked
         
     }
     
+    @Override
     public void buyCard(){
         
     }
     
+    @Override
     public void tradeCards(){
         
     }
     
+    @Override
     public void finalize(){
         
     }

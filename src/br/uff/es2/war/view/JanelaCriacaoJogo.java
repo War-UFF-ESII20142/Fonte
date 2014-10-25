@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iWindow;
+import br.uff.es2.war.model.BotPlayer;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -102,7 +103,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         btnRemovePlayers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                removePlayer(stage);
+                removePlayer();
             }
         });
 
@@ -255,7 +256,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         btnOk.setOnAction((ActionEvent x) -> {
             if(cBoxCor.getValue() != null)
             {
-                HumanPlayer p = new HumanPlayer(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
+                Player p = getPlayerFromFactory(TFNome.getText(), cBoxCor.getValue().toString(), tipo);
                 olPlayers.add(p);
                 cBoxCor.getItems().remove(cBoxCor.getValue().toString());
                 newPlayerStage.close();
@@ -268,7 +269,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
 
     }
 
-    private void removePlayer(Stage primaryStage) 
+    private void removePlayer() 
     {
         ObservableList<Player> tempList = tbPlayers.getSelectionModel().getSelectedItems();
         
@@ -283,5 +284,19 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
             olPlayers.remove(aux);
             
         }
+    }
+    
+    private Player getPlayerFromFactory(String nome, String cor, String tipo)
+    {
+        if(tipo.equals("Humano"))
+        {
+            return new HumanPlayer(nome,cor,tipo);
+        }
+        else if (tipo.equals("Bot"))
+        {
+            return new BotPlayer(nome,cor,tipo);
+        }
+        
+        return null;
     }
 }
