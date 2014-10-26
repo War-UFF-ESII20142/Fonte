@@ -16,14 +16,21 @@ import javafx.beans.property.SimpleStringProperty;
 public class Continente {
     private SimpleIntegerProperty id;
     private SimpleStringProperty nome;
-    private ArrayList<Pais> paises;
+    private ArrayList<Pais> alPaises;
     //teste de configuracao
+    
+    public Continente(int id, String nome)
+    {
+        this.id = new SimpleIntegerProperty(id);
+        this.nome = new SimpleStringProperty(nome);
+        this.alPaises = new ArrayList<>();
+    }
     
     public Continente(int id, String nome,ArrayList<Pais> paises)
     {
         this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
-        this.paises = paises;
+        this.alPaises = paises;
         //comentario de teste git
     }
 
@@ -44,11 +51,19 @@ public class Continente {
     }
 
     public ArrayList<Pais> getPaises() {
-        return paises;
+        return alPaises;
     }
 
     public void setPaises(ArrayList<Pais> paises) {
-        this.paises = paises;
+        this.alPaises = paises;
+    }
+    
+    public void setPaises(Pais... paises)
+    {
+        for(Pais p : paises)
+        {
+            alPaises.add(p);
+        }
     }
     
 }

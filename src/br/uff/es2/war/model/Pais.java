@@ -17,12 +17,14 @@ public class Pais {
     private SimpleStringProperty nome;
     private SimpleStringProperty codigoArquivo;
     private ArrayList<Pais> vizinhos;
+    private Continente continente;
     
-    public Pais(String nome, String codigo, String continente)
+    public Pais(String nome, String codigo, Continente continente)
     {
         this.nome = new SimpleStringProperty(nome);
         this.codigoArquivo = new SimpleStringProperty(codigo);
         vizinhos = new ArrayList<>();
+        this.continente = continente;
     }
     
     public void addTerritorio(Pais t)
