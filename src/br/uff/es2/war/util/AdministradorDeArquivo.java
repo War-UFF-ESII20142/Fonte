@@ -18,9 +18,10 @@ import br.uff.es2.war.view.TerritorioTela;
  */
 public class AdministradorDeArquivo 
 {
+    private static ArrayList<TerritorioTela> lista; 
     public static ArrayList<TerritorioTela> listaTerritorios() throws FileNotFoundException
     {
-        ArrayList<TerritorioTela> lista = new ArrayList<>();
+        lista = new ArrayList<>();
         Scanner in = new Scanner(new File("paisesListaCoordenadas.txt"));
         while(in.hasNext())
         {
@@ -31,7 +32,7 @@ public class AdministradorDeArquivo
             double x = Double.parseDouble(in.next());
             double y = Double.parseDouble(in.next());
             Circle circle = new Circle(x,y,15);
-            circle.setStyle("-fx-fill:rgba(255,255,255,1.0);");
+            circle.setStyle("-fx-fill:"+"white");
             TerritorioTela temp = new TerritorioTela(circle,nomePais,continente);
             lista.add(temp);
 

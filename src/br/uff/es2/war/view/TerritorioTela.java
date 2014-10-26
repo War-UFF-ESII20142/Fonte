@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.view;
 
+import br.uff.es2.war.model.Pais;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 
@@ -17,22 +18,22 @@ public class TerritorioTela {
     private Label label;
     private String nome;
     private String continente;
+    private Pais pais;
     
     public TerritorioTela()
     {
-        setCirculo(new Circle());
-        setLabel(new Label());
+        this.circulo = new Circle();
+        this.label = new Label();
     }
     
     public TerritorioTela(Circle circle, String nome, String continente)
     {
-        setCirculo(circle);
-        setContinente(continente);
-        circle.setId(continente);
+        this.circulo = circle;
+        this.continente = continente;
         label = new Label("1");
         label.setLayoutX(circle.getCenterX() - (circle.getRadius()/2));
         label.setLayoutY(circle.getCenterY() - (circle.getRadius()));
-        setNome(nome);
+        this.nome = nome;
     }
     
     public TerritorioTela(TerritorioTela original)
