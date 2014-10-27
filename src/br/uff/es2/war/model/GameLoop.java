@@ -8,7 +8,7 @@ package br.uff.es2.war.model;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObservable;
 import br.uff.es2.war.interfaces.iObserver;
-import br.uff.networks.domino_mania.model.CyclicIterator;
+import br.uff.es2.war.util.CyclicIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
