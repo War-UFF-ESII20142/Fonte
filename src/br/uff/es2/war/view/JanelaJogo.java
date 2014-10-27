@@ -69,6 +69,10 @@ public class JanelaJogo extends Application implements iObserver
         initListeners();
         initLayout();
     }
+
+    public void setDataManager(DataManager dataManager) {
+        this.dataManager = dataManager;
+    }
     
     public void setGameLoop( GameLoop game )
     {
@@ -93,7 +97,6 @@ public class JanelaJogo extends Application implements iObserver
     private void initComponents()
     {
         olPlayers= FXCollections.observableArrayList();
-        dataManager = new DataManager();
         
         pane = new AnchorPane();
         pane.setPrefSize(1000, 600);

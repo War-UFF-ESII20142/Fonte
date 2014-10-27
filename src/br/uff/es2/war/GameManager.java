@@ -5,10 +5,10 @@
  */
 package br.uff.es2.war;
 
+import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.model.GameLoop;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -19,10 +19,12 @@ public class GameManager
 {
     private ObservableList<Player> olPlayers;
     private GameLoop gameLoop;
+    DataManager dataManager;
     
-    public GameManager(ArrayList<Player> players)
+    public GameManager(ArrayList<Player> players,DataManager data)
     {
-        gameLoop = new GameLoop(players);
+        dataManager = data;
+        gameLoop = new GameLoop(players,dataManager);
     }
 
     public ObservableList<Player> getOlPlayers() {

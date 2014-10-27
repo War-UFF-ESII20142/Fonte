@@ -6,6 +6,7 @@
 
 package br.uff.es2.war;
 
+import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iWindow;
 import br.uff.es2.war.util.Tools;
@@ -65,8 +66,12 @@ public class WindowManager
         ObservableList<Player> players = windowCreateGame.getPlayerList();
         ArrayList<Player> arrayPlayer = Tools.convertObservableToArrayList(players);
         
+        DataManager dataManager = new DataManager();
+        
         windowGame = new JanelaJogo();
-        GameManager gameManager = new GameManager(arrayPlayer);
+        windowGame.setDataManager(dataManager);
+        GameManager gameManager = new GameManager(arrayPlayer,dataManager);
+        
         windowGame.setGameControler(gameManager);
         windowGame.setGameLoop(gameManager.getGameLoop());
         windowGame.start(new Stage());

@@ -135,7 +135,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
             @Override
             public void handle(ActionEvent event) 
             {
-                if(tbPlayers.getItems().size() > 2)
+                if(tbPlayers.getItems().size() > 1)
                 {
                     windowController.startGamePlay(JanelaCriacaoJogo.this);
                 }

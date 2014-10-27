@@ -1,4 +1,4 @@
-package br.uff.networks.domino_mania.model;
+package br.uff.es2.war.util;
 
 import java.util.Arrays;
 import java.util.List;
