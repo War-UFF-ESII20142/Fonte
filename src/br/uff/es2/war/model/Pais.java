@@ -7,7 +7,6 @@ package br.uff.es2.war.model;
 
 import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -27,12 +26,12 @@ public class Pais {
         this.continente = continente;
     }
     
-    public void addTerritorio(Pais t)
+    public void addVizinhos(Pais t)
     {
         vizinhos.add(t);
     }
     
-    public void addAllTerritorio(Pais... t)
+    public void addAllVizinhos(Pais... t)
     {
         for(Pais p : t)
         {
@@ -55,4 +54,13 @@ public class Pais {
     public void setCodigo(String codigo) {
         this.codigoArquivo.setValue(codigo);
     }
+
+    public Continente getContinente() {
+        return continente;
+    }
+
+    public void setContinente(Continente continente) {
+        this.continente = continente;
+    }
+    
 }

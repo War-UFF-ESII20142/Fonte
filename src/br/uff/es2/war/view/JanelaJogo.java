@@ -6,9 +6,11 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.GameManager;
+import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObserver;
 import br.uff.es2.war.model.GameLoop;
+import br.uff.es2.war.model.Pais;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import br.uff.es2.war.util.AdministradorDeArquivo;
+import br.uff.es2.war.util.types;
 import java.io.FileNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +48,8 @@ public class JanelaJogo extends Application implements iObserver
     private GameManager gameController;
     private GameLoop gameLoop;
     private Button btnTerminarRodada;
-    ArrayList<TerritorioTela> listaTerritorioTela;
+    private ArrayList<TerritorioTela> listaTerritorioTela;
+    private DataManager dataManager;
     
     @Override
     public void start(Stage primaryStage) 
@@ -89,6 +93,7 @@ public class JanelaJogo extends Application implements iObserver
     private void initComponents()
     {
         olPlayers= FXCollections.observableArrayList();
+        dataManager = new DataManager();
         
         pane = new AnchorPane();
         pane.setPrefSize(1000, 600);
@@ -129,7 +134,7 @@ public class JanelaJogo extends Application implements iObserver
     {
         listaTerritorioTela = new ArrayList<>();
         try {
-            listaTerritorioTela = AdministradorDeArquivo.listaTerritorios();
+            listaTerritorioTela = AdministradorDeArquivo.listaTerritorios(dataManager);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,7 +289,13 @@ public class JanelaJogo extends Application implements iObserver
                 break;
         }
         
-        return ("Está no: " + pais+" do continente Valonguinho");
+        Pais pPais = dataManager.getPais(pais,types.sVALONGUINHO);
+        
+        if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
+        {
+            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+        }
+        return "";
     }
     
     private String inGragoata(int red)
@@ -308,8 +319,13 @@ public class JanelaJogo extends Application implements iObserver
                 pais = "pais 5";
                 break;
         }
+        Pais pPais = dataManager.getPais(pais,types.sGRAGOATA);
         
-        return ("Está no: " + pais+" do continente Gragoata");
+        if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
+        {
+            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+        }
+        return "";
     }
     
     private String inPraiaVerm(int blue)
@@ -334,7 +350,13 @@ public class JanelaJogo extends Application implements iObserver
                 break;
         }
         
-        return ("Está no: " + pais+" do continente Praia Vermelha");
+        Pais pPais = dataManager.getPais(pais,types.sPRAIAVERMELHA);
+        
+        if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
+        {
+            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+        }
+        return "";
     }
     
     private String inUnidadeIsol(int green)
@@ -359,7 +381,14 @@ public class JanelaJogo extends Application implements iObserver
                 break;
         }
         
-        return ("Está no: " + pais+" do continente UnidadeIsolada");
+        Pais pPais = dataManager.getPais(pais,types.sUNIDADEISOLADAS);
+
+        
+        if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
+        {
+            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+        }
+        return "";
     }
     
 }

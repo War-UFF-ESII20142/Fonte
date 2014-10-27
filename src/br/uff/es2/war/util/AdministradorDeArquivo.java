@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.util;
 
+import br.uff.es2.war.dao.DataManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import br.uff.es2.war.view.TerritorioTela;
 public class AdministradorDeArquivo 
 {
     private static ArrayList<TerritorioTela> lista; 
-    public static ArrayList<TerritorioTela> listaTerritorios() throws FileNotFoundException
+    public static ArrayList<TerritorioTela> listaTerritorios(DataManager dataManager) throws FileNotFoundException
     {
         lista = new ArrayList<>();
         Scanner in = new Scanner(new File("paisesListaCoordenadas.txt"));
@@ -34,6 +35,7 @@ public class AdministradorDeArquivo
             Circle circle = new Circle(x,y,15);
             circle.setStyle("-fx-fill:"+"white");
             TerritorioTela temp = new TerritorioTela(circle,nomePais,continente);
+            temp.setPais(dataManager.getPais(nomePais, continente));
             lista.add(temp);
 
         }

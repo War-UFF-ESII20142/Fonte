@@ -6,6 +6,7 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.model.Pais;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 
@@ -75,6 +76,13 @@ public class TerritorioTela {
     public void setContinente(String continente) {
         this.continente = continente;
     }
-    
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
     
 }

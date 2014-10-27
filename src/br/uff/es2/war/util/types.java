@@ -14,4 +14,9 @@ public class types {
     public static int GRAGOATA = 2;
     public static int VALONGUINHO = 3;
     public static int UNIDADESISOLADAS = 4;
+    
+    public static String sPRAIAVERMELHA = "Praia Vermelha";
+    public static String sGRAGOATA = "Gragoata";
+    public static String sVALONGUINHO = "Valonguinho";
+    public static String sUNIDADEISOLADAS = "Unidades Isoladas";
 }
