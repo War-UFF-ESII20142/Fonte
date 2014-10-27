@@ -6,6 +6,7 @@
 package br.uff.es2.war.view;
 
 import br.uff.es2.war.GameManager;
+import br.uff.es2.war.JogoSalvo;
 import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObserver;
@@ -26,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import br.uff.es2.war.util.AdministradorDeArquivo;
+import br.uff.es2.war.util.Tools;
 import br.uff.es2.war.util.types;
 import java.io.FileNotFoundException;
 import javafx.collections.FXCollections;
@@ -53,6 +55,12 @@ public class JanelaJogo extends Application implements iObserver
     private HBox horizontalBox;
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
+    
+    public JanelaJogo(DataManager data)
+    {
+        super();
+        this.dataManager = data;
+    }
     
     @Override
     public void start(Stage primaryStage) 
@@ -169,7 +177,6 @@ public class JanelaJogo extends Application implements iObserver
     @Override
     public void updateGameImage()
     {
-        updateCircles();
         Player aux = gameLoop.getCurrentPlayer();
         stage.setTitle(aux.getNome());
         int value = (int)(Math.random()*21);
@@ -179,23 +186,16 @@ public class JanelaJogo extends Application implements iObserver
         listaTerritorioTela.get(value).setLabel(temp);
     }
     
-    private void updateCircles() 
+    @Override
+    public void updateCircles() 
     {
-        ArrayList<Player> players = gameLoop.getPlayers();
-        for(Player p : players)
+        for(TerritorioTela tl : listaTerritorioTela)
         {
-            for(Pais pais:p.getMeusPaises())
-            {
-                
-            }
+            System.out.println(tl.getPais().getNome());
         }
     }
     
-    private TerritorioTela getTerritorioTela()
-    {
-        return null;
-    }
-
+    
     private void initListeners() {
         gameImage.setOnMouseMoved(new EventHandler<MouseEvent>()
         {

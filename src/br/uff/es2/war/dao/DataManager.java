@@ -138,4 +138,25 @@ public class DataManager
         
         return pais;
     }
+    
+    public Pais getPaisByNome(String nome,String continente)
+    {
+        Pais pais = new Pais("","",new Continente(0, ""));
+        
+        for(Continente c : continentes)
+        {
+            if(c.getNome().equals(continente))
+            {
+                for(Pais p: c.getPaises())
+                {
+                    if(p.getNome().equals(nome))
+                    {
+                        return p;
+                    }
+                }
+            }
+        }
+        
+        return pais;
+    }
 }

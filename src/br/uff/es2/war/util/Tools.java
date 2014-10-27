@@ -26,4 +26,26 @@ public class Tools
         
         return temp;
     }
+    
+    public static String convertCorToColor(String cor)
+    {
+        switch(cor)
+        {
+            case "Amarelo":
+                return "yellow";
+            case "Verde":
+                return "green";
+            case "Vermelho":
+                return "red";
+            case "Preto":
+                return "gray";
+            case "Azul":
+                return "blue";
+            case "Branco":
+                return "white";
+            default:
+                return "";
+            
+        }
+    }
 }
