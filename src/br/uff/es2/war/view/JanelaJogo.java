@@ -32,6 +32,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
 
 /**
@@ -48,6 +49,8 @@ public class JanelaJogo extends Application implements iObserver
     private GameManager gameController;
     private GameLoop gameLoop;
     private Button btnTerminarRodada;
+    private Button btnAtaque;
+    private HBox horizontalBox;
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
     
@@ -112,7 +115,13 @@ public class JanelaJogo extends Application implements iObserver
         btnTerminarRodada = new Button("Terminar");
         btnTerminarRodada.getStyleClass().add("button");
         
-        pane.getChildren().addAll(gameImage,info,btnTerminarRodada);
+        btnAtaque = new Button("Ataque");
+        btnAtaque.getStyleClass().add("button");
+        
+        horizontalBox = new HBox(15);
+        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada);
+        
+        pane.getChildren().addAll(gameImage,info,horizontalBox);
         //constroiCirculos();
         
         gameLoop.addObserver(this);
@@ -124,8 +133,8 @@ public class JanelaJogo extends Application implements iObserver
         gameImage.setLayoutX(10);
         gameImage.setLayoutY(20);
         
-        btnTerminarRodada.setLayoutX( pane.getWidth() - 10 - btnTerminarRodada.getWidth() );
-        btnTerminarRodada.setLayoutY( pane.getHeight() - 10 - btnTerminarRodada.getHeight() );
+        horizontalBox.setLayoutX( pane.getWidth() - 10 - horizontalBox.getWidth() );
+        horizontalBox.setLayoutY( pane.getHeight() - 10 - horizontalBox.getHeight() );
     }
     
     public Stage getStage()
@@ -160,6 +169,7 @@ public class JanelaJogo extends Application implements iObserver
     @Override
     public void updateGameImage()
     {
+        updateCircles();
         Player aux = gameLoop.getCurrentPlayer();
         stage.setTitle(aux.getNome());
         int value = (int)(Math.random()*21);
@@ -167,6 +177,23 @@ public class JanelaJogo extends Application implements iObserver
         Label temp = listaTerritorioTela.get(value).getLabel();
         temp.setText(Integer.toString(Integer.parseInt(temp.getText()) + 1));
         listaTerritorioTela.get(value).setLabel(temp);
+    }
+    
+    private void updateCircles() 
+    {
+        ArrayList<Player> players = gameLoop.getPlayers();
+        for(Player p : players)
+        {
+            for(Pais pais:p.getMeusPaises())
+            {
+                
+            }
+        }
+    }
+    
+    private TerritorioTela getTerritorioTela()
+    {
+        return null;
     }
 
     private void initListeners() {
