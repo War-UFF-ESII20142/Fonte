@@ -48,6 +48,11 @@ public class GameLoop implements iObservable{
         }
     }
     
+    public ArrayList<Player> getPlayers()
+    {
+        return players;
+    }
+    
     public Player getCurrentPlayer()
     {
         return players.get(currentIndex);
