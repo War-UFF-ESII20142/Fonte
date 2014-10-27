@@ -44,17 +44,42 @@ public class BotPlayer implements Player{
 
     @Override
     public String getNome() {
-        return "";
+        return nome.get();
     }
 
     @Override
     public String getCor() {
-        return "";
+        return cor.get();
     }
     
     @Override
     public void finalize(){
         
+    }
+
+    @Override
+    public ArrayList<Pais> getMeusPaises() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setMeusPaises(ArrayList<Pais> meusPaises) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addPais(Pais pais) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addAllPaises(Pais... paises) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(Pais pais) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

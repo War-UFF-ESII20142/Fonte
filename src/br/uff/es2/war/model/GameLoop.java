@@ -5,10 +5,14 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObservable;
 import br.uff.es2.war.interfaces.iObserver;
+<<<<<<< HEAD
 import br.uff.es2.war.util.CyclicIterator;
+=======
+>>>>>>> 9e613c56af4b8b36be55b60f1219c28ca7e3323f
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,15 +26,30 @@ public class GameLoop implements iObservable{
     private ArrayList<Player> players;
     private Iterator<Player> it;
     private int currentIndex;
+    private DataManager dataManager;
     
     ArrayList<iObserver> observerList;
     
     
-    public GameLoop(ArrayList<Player> players){
+    public GameLoop(ArrayList<Player> players,DataManager manager){
         this.players = players;
         it = players.iterator();
         observerList = new ArrayList<>();
         currentIndex = 0;
+        this.dataManager = manager;
+        carregaRodadaInicial();
+    }
+    
+    private void carregaRodadaInicial()
+    {
+        ArrayList<Pais> paises = dataManager.getPaises();
+        while(paises.size() > 0)
+        {
+            int pos = (int)(Math.random()*players.size());
+            Player aux = players.get(pos);
+            aux.addPais(paises.get(0));
+            paises.remove(paises.get(0));
+        }
     }
     
     public Player getCurrentPlayer()
@@ -53,6 +72,7 @@ public class GameLoop implements iObservable{
     
     public void principalLoop()
     {
+        
         increaseIndex();
         /**
         while(true){  //enquanto ninguem ganhou. Implementar as checagens de vitoria){
@@ -71,9 +91,9 @@ public class GameLoop implements iObservable{
             currentPlayer = it.next();
           
         }**/
-        
-        
     }
+    
+    
 
     @Override
     public void addObserver(iObserver observer) {

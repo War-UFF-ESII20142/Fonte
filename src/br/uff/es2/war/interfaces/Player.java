@@ -5,6 +5,9 @@
  */
 package br.uff.es2.war.interfaces;
 
+import br.uff.es2.war.model.Pais;
+import java.util.ArrayList;
+
 /**
  *
  * @author RulffdaCosta
@@ -18,4 +21,15 @@ public interface Player {
 
     public String getNome();
     public String getCor();
+    
+    public ArrayList<Pais> getMeusPaises();
+
+    public void setMeusPaises(ArrayList<Pais> meusPaises);
+    
+    public void addPais(Pais pais);
+    
+    public void addAllPaises(Pais... paises);
+    
+    public void remove(Pais pais);
+    
 }

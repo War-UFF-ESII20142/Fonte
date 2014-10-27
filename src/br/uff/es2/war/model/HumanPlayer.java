@@ -23,12 +23,14 @@ public class HumanPlayer implements Player {
     private SimpleStringProperty cor = new SimpleStringProperty();
     private SimpleStringProperty tipo = new SimpleStringProperty();
     private ArrayList<Carta> cards = new ArrayList<>();
+    private ArrayList<Pais> meusPaises;
     
     
     public HumanPlayer(String nome, String cor, String tipo){
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
+        this.meusPaises = new ArrayList<>();
     }
 
     /**
@@ -92,5 +94,38 @@ public class HumanPlayer implements Player {
     @Override
     public void finalize(){
         
+    }
+
+    @Override
+    public ArrayList<Pais> getMeusPaises() {
+        return meusPaises;
+    }
+
+    @Override
+    public void setMeusPaises(ArrayList<Pais> meusPaises) {
+        this.meusPaises = meusPaises;
+    }
+    
+    @Override
+    public void addPais(Pais pais)
+    {
+        meusPaises.add(pais);
+        pais.setDono(this);
+    }
+    
+    @Override
+    public void addAllPaises(Pais... paises)
+    {
+        for(Pais p:paises)
+        {
+            meusPaises.add(p);
+            p.setDono(this);
+        }
+    }
+    
+    @Override
+    public void remove(Pais pais)
+    {
+        meusPaises.remove(pais);
     }
 }

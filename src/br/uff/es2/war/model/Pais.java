@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.interfaces.Player;
 import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -17,6 +18,8 @@ public class Pais {
     private SimpleStringProperty codigoArquivo;
     private ArrayList<Pais> vizinhos;
     private Continente continente;
+    private Player dono;
+           
     
     public Pais(String nome, String codigo, Continente continente)
     {
@@ -61,6 +64,14 @@ public class Pais {
 
     public void setContinente(Continente continente) {
         this.continente = continente;
+    }
+
+    public Player getDono() {
+        return dono;
+    }
+
+    public void setDono(Player dono) {
+        this.dono = dono;
     }
     
 }
