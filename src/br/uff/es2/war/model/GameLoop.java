@@ -9,6 +9,10 @@ import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObservable;
 import br.uff.es2.war.interfaces.iObserver;
+<<<<<<< HEAD
+import br.uff.es2.war.util.CyclicIterator;
+=======
+>>>>>>> 9e613c56af4b8b36be55b60f1219c28ca7e3323f
 import java.util.ArrayList;
 import java.util.Iterator;
 
