@@ -26,8 +26,8 @@ public class AdministradorDeArquivo
         while(in.hasNext())
         {
             String nomePais = in.next();
-            int idPais = Integer.parseInt(in.next());
-            nomePais = nomePais+" "+idPais;
+            //int idPais = Integer.parseInt(in.next());
+            //nomePais = nomePais+" "+idPais;
             String continente = in.next();
             double x = Double.parseDouble(in.next());
             double y = Double.parseDouble(in.next());

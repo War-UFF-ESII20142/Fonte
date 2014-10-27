@@ -35,7 +35,12 @@ public class DataManager
         Pais pais4 = new Pais("Arquitetura","pais 4",continente1);
         Pais pais5 = new Pais("Engenharia","pais 5",continente1);
         continente1.setPaises(pais1,pais2,pais3,pais4,pais5);
-        
+        paises.add(pais1);
+        paises.add(pais2);
+        paises.add(pais3);
+        paises.add(pais4);
+        paises.add(pais5);
+                
         Continente continente2 = new Continente(types.UNIDADESISOLADAS,"Unidades Isoladas");
         pais1 = new Pais("Veterinaria","pais 1",continente2);
         pais2 = new Pais("HUAP","pais 2",continente2);
@@ -43,6 +48,11 @@ public class DataManager
         pais4 = new Pais("Direito","pais 4",continente2);
         pais5 = new Pais("IACS","pais 5",continente2);
         continente2.setPaises(pais1,pais2,pais3,pais4,pais5);
+        paises.add(pais1);
+        paises.add(pais2);
+        paises.add(pais3);
+        paises.add(pais4);
+        paises.add(pais5);
         
         Continente continente3 = new Continente(types.GRAGOATA,"Gragoata");
         pais1 = new Pais("Historia","pais 1",continente3);
@@ -51,6 +61,11 @@ public class DataManager
         pais4 = new Pais("EducacaoFisica","pais 4",continente3);
         pais5 = new Pais("Pedagogia","pais 5",continente3);
         continente3.setPaises(pais1,pais2,pais3,pais4,pais5);
+        paises.add(pais1);
+        paises.add(pais2);
+        paises.add(pais3);
+        paises.add(pais4);
+        paises.add(pais5);
         
         Continente continente4 = new Continente(types.VALONGUINHO,"Valonguinha");
         pais1 = new Pais("Matematica","pais 1",continente4);
@@ -60,10 +75,25 @@ public class DataManager
         pais5 = new Pais("Administracao","pais 5",continente4);
         Pais pais6 = new Pais("STI","pais 5",continente4);
         continente4.setPaises(pais1,pais2,pais3,pais4,pais5,pais6);
+        paises.add(pais1);
+        paises.add(pais2);
+        paises.add(pais3);
+        paises.add(pais4);
+        paises.add(pais5);
         
-        
-        
-        
-        
+        continentes.add(continente1);
+        continentes.add(continente2);
+        continentes.add(continente3);
+        continentes.add(continente4);
+    }
+    
+    public ArrayList<Pais> getPaises()
+    {
+        return paises;
+    }
+    
+    public ArrayList<Continente> getContinentes()
+    {
+        return continentes;
     }
 }

@@ -1,21 +1,21 @@
-pais 1 PraiaVermelha 412.0 513.0
-pais 2 PraiaVermelha 474.0 434.0
-pais 3 PraiaVermelha 443.0 348.0
-pais 4 PraiaVermelha 381.0 406.0
-pais 5 PraiaVermelha 357.0 463.0
-pais 1 UnidadeIsolada 405.0 234.0
-pais 2 UnidadeIsolada 353.0 106.0
-pais 3 UnidadeIsolada 334.0 161.0
-pais 4 UnidadeIsolada 356.0 219.0
-pais 5 UnidadeIsolada 375.0 287.0
-pais 1 Gragoata 272.0 511.0
-pais 2 Gragoata 236.0 464.0
-pais 3 Gragoata 235.0 392.0
-pais 4 Gragoata 189.0 319.0
-pais 5 Gragoata 235.0 297.0
-pais 1 Valonguinho 49.0 199.0
-pais 2 Valonguinho 102.0 151.0
-pais 3 Valonguinho 179.0 124.0
-pais 4 Valonguinho 188.0 204.0
-pais 5 Valonguinho 151.0 254.0
-pais 6 Valonguinho 114.0 206.0
+Fisica PraiaVermelha 412.0 513.0
+Geofisica PraiaVermelha 474.0 434.0
+Computacao PraiaVermelha 443.0 348.0
+Arquitetura PraiaVermelha 381.0 406.0
+Engenharia PraiaVermelha 357.0 463.0
+Veterinaria UnidadeIsolada 405.0 234.0
+HUAP UnidadeIsolada 353.0 106.0
+Reitoria UnidadeIsolada 334.0 161.0
+Direito UnidadeIsolada 356.0 219.0
+IACS UnidadeIsolada 375.0 287.0
+Historia Gragoata 272.0 511.0
+Filosofia Gragoata 236.0 464.0
+Bandejao Gragoata 235.0 392.0
+EducacaoFisica Gragoata 189.0 319.0
+Pedagogia Gragoata 235.0 297.0
+Matematica Valonguinho 49.0 199.0
+Odontologia Valonguinho 102.0 151.0
+Quimica Valonguinho 179.0 124.0
+Biologia Valonguinho 188.0 204.0
+Administracao Valonguinho 151.0 254.0
+STI Valonguinho 114.0 206.0
