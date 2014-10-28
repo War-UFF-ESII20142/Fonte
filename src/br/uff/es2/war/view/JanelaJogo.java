@@ -204,7 +204,7 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(MouseEvent event) 
             {
-                String temp = "";
+                Pais temp = new Pais("", "", null);
                 double r = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getRed();
                 double g = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getGreen();
                 double b = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getBlue();
@@ -238,7 +238,7 @@ public class JanelaJogo extends Application implements iObserver
                 {
                     gameImage.setCursor(Cursor.DEFAULT);
                 }
-                info.setText(temp);
+                info.setText(temp.getNome());
             }
         });
         
@@ -247,7 +247,7 @@ public class JanelaJogo extends Application implements iObserver
 
             @Override
             public void handle(MouseEvent event) {
-                String temp = "";
+                Pais temp = new Pais("", "", null);
                 double r = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getRed();
                 double g = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getGreen();
                 double b = gameImage.getImage().getPixelReader().getColor((int)event.getX(), (int)event.getY()).getBlue();
@@ -282,15 +282,9 @@ public class JanelaJogo extends Application implements iObserver
                     gameImage.setCursor(Cursor.DEFAULT);
                 }
                 
-                System.out.println(temp + " "+event.getSceneX()+" "+event.getSceneY());
+                //System.out.println(temp + " "+event.getSceneX()+" "+event.getSceneY());
                 
-                if(auxiliarEscolha == true){
-                    paisAtacante = temp;
-                    auxiliarEscolha = false;
-                }else{
-                    paisAtacado = temp;
-                    auxiliarEscolha = true;
-                }
+                gameController.fazAtaque(temp);
                 
             }
             
@@ -309,12 +303,11 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event){
                 gameController.attack();
-                
             }
         });
     }
     
-    private String inValonguinho(int red)
+    private Pais inValonguinho(int red)
     {
         String pais = "";
         switch(red)
@@ -343,12 +336,12 @@ public class JanelaJogo extends Application implements iObserver
         
         if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
         {
-            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+            return pPais;
         }
-        return "";
+        return new Pais("", "", null);
     }
     
-    private String inGragoata(int red)
+    private Pais inGragoata(int red)
     {
         String pais = "";
         switch(red)
@@ -373,12 +366,12 @@ public class JanelaJogo extends Application implements iObserver
         
         if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
         {
-            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+            return pPais;
         }
-        return "";
+        return new Pais("", "", null);
     }
     
-    private String inPraiaVerm(int blue)
+    private Pais inPraiaVerm(int blue)
     {
         String pais = "";
         switch(blue)
@@ -404,12 +397,12 @@ public class JanelaJogo extends Application implements iObserver
         
         if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
         {
-            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+            return pPais;
         }
-        return "";
+        return new Pais("", "", null);
     }
     
-    private String inUnidadeIsol(int green)
+    private Pais inUnidadeIsol(int green)
     {
         String pais = "";
         switch(green)
@@ -436,9 +429,9 @@ public class JanelaJogo extends Application implements iObserver
         
         if(pPais.getNome() != null && pPais.getContinente().getNome() != null)
         {
-            return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
+            return pPais;
         }
-        return "";
+        return new Pais("", "", null);
     }
     
     public String paisAtacante(){

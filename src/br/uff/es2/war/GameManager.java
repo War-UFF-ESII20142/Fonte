@@ -23,9 +23,11 @@ public class GameManager
     private GameLoop gameLoop;
     private JanelaJogo janelaJogo;
     DataManager dataManager;
+    private boolean ataque;
     
     public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
     {
+        ataque = true;
         dataManager = data;
         gameLoop = new GameLoop(players,dataManager);
         this.janelaJogo = janelaJogo;
@@ -66,5 +68,21 @@ public class GameManager
     public GameLoop getGameLoop()
     {
         return gameLoop;
+    }
+    
+    public void fazAtaque(Pais pais)
+    {
+        if(ataque)
+        {
+           //pais que vai atacar 
+            gameLoop.setAtacante(pais);
+            ataque = false;
+        }else
+        {
+            //pais que será atacado
+            gameLoop.setAtacado(pais);
+            ataque = true;
+        }
+        
     }
 }
