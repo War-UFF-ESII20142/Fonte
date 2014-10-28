@@ -40,7 +40,7 @@ public class Tools
             case "Preto":
                 return "gray";
             case "Azul":
-                return "blue";
+                return "lightblue";
             case "Branco":
                 return "white";
             default:
