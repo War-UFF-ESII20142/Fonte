@@ -41,7 +41,19 @@ public class GameLoop implements iObservable{
     
     public void carregaRodadaInicial()
     {
-        ArrayList<Pais> paises = dataManager.getPaises();
+        ArrayList<Pais> paises = new ArrayList<>(dataManager.getPaises());
+        int valor = paises.size()/players.size();
+        
+        for(Player p:players)
+        {
+            for(int i = 0;i<valor;i++)
+            {
+                int pos = (int)(Math.random()*paises.size());
+                p.addPais(paises.get(pos));
+                paises.remove(paises.get(pos));
+            }
+        }
+        
         while(paises.size() > 0)
         {
             int pos = (int)(Math.random()*players.size());
@@ -49,7 +61,9 @@ public class GameLoop implements iObservable{
             aux.addPais(paises.get(0));
             paises.remove(paises.get(0));
         }
+        
         observerList.get(0).updateCircles();
+        
     }
     
     public ArrayList<Player> getPlayers()

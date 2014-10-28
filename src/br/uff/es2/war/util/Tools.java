@@ -36,7 +36,7 @@ public class Tools
             case "Verde":
                 return "green";
             case "Vermelho":
-                return "red";
+                return "orange";
             case "Preto":
                 return "gray";
             case "Azul":

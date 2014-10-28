@@ -101,11 +101,13 @@ public class DataManager
         paises.add(pais3);
         paises.add(pais4);
         paises.add(pais5);
+        paises.add(pais6);
         
         continentes.add(continente1);
         continentes.add(continente2);
         continentes.add(continente3);
         continentes.add(continente4);
+        
     }
     
     public ArrayList<Pais> getPaises()

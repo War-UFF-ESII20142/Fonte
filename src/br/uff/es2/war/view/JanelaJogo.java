@@ -191,9 +191,19 @@ public class JanelaJogo extends Application implements iObserver
     @Override
     public void updateCircles() 
     {
-        for(TerritorioTela tl : listaTerritorioTela)
+        for(Player pl : gameLoop.getPlayers())
         {
-            System.out.println(tl.getPais().getNome());
+            for(Pais p : pl.getMeusPaises())
+            {
+                for(TerritorioTela tl : listaTerritorioTela)
+                {
+                    if(tl.getNome().equals(p.getNome()))
+                    {
+                        tl.setPais(p);
+                        tl.getCirculo().setStyle("-fx-fill:"+Tools.convertCorToColor(p.getDono().getCor()));
+                    }
+                }
+            }
         }
     }
     
