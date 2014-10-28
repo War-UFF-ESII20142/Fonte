@@ -8,6 +8,8 @@ package br.uff.es2.war;
 import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.model.GameLoop;
+import br.uff.es2.war.model.Pais;
+import br.uff.es2.war.view.JanelaJogo;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
@@ -19,12 +21,14 @@ public class GameManager
 {
     private ObservableList<Player> olPlayers;
     private GameLoop gameLoop;
+    private JanelaJogo janelaJogo;
     DataManager dataManager;
     
-    public GameManager(ArrayList<Player> players,DataManager data)
+    public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
     {
         dataManager = data;
         gameLoop = new GameLoop(players,dataManager);
+        this.janelaJogo = janelaJogo;
     }
 
     public ObservableList<Player> getOlPlayers() {
@@ -38,6 +42,25 @@ public class GameManager
     public void roundTerminou()
     {
         gameLoop.principalLoop();
+    }
+    
+    public void attack(){
+       Pais paisAtacante = this.getPlaceAtacante();
+       Pais paisAtacado = this.getPlaceAtacado();
+        System.out.println("Atacou"+paisAtacante.getNome()+" "+paisAtacado.getNome());
+    }
+    
+    
+    public Pais getPlaceAtacante(){
+        String pais = janelaJogo.paisAtacante();
+        Pais temp = dataManager.getPais(pais);
+        return temp;
+    }
+    
+    public Pais getPlaceAtacado(){
+        String pais = janelaJogo.paisAtacado();
+        Pais temp = dataManager.getPais(pais);
+        return temp;
     }
     
     public GameLoop getGameLoop()

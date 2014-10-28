@@ -70,7 +70,7 @@ public class WindowManager
         
         windowGame = new JanelaJogo(dataManager);
         windowGame.setDataManager(dataManager);
-        GameManager gameManager = new GameManager(arrayPlayer,dataManager);
+        GameManager gameManager = new GameManager(arrayPlayer,dataManager, windowGame);
         
         windowGame.setGameControler(gameManager);
         windowGame.setGameLoop(gameManager.getGameLoop());
