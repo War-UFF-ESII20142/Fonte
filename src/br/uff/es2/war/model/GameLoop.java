@@ -23,6 +23,8 @@ public class GameLoop implements iObservable{
     private Iterator<Player> it;
     private int currentIndex;
     private DataManager dataManager;
+    private Pais atacante;
+    private Pais atacado;
     
     ArrayList<iObserver> observerList;
     
@@ -33,6 +35,8 @@ public class GameLoop implements iObservable{
         observerList = new ArrayList<>();
         currentIndex = 0;
         this.dataManager = manager;
+        atacante = new Pais("", "", null);
+        atacado = new Pais("", "", null);
     }
     
     public void carregaRodadaInicial()
@@ -94,6 +98,17 @@ public class GameLoop implements iObservable{
         }**/
     }
     
+    public void setAtacado(Pais atacado)
+    {
+        this.atacado = atacado;
+        System.out.println("atacado: "+atacado.getNome());
+    }
+    
+    public void setAtacante(Pais atacante)
+    {
+        this.atacante = atacante;
+        System.out.println("acatacante: "+atacante.getNome());
+    }
     
 
     @Override
