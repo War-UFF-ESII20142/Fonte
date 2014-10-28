@@ -11,4 +11,5 @@ package br.uff.es2.war.interfaces;
  */
 public interface iObserver {
     public void updateGameImage();
+    public void updateCircles();
 }

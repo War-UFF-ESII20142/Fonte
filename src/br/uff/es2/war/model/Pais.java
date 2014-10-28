@@ -43,19 +43,19 @@ public class Pais {
     }
 
     public String getNome() {
-        return nome.getValue();
+        return nome.get();
     }
 
     public void setNome(String nome) {
-        this.nome.setValue(nome);
+        this.nome.set(nome);
     }
 
     public String getCodigo() {
-        return codigoArquivo.getValue();
+        return codigoArquivo.get();
     }
 
     public void setCodigo(String codigo) {
-        this.codigoArquivo.setValue(codigo);
+        this.codigoArquivo.set(codigo);
     }
 
     public Continente getContinente() {

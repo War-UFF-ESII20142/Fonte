@@ -68,7 +68,7 @@ public class WindowManager
         
         DataManager dataManager = new DataManager();
         
-        windowGame = new JanelaJogo();
+        windowGame = new JanelaJogo(dataManager);
         windowGame.setDataManager(dataManager);
         GameManager gameManager = new GameManager(arrayPlayer,dataManager, windowGame);
         
@@ -76,6 +76,8 @@ public class WindowManager
         windowGame.setGameLoop(gameManager.getGameLoop());
         windowGame.start(new Stage());
         windowGame.updateGameImage();
+        
+        gameManager.getGameLoop().carregaRodadaInicial();
         
         window.getStage().close();
     }

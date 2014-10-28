@@ -81,8 +81,9 @@ public class TerritorioTela {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public TerritorioTela setPais(Pais pais) {
         this.pais = pais;
+        return this;
     }
     
 }

@@ -35,7 +35,7 @@ public class AdministradorDeArquivo
             Circle circle = new Circle(x,y,15);
             circle.setStyle("-fx-fill:"+"white");
             TerritorioTela temp = new TerritorioTela(circle,nomePais,continente);
-            temp.setPais(dataManager.getPais(nomePais, continente));
+            temp = temp.setPais(dataManager.getPaisByNome(nomePais, continente));
             lista.add(temp);
 
         }
