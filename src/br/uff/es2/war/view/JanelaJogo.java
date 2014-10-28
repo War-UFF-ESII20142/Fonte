@@ -284,7 +284,7 @@ public class JanelaJogo extends Application implements iObserver
                 
                 //System.out.println(temp + " "+event.getSceneX()+" "+event.getSceneY());
                 
-                gameController.fazAtaque(temp);
+                gameController.fazCoisa(temp);
                 
             }
             

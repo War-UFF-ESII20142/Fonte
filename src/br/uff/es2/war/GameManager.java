@@ -24,10 +24,12 @@ public class GameManager
     private JanelaJogo janelaJogo;
     DataManager dataManager;
     private boolean ataque;
+    private boolean inAttack;
     
     public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
     {
         ataque = true;
+        inAttack = false;
         dataManager = data;
         gameLoop = new GameLoop(players,dataManager);
         this.janelaJogo = janelaJogo;
@@ -47,9 +49,7 @@ public class GameManager
     }
     
     public void attack(){
-       Pais paisAtacante = this.getPlaceAtacante();
-       Pais paisAtacado = this.getPlaceAtacado();
-        System.out.println("Atacou"+paisAtacante.getNome()+" "+paisAtacado.getNome());
+       inAttack = !inAttack;
     }
     
     
@@ -85,4 +85,13 @@ public class GameManager
         }
         
     }
+    
+    public void fazCoisa(Pais pais)
+    {
+        if(inAttack)
+        {
+            fazAtaque(pais);
+        }
+    }
+    
 }
