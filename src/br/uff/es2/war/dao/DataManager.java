@@ -138,4 +138,13 @@ public class DataManager
         
         return pais;
     }
+    
+    public Pais getPais(String nome){
+        for (Pais c : paises) {
+            if (c.getNome().equals(nome)) {
+                return c;
+            }
+        }
+        return (new Pais("", "", null));
+    }
 }

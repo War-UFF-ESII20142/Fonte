@@ -53,6 +53,8 @@ public class JanelaJogo extends Application implements iObserver
     private HBox horizontalBox;
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
+    private String paisAtacante, paisAtacado;
+    private boolean auxiliarEscolha = true;
     
     @Override
     public void start(Stage primaryStage) 
@@ -281,6 +283,15 @@ public class JanelaJogo extends Application implements iObserver
                 }
                 
                 System.out.println(temp + " "+event.getSceneX()+" "+event.getSceneY());
+                
+                if(auxiliarEscolha == true){
+                    paisAtacante = temp;
+                    auxiliarEscolha = false;
+                }else{
+                    paisAtacado = temp;
+                    auxiliarEscolha = true;
+                }
+                
             }
             
         });
@@ -290,6 +301,15 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 gameController.roundTerminou();
+            }
+        });
+        
+        btnAtaque.setOnAction(new EventHandler<ActionEvent>(){
+            
+            @Override
+            public void handle(ActionEvent event){
+                gameController.attack();
+                
             }
         });
     }
@@ -419,6 +439,13 @@ public class JanelaJogo extends Application implements iObserver
             return ("Está no: " + pPais.getNome()+" "+pPais.getContinente().getNome());
         }
         return "";
+    }
+    
+    public String paisAtacante(){
+        return this.paisAtacante;
+    }
+    public String paisAtacado(){
+        return this.paisAtacado;
     }
     
 }
