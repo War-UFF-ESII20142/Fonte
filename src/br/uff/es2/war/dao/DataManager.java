@@ -139,7 +139,7 @@ public class DataManager
         return pais;
     }
     
-<<<<<<< HEAD
+
     public Pais getPais(String nome){
         for (Pais c : paises) {
             if (c.getNome().equals(nome)) {
@@ -147,9 +147,9 @@ public class DataManager
             }
         }
         return (new Pais("", "", null));
-=======
-    public Pais getPaisByNome(String nome,String continente)
-    {
+    }
+
+    public Pais getPaisByNome(String nome,String continente){
         Pais pais = new Pais("","",new Continente(0, ""));
         
         for(Continente c : continentes)
@@ -167,6 +167,6 @@ public class DataManager
         }
         
         return pais;
->>>>>>> bf98c8ed68d9d29ebe526bc26a15f8f1079a0f6b
+
     }
 }
