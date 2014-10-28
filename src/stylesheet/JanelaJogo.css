@@ -24,6 +24,10 @@ and open the template in the editor.
     -fx-background-color: white;
 }
 
+.button:hover {
+    -fx-cursor: hand;
+}
+
 .pane {
     -fx-background-color: white;
 }
