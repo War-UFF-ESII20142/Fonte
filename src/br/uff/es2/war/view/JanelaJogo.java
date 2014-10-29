@@ -463,6 +463,8 @@ public class JanelaJogo extends Application implements iObserver
     public String paisAtacante(){
         return this.paisAtacante;
     }
+    
+    
     public String paisAtacado(){
         return this.paisAtacado;
     }

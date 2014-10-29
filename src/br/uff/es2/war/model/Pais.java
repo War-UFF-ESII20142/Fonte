@@ -84,4 +84,12 @@ public class Pais {
         return numeroDeTropas;
     }
     
+    public boolean isVizinho(Pais pais){
+        if (vizinhos.contains(pais)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 }
