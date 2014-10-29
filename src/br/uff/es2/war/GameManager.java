@@ -11,6 +11,7 @@ import br.uff.es2.war.model.GameLoop;
 import br.uff.es2.war.model.Pais;
 import br.uff.es2.war.view.JanelaJogo;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.collections.ObservableList;
 
 /**
@@ -50,11 +51,9 @@ public class GameManager
     
     public void roundTerminou()
     {
-<<<<<<< HEAD
-        
-=======
+
+
         this.distribuiTropas = true;
->>>>>>> c9148fc10861deced6e0954fc024c839f5a1bd9f
         gameLoop.principalLoop();
     }
     
@@ -93,6 +92,7 @@ public class GameManager
             gameLoop.setAtacado(pais);
             ataque = true;
             
+            
         }
         
     }
@@ -116,6 +116,8 @@ public class GameManager
         {
             fazAtaque(pais);
         }
+        
+        
         
     }
     

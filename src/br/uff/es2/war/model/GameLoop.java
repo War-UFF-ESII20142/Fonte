@@ -120,17 +120,28 @@ public class GameLoop implements iObservable, IGameLoop{
     {
         this.atacado = atacado;
         System.out.println("atacado: "+atacado.getNome());
-<<<<<<< HEAD
+        if (this.atacante.getDono().getNome().equals(this.players.get(currentIndex).getNome())) {
+            if(this.atacante.getNumeroDeTroopas() > 1){
+                
+            }else{
+                System.out.println("Você não possui tropas suficientes para atacar");
+            }
+        }else{
+            System.out.println("O território atacante não lhe pertence");
+        }
         this.processaAtaque(atacante, atacado);
-=======
-        
->>>>>>> c9148fc10861deced6e0954fc024c839f5a1bd9f
+
+    }
+    
+    public boolean processaVencedorAtaque(){
+        return  false;
     }
     
     public void setAtacante(Pais atacante)
     {
         this.atacante = atacante;
-        System.out.println("acatacante: "+atacante.getNome());
+        System.out.println("atacante: "+atacante.getNome());
+       
     }
     
 
@@ -154,7 +165,11 @@ public class GameLoop implements iObservable, IGameLoop{
     }
     
     public void processaAtaque(Pais atacante, Pais atacado){
-        
+        if(atacante.isVizinho(atacado)){
+            
+        }else{
+            System.out.println("Esses paises não são vizinhos");
+        }
     } 
     
     @Override
