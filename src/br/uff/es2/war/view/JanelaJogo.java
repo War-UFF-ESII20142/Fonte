@@ -186,11 +186,12 @@ public class JanelaJogo extends Application implements iObserver
     {
         Player aux = gameLoop.getCurrentPlayer();
         stage.setTitle(aux.getNome());
-        int value = (int)(Math.random()*21);
+        pane.setStyle("-fx-background-color:"+Tools.convertCorToColor(aux.getCor()));
+        /*int value = (int)(Math.random()*21);
         System.out.println(value);
         Label temp = listaTerritorioTela.get(value).getLabel();
         temp.setText(Integer.toString(Integer.parseInt(temp.getText()) + 1));
-        listaTerritorioTela.get(value).setLabel(temp);
+        listaTerritorioTela.get(value).setLabel(temp);*/
     }
     
     @Override
@@ -206,6 +207,7 @@ public class JanelaJogo extends Application implements iObserver
                     {
                         tl.setPais(p);
                         tl.getCirculo().setStyle("-fx-fill:"+Tools.convertCorToColor(p.getDono().getCor()));
+                        tl.getLabel().setText(Integer.toString(p.getNumeroDeTroopas()));
                     }
                 }
             }
