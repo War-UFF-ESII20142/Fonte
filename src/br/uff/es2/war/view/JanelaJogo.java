@@ -187,6 +187,7 @@ public class JanelaJogo extends Application implements iObserver
         Player aux = gameLoop.getCurrentPlayer();
         stage.setTitle(aux.getNome());
         pane.setStyle("-fx-background-color:"+Tools.convertCorToColor(aux.getCor()));
+        updateCircles();
         /*int value = (int)(Math.random()*21);
         System.out.println(value);
         Label temp = listaTerritorioTela.get(value).getLabel();
