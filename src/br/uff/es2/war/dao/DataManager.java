@@ -101,11 +101,13 @@ public class DataManager
         paises.add(pais3);
         paises.add(pais4);
         paises.add(pais5);
+        paises.add(pais6);
         
         continentes.add(continente1);
         continentes.add(continente2);
         continentes.add(continente3);
         continentes.add(continente4);
+        
     }
     
     public ArrayList<Pais> getPaises()
@@ -148,17 +150,14 @@ public class DataManager
         }
         return (new Pais("", "", null));
     }
-<<<<<<< HEAD
 
 
     public Pais getPaisByNome(String nome,String continente){
 
-=======
+
 
      
-    public Pais getPaisByNome(String nome,String continente)
-    {
->>>>>>> 95bf43a9fd6f3f5466d9967c3eb3b1cf55d04043
+
         Pais pais = new Pais("","",new Continente(0, ""));
         
         for(Continente c : continentes)
@@ -176,10 +175,8 @@ public class DataManager
         }
         return pais;
 
-<<<<<<< HEAD
+
   }
 
-=======
-    }
->>>>>>> 95bf43a9fd6f3f5466d9967c3eb3b1cf55d04043
+
 }

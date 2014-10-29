@@ -32,4 +32,6 @@ public interface Player {
     
     public void remove(Pais pais);
     
+    public int numeroDePaises();
+    
 }
