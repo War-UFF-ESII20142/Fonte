@@ -19,6 +19,7 @@ public class Pais {
     private ArrayList<Pais> vizinhos;
     private Continente continente;
     private Player dono;
+    private int numeroDeTropas;
            
     
     public Pais(String nome, String codigo, Continente continente)
@@ -72,6 +73,14 @@ public class Pais {
 
     public void setDono(Player dono) {
         this.dono = dono;
+    }
+    
+    public void incrementaNumeroDeTropas(){
+        numeroDeTropas++;
+    }
+    
+    public int getNumeroDeTroopas(){
+        return numeroDeTropas;
     }
     
 }

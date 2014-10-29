@@ -128,4 +128,8 @@ public class HumanPlayer implements Player {
     {
         meusPaises.remove(pais);
     }
+    
+    public int numeroDePaises(){
+       return this.meusPaises.size();
+    }
 }

@@ -6,6 +6,7 @@
 package br.uff.es2.war.model;
 
 import br.uff.es2.war.dao.DataManager;
+import br.uff.es2.war.interfaces.IGameLoop;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObservable;
 import br.uff.es2.war.interfaces.iObserver;
@@ -16,7 +17,7 @@ import java.util.Iterator;
  *
  * @author RulffdaCosta
  */
-public class GameLoop implements iObservable{
+public class GameLoop implements iObservable, IGameLoop{
     
     
     private ArrayList<Player> players;
@@ -25,11 +26,13 @@ public class GameLoop implements iObservable{
     private DataManager dataManager;
     private Pais atacante;
     private Pais atacado;
+    int numeroDeTropasAAlocarRodada;
     
     ArrayList<iObserver> observerList;
     
     
     public GameLoop(ArrayList<Player> players,DataManager manager){
+        numeroDeTropasAAlocarRodada = 0;
         this.players = players;
         it = players.iterator();
         observerList = new ArrayList<>();
@@ -76,12 +79,12 @@ public class GameLoop implements iObservable{
         return players.get(currentIndex);
     }
     
-    private int getCurrentIndex()
+    public int getCurrentIndex()
     {
         return currentIndex;
     }
     
-    private int increaseIndex()
+    public int increaseIndex()
     {
         currentIndex++;
         if(currentIndex > players.size()-1) currentIndex = 0;
@@ -142,6 +145,35 @@ public class GameLoop implements iObservable{
         {
             o.updateGameImage();
         }
+    }
+    
+    public void processaAtaque(Pais atacante, Pais atacado){
+        
+    } 
+    @Override
+    public void distribuiTropas (Pais pais){
+        Player currentPlayer = players.get(currentIndex);
+        if(numeroDeTropasAAlocarRodada > 0){
+        if(pais.getDono().getNome().equals(currentPlayer.getNome())){
+            pais.incrementaNumeroDeTropas();
+            numeroDeTropasAAlocarRodada--;
+        }else{
+            System.out.println("Este pais não lhe pertence");
+        }
+        }else{
+            
+            System.out.println("Você não possui mais tropas");
+        }
+    }
+    
+    @Override
+    public void calculaTropasASeremAlocadas(){
+        Player currentPlayer = players.get(currentIndex);
+        numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises()/2;
+    }
+    
+    public int numeroDeTropasAAlocarRodada(){
+        return this.numeroDeTropasAAlocarRodada();
     }
     
 }

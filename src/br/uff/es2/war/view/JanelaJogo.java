@@ -52,6 +52,7 @@ public class JanelaJogo extends Application implements iObserver
     private GameLoop gameLoop;
     private Button btnTerminarRodada;
     private Button btnAtaque;
+    private Button btnfinalizaDistribuicao;
     private HBox horizontalBox;
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
@@ -128,8 +129,12 @@ public class JanelaJogo extends Application implements iObserver
         btnAtaque = new Button("Ataque");
         btnAtaque.getStyleClass().add("button");
         
+        btnfinalizaDistribuicao = new Button("Finaliza Distruibuição");
+        btnfinalizaDistribuicao.getStyleClass().add("button");
+        
+        
         horizontalBox = new HBox(15);
-        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada);
+        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada,btnfinalizaDistribuicao);
         
         pane.getChildren().addAll(gameImage,info,horizontalBox);
         //constroiCirculos();
@@ -313,6 +318,14 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event){
                 gameController.attack();
+            }
+        });
+        
+        btnfinalizaDistribuicao.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                gameController.terminaDistruibuicao();
             }
         });
     }

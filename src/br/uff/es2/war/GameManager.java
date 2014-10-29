@@ -23,13 +23,18 @@ public class GameManager
     private GameLoop gameLoop;
     private JanelaJogo janelaJogo;
     DataManager dataManager;
-    private boolean ataque;
+    private boolean ataque, distribuiTropas, remanejaTropas, auxiliarNaDistribuicao;
     private boolean inAttack;
     
+    
     public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
+            
     {
+        auxiliarNaDistribuicao = true;
         ataque = true;
         inAttack = false;
+        distribuiTropas = true;
+        remanejaTropas = false;
         dataManager = data;
         gameLoop = new GameLoop(players,dataManager);
         this.janelaJogo = janelaJogo;
@@ -82,16 +87,35 @@ public class GameManager
             //pais que será atacado
             gameLoop.setAtacado(pais);
             ataque = true;
+            
         }
         
     }
     
+    public void distribuicaoDeTropas(Pais pais){
+        gameLoop.distribuiTropas(pais);
+    }
+    
+    
     public void fazCoisa(Pais pais)
     {
+        if(distribuiTropas){
+            if(auxiliarNaDistribuicao){
+                gameLoop.calculaTropasASeremAlocadas();
+                auxiliarNaDistribuicao = false;
+            }
+            distribuicaoDeTropas(pais);
+        }
+        
         if(inAttack)
         {
             fazAtaque(pais);
         }
+        
+    }
+    
+    public void terminaDistruibuicao(){
+        this.distribuiTropas = false;
     }
     
 }

@@ -151,9 +151,13 @@ public class DataManager
         return (new Pais("", "", null));
     }
 
+
+    public Pais getPaisByNome(String nome,String continente){
+
+
+
      
-    public Pais getPaisByNome(String nome,String continente)
-    {
+
         Pais pais = new Pais("","",new Continente(0, ""));
         
         for(Continente c : continentes)
@@ -171,5 +175,8 @@ public class DataManager
         }
         return pais;
 
-    }
+
+  }
+
+
 }
