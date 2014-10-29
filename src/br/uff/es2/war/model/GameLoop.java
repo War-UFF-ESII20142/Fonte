@@ -119,6 +119,7 @@ public class GameLoop implements iObservable, IGameLoop{
     {
         this.atacado = atacado;
         System.out.println("atacado: "+atacado.getNome());
+        this.processaAtaque(atacante, atacado);
     }
     
     public void setAtacante(Pais atacante)
@@ -158,6 +159,7 @@ public class GameLoop implements iObservable, IGameLoop{
         if(pais.getDono().getNome().equals(currentPlayer.getNome())){
             pais.incrementaNumeroDeTropas();
             numeroDeTropasAAlocarRodada--;
+            avisaMudancas();
         }else{
             System.out.println("Este pais não lhe pertence");
         }
