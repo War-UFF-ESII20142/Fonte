@@ -96,6 +96,7 @@ public class GameLoop implements iObservable, IGameLoop{
     {
         
         increaseIndex();
+        calculaTropasASeremAlocadas();
         /**
         while(true){  //enquanto ninguem ganhou. Implementar as checagens de vitoria){
             Player currentPlayer = it.next();
@@ -119,7 +120,11 @@ public class GameLoop implements iObservable, IGameLoop{
     {
         this.atacado = atacado;
         System.out.println("atacado: "+atacado.getNome());
+<<<<<<< HEAD
         this.processaAtaque(atacante, atacado);
+=======
+        
+>>>>>>> c9148fc10861deced6e0954fc024c839f5a1bd9f
     }
     
     public void setAtacante(Pais atacante)
@@ -154,7 +159,7 @@ public class GameLoop implements iObservable, IGameLoop{
     
     @Override
     public void distribuiTropas (Pais pais){
-        Player currentPlayer = players.get(currentIndex);
+        Player currentPlayer = getCurrentPlayer();
         if(numeroDeTropasAAlocarRodada > 0){
         if(pais.getDono().getNome().equals(currentPlayer.getNome())){
             pais.incrementaNumeroDeTropas();
@@ -167,11 +172,12 @@ public class GameLoop implements iObservable, IGameLoop{
             
             System.out.println("Você não possui mais tropas");
         }
+        avisaMudancas();
     }
     
     @Override
     public void calculaTropasASeremAlocadas(){
-        Player currentPlayer = players.get(currentIndex);
+        Player currentPlayer = getCurrentPlayer();
         numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises()/2;
     }
     

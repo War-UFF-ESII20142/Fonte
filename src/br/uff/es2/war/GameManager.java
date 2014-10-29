@@ -50,7 +50,11 @@ public class GameManager
     
     public void roundTerminou()
     {
+<<<<<<< HEAD
         
+=======
+        this.distribuiTropas = true;
+>>>>>>> c9148fc10861deced6e0954fc024c839f5a1bd9f
         gameLoop.principalLoop();
     }
     
