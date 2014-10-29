@@ -54,7 +54,10 @@ public class JanelaJogo extends Application implements iObserver
     private Button btnTerminarRodada;
     private Button btnAtaque;
     private Button btnfinalizaDistribuicao;
+    private Button btnMostrarCartas; //A
+    private Button btnMostrarObjetivo; //A
     private HBox horizontalBox;
+    private HBox ObjetivoECartasBox; //A
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
     private String paisAtacante, paisAtacado;
@@ -138,11 +141,21 @@ public class JanelaJogo extends Application implements iObserver
         btnfinalizaDistribuicao = new Button("Finaliza Distruibuição");
         btnfinalizaDistribuicao.getStyleClass().add("button");
         
+        btnMostrarCartas = new Button("Mostrar cartas");
+        btnMostrarCartas.getStyleClass().add("button");
+        
+        btnMostrarObjetivo = new Button("Mostrar objetivos");
+        btnMostrarObjetivo.getStyleClass().add("button");
+                
+        ObjetivoECartasBox = new HBox(10);
+        
+        ObjetivoECartasBox.getChildren().addAll(btnMostrarCartas, btnMostrarObjetivo);
         
         horizontalBox = new HBox(15);
         horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada,btnfinalizaDistribuicao);
         
-        pane.getChildren().addAll(gameImage,info,horizontalBox);
+        //pane.getChildren().addAll(gameImage,info,horizontalBox);
+        pane.getChildren().addAll(gameImage,info,horizontalBox,ObjetivoECartasBox);
         //constroiCirculos();
         
         gameLoop.addObserver(this);
@@ -156,6 +169,9 @@ public class JanelaJogo extends Application implements iObserver
         
         horizontalBox.setLayoutX( pane.getWidth() - 10 - horizontalBox.getWidth() );
         horizontalBox.setLayoutY( pane.getHeight() - 10 - horizontalBox.getHeight() );
+        
+        ObjetivoECartasBox.setLayoutX( pane.getWidth() - 30 - ObjetivoECartasBox.getWidth() );
+        ObjetivoECartasBox.setLayoutY( pane.getHeight() - 500 - ObjetivoECartasBox.getHeight() );
     }
     
     public Stage getStage()
@@ -335,6 +351,27 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 gameController.terminaDistruibuicao();
+            }
+        });
+        
+        btnMostrarCartas.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Abrir janela e mostrar cartas em posse do atual jogador.
+            }
+        });
+        
+        btnMostrarObjetivo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Abrir janela com o objetivo do atual jogador
+                //gameController.mostrarObjetivo();
+                JanelaObjetivo obj = new JanelaObjetivo();
+                try {
+                    obj.start(pStage);
+                } catch (Exception ex) {
+                    Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
