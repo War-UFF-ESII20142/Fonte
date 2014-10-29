@@ -50,6 +50,7 @@ public class GameManager
     
     public void roundTerminou()
     {
+        
         gameLoop.principalLoop();
     }
     
@@ -94,7 +95,7 @@ public class GameManager
     
     public void distribuicaoDeTropas(Pais pais){
         gameLoop.distribuiTropas(pais);
-    }
+    }   
     
     
     public void fazCoisa(Pais pais)
