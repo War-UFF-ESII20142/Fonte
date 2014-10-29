@@ -216,7 +216,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
     {
         return stage;
     }
-            
+    
     private void addNewPlayer(ComboBox cBoxCor, String tipo, Stage primaryStage) {
         TextField TFNome = new TextField();
         TFNome.setPromptText("Nome");

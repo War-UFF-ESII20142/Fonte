@@ -84,6 +84,8 @@ public class GameManager
         if(ataque)
         {
            //pais que vai atacar 
+            int qtdExercito = janelaJogo.getQtdExercito();
+            System.out.println("Qtd Exercito atacante: "+qtdExercito);
             gameLoop.setAtacante(pais);
             ataque = false;
         }else
@@ -116,9 +118,6 @@ public class GameManager
         {
             fazAtaque(pais);
         }
-        
-        
-        
     }
     
     public void terminaDistruibuicao(){

@@ -34,6 +34,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
 
@@ -58,6 +59,9 @@ public class JanelaJogo extends Application implements iObserver
     private DataManager dataManager;
     private String paisAtacante, paisAtacado;
     private boolean auxiliarEscolha = true;
+    private int qtdExercitoAtaque;
+    private ComboBox cBox;
+    private Stage pStage = new Stage();
     
     public JanelaJogo(DataManager data)
     {
@@ -111,6 +115,8 @@ public class JanelaJogo extends Application implements iObserver
     private void initComponents()
     {
         olPlayers= FXCollections.observableArrayList();
+        qtdExercitoAtaque = 0;
+        cBox = new ComboBox();
         
         pane = new AnchorPane();
         pane.setPrefSize(1000, 600);
@@ -467,6 +473,53 @@ public class JanelaJogo extends Application implements iObserver
     
     public String paisAtacado(){
         return this.paisAtacado;
+    }
+    
+    public int getQtdExercito()
+    {
+        AnchorPane acPane = new AnchorPane();
+        acPane.setPrefSize(200, 200);
+        acPane.getStyleClass().add("pane");
+        
+        
+        int numeroTropas = 3;
+        
+        for(int i = 1;i <= numeroTropas;i++)
+        {
+            cBox.getItems().add(Integer.toString(i));
+        }
+        
+        Label lbNumeroTropas = new Label();
+        lbNumeroTropas.setText("Selecione o numero de\ntropas para ataque");
+        
+        Button btnOk = new Button("ok");
+        
+        acPane.getChildren().addAll(cBox,lbNumeroTropas,btnOk);
+        
+        Scene scene = new Scene(acPane);
+        
+        pStage.setScene(scene);
+        pStage.show();
+        
+        cBox.setLayoutX( (acPane.getWidth() - cBox.getWidth())/2 );
+        cBox.setLayoutY((acPane.getHeight() - cBox.getHeight())/2);
+        
+        lbNumeroTropas.setLayoutX( (acPane.getWidth() - lbNumeroTropas.getWidth())/2 );
+        lbNumeroTropas.setLayoutY( 50 );
+        
+        btnOk.setLayoutX( (acPane.getWidth() - btnOk.getWidth())/2 );
+        btnOk.setLayoutY(150);
+        
+        btnOk.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                qtdExercitoAtaque = Integer.parseInt(cBox.getValue().toString());
+                pStage.close();
+            }
+        });
+        return qtdExercitoAtaque;
     }
     
 }
