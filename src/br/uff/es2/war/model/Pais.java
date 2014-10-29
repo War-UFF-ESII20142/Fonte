@@ -28,6 +28,7 @@ public class Pais {
         this.codigoArquivo = new SimpleStringProperty(codigo);
         vizinhos = new ArrayList<>();
         this.continente = continente;
+        numeroDeTropas = 1;
     }
     
     public void addVizinhos(Pais t)
