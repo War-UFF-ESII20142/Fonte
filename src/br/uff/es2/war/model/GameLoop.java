@@ -150,6 +150,7 @@ public class GameLoop implements iObservable, IGameLoop{
     public void processaAtaque(Pais atacante, Pais atacado){
         
     } 
+    
     @Override
     public void distribuiTropas (Pais pais){
         Player currentPlayer = players.get(currentIndex);
