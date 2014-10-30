@@ -108,6 +108,20 @@ public class DataManager
         continentes.add(continente3);
         continentes.add(continente4);
         
+        addVizinhosReitoria();
+        
+        addvizinhos("Historia","Fisica");
+        addvizinhos("Engenharia","Historia");
+        addvizinhos("Bandejao","Engenharia");
+        addvizinhos("Arquitetura","Bandejao");
+        addvizinhos("Computacao","Veterinaria");
+        addvizinhos("Computacao","IACS");
+        addvizinhos("EducacaoFisica","Administracao");
+        addvizinhos("Pedagogia","Biologia");
+        addvizinhos("Pedagogia","Administracao");
+        addvizinhos("Reitoria","Quimica");
+        
+        
     }
     
     public ArrayList<Pais> getPaises()
@@ -118,6 +132,28 @@ public class DataManager
     public ArrayList<Continente> getContinentes()
     {
         return continentes;
+    }
+    
+    private void addvizinhos(String paisA,String paisB)
+    {
+        Pais pPaisA = getPais(paisA);
+        Pais pPaisB = getPais(paisB);
+        
+        pPaisA.addVizinhos(pPaisB);
+        pPaisB.addVizinhos(pPaisA);
+    }
+    
+    private void  addVizinhosReitoria()
+    {
+        Pais reitoria = getPais("Reitoria");
+        for(Pais p : paises)
+        {
+            if(!p.getNome().equals(reitoria.getNome()))
+            {
+                p.addVizinhos(reitoria);
+                reitoria.addVizinhos(p);
+            }
+        }
     }
     
     public Pais getPais(String codigo,String continente)
@@ -152,11 +188,8 @@ public class DataManager
     }
 
 
-    public Pais getPaisByNome(String nome,String continente){
-
-
-
-     
+    public Pais getPaisByNome(String nome,String continente)
+    {
 
         Pais pais = new Pais("","",new Continente(0, ""));
         

@@ -23,9 +23,10 @@ public class GameManager
     private ObservableList<Player> olPlayers;
     private GameLoop gameLoop;
     private JanelaJogo janelaJogo;
-    DataManager dataManager;
+    private DataManager dataManager;
     private boolean ataque, distribuiTropas, remanejaTropas, auxiliarNaDistribuicao;
     private boolean inAttack;
+    private Pais paisAtacante;
     
     
     public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
@@ -51,13 +52,16 @@ public class GameManager
     
     public void roundTerminou()
     {
-
-
         this.distribuiTropas = true;
+        inAttack = false;
         gameLoop.principalLoop();
     }
     
     public void attack(){
+       if(!inAttack)
+       {
+           distribuiTropas = false;
+       }
        inAttack = !inAttack;
     }
     
@@ -79,14 +83,21 @@ public class GameManager
         return gameLoop;
     }
     
+    /*
+    * Informa a quantidade de soldados selecionados
+    */
+    public void informaQtdSoldadosSelec(int qtdSoldados)
+    {
+            gameLoop.setAtacante(paisAtacante,qtdSoldados);
+    }
+    
     public void fazAtaque(Pais pais)
     {
         if(ataque)
         {
            //pais que vai atacar 
-            int qtdExercito = janelaJogo.getQtdExercito();
-            System.out.println("Qtd Exercito atacante: "+qtdExercito);
-            gameLoop.setAtacante(pais);
+            this.paisAtacante = pais;
+            janelaJogo.getQtdExercito(pais);
             ataque = false;
         }else
         {
@@ -100,7 +111,15 @@ public class GameManager
     }
     
     public void distribuicaoDeTropas(Pais pais){
-        gameLoop.distribuiTropas(pais);
+        if(gameLoop.temTropa())
+        {
+            gameLoop.distribuiTropas(pais);
+        }
+        else
+        {
+            janelaJogo.avisaAcabouTropas();
+            //terminaDistruibuicao();
+        }
     }   
     
     

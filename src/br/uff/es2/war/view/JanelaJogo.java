@@ -36,6 +36,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -53,7 +54,7 @@ public class JanelaJogo extends Application implements iObserver
     private GameLoop gameLoop;
     private Button btnTerminarRodada;
     private Button btnAtaque;
-    private Button btnfinalizaDistribuicao;
+    private Button btnFinalizaDistribuicao;
     private Button btnMostrarCartas; //A
     private Button btnMostrarObjetivo; //A
     private HBox horizontalBox;
@@ -134,12 +135,15 @@ public class JanelaJogo extends Application implements iObserver
         
         btnTerminarRodada = new Button("Terminar");
         btnTerminarRodada.getStyleClass().add("button");
+        btnTerminarRodada.setVisible(false);
         
         btnAtaque = new Button("Ataque");
         btnAtaque.getStyleClass().add("button");
+        btnAtaque.setVisible(false);
         
-        btnfinalizaDistribuicao = new Button("Finaliza Distruibuição");
-        btnfinalizaDistribuicao.getStyleClass().add("button");
+        btnFinalizaDistribuicao = new Button("Finaliza Distruibuição");
+        btnFinalizaDistribuicao.getStyleClass().add("button");
+        btnFinalizaDistribuicao.setVisible(false);
         
         btnMostrarCartas = new Button("Mostrar cartas");
         btnMostrarCartas.getStyleClass().add("button");
@@ -152,7 +156,7 @@ public class JanelaJogo extends Application implements iObserver
         ObjetivoECartasBox.getChildren().addAll(btnMostrarCartas, btnMostrarObjetivo);
         
         horizontalBox = new HBox(15);
-        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada,btnfinalizaDistribuicao);
+        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada,btnFinalizaDistribuicao);
         
         //pane.getChildren().addAll(gameImage,info,horizontalBox);
         pane.getChildren().addAll(gameImage,info,horizontalBox,ObjetivoECartasBox);
@@ -171,7 +175,7 @@ public class JanelaJogo extends Application implements iObserver
         horizontalBox.setLayoutY( pane.getHeight() - 10 - horizontalBox.getHeight() );
         
         ObjetivoECartasBox.setLayoutX( pane.getWidth() - 30 - ObjetivoECartasBox.getWidth() );
-        ObjetivoECartasBox.setLayoutY( pane.getHeight() - 500 - ObjetivoECartasBox.getHeight() );
+        ObjetivoECartasBox.setLayoutY( 20 );
     }
     
     public Stage getStage()
@@ -335,6 +339,8 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 gameController.roundTerminou();
+                btnAtaque.setVisible(false);
+                btnTerminarRodada.setVisible(false);
             }
         });
         
@@ -346,7 +352,7 @@ public class JanelaJogo extends Application implements iObserver
             }
         });
         
-        btnfinalizaDistribuicao.setOnAction(new EventHandler<ActionEvent>() {
+        btnFinalizaDistribuicao.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -512,15 +518,15 @@ public class JanelaJogo extends Application implements iObserver
         return this.paisAtacado;
     }
     
-    public int getQtdExercito()
+    public void getQtdExercito(Pais paisAtacante)
     {
         AnchorPane acPane = new AnchorPane();
         acPane.setPrefSize(200, 200);
         acPane.getStyleClass().add("pane");
         
         
-        int numeroTropas = 3;
-        
+        int numeroTropas = ( (paisAtacante.getNumeroDeTroopas()-1)>3?3:paisAtacante.getNumeroDeTroopas()-1 );
+        cBox.getItems().clear();
         for(int i = 1;i <= numeroTropas;i++)
         {
             cBox.getItems().add(Integer.toString(i));
@@ -553,10 +559,17 @@ public class JanelaJogo extends Application implements iObserver
             public void handle(ActionEvent event) 
             {
                 qtdExercitoAtaque = Integer.parseInt(cBox.getValue().toString());
+                gameController.informaQtdSoldadosSelec(qtdExercitoAtaque);
                 pStage.close();
             }
         });
-        return qtdExercitoAtaque;
+    }
+
+    public void avisaAcabouTropas() 
+    {
+        btnAtaque.setVisible(true);
+        btnTerminarRodada.setVisible(true);
+        JOptionPane.showConfirmDialog(null, "Você não tem mais tropas para distribuir.\nCom isso, sua rodada de distribuição acabou", "Alerta", JOptionPane.OK_CANCEL_OPTION);
     }
     
 }

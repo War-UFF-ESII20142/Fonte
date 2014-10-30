@@ -21,7 +21,7 @@ public interface IGameLoop {
     public int increaseIndex();
     public void principalLoop();
     public void setAtacado(Pais atacado);
-    public void setAtacante(Pais atacante);
+    public void setAtacante(Pais atacante,int qtdExercito);
     public void addObserver(iObserver observer);
     public void removeObserver(iObserver observer);
     public void avisaMudancas();

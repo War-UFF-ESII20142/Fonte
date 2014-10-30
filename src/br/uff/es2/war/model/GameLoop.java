@@ -65,7 +65,7 @@ public class GameLoop implements iObservable, IGameLoop{
             paises.remove(paises.get(0));
         }
         
-        observerList.get(0).updateCircles();
+        avisaMudancas();
         
     }
     
@@ -90,6 +90,11 @@ public class GameLoop implements iObservable, IGameLoop{
         if(currentIndex > players.size()-1) currentIndex = 0;
         avisaMudancas();
         return currentIndex;
+    }
+    
+    public boolean temTropa()
+    {
+        return numeroDeTropasAAlocarRodada > 0;
     }
     
     public void principalLoop()
@@ -137,10 +142,10 @@ public class GameLoop implements iObservable, IGameLoop{
         return  false;
     }
     
-    public void setAtacante(Pais atacante)
+    public void setAtacante(Pais atacante,int qtdExercito)
     {
         this.atacante = atacante;
-        System.out.println("atacante: "+atacante.getNome());
+        System.out.println("atacante: "+atacante.getNome()+" Exercito: "+qtdExercito);
        
     }
     
