@@ -24,7 +24,7 @@ public class HumanPlayer implements Player {
     private SimpleStringProperty tipo = new SimpleStringProperty();
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
-    
+    private SimpleStringProperty objetivo = new SimpleStringProperty();
     
     public HumanPlayer(String nome, String cor, String tipo){
         this.tipo = new SimpleStringProperty(tipo);
@@ -131,5 +131,19 @@ public class HumanPlayer implements Player {
     
     public int numeroDePaises(){
        return this.meusPaises.size();
+    }
+
+    /**
+     * @return the cards
+     */
+    public ArrayList<Carta> getCards() {
+        return cards;
+    }
+
+    /**
+     * @return the objetivo
+     */
+    public String getObjetivo() {
+        return objetivo.get();
     }
 }

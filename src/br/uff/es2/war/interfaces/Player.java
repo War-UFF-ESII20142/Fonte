@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.interfaces;
 
+import br.uff.es2.war.model.Carta;
 import br.uff.es2.war.model.Pais;
 import java.util.ArrayList;
 
@@ -23,7 +24,11 @@ public interface Player {
     public String getCor();
     
     public ArrayList<Pais> getMeusPaises();
+    
+    public ArrayList<Carta> getCards();
 
+    public String getObjetivo();
+    
     public void setMeusPaises(ArrayList<Pais> meusPaises);
     
     public void addPais(Pais pais);

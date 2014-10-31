@@ -6,14 +6,12 @@
 
 package br.uff.es2.war.view;
 
-import br.uff.es2.war.model.Pais;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,17 +20,18 @@ import javafx.stage.Stage;
  *
  * @author AleGomes
  */
-public class JanelaObjetivo extends Application {
+public class JanelaCartas extends Application {
+    /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
     private AnchorPane pane;
     private Stage stage;
-    private Label lbObjetivo;
+    private Label lbTitulo;
     private Button btnOk;
-    private String objetivo;
-    
-    public JanelaObjetivo(String objetivo){
-        this.objetivo = objetivo;
-    }
+    private Button btnTrocar;
   
     @Override
     public void start(Stage primaryStage) throws Exception 
@@ -43,7 +42,7 @@ public class JanelaObjetivo extends Application {
         Scene scene = new Scene(pane);
         //scene.getStylesheets().add("/stylesheet/JanelaNumeroTropas.css");
         this.stage.setScene(scene);
-        this.stage.setTitle("Objetivo");
+        
         stage.show();
         
         initListeners();
@@ -56,21 +55,28 @@ public class JanelaObjetivo extends Application {
         pane.setPrefSize(200, 200);
         pane.getStyleClass().add("pane");
         
-        lbObjetivo = new Label();
-        lbObjetivo.setText(this.objetivo);
+        lbTitulo = new Label();
+        lbTitulo.setText("Suas Cartas:");
+        
+        //Tabela com quadradinho de marcar;
+        
+        //Botao de fazer trocas
         
         btnOk = new Button("ok");
+        btnTrocar = new Button("Trocar");
         
-        pane.getChildren().addAll(lbObjetivo,btnOk);
+        pane.getChildren().addAll(btnTrocar,lbTitulo,btnOk);
     }
     
     private void initLayout() 
     {
-        lbObjetivo.setLayoutX( (pane.getWidth() - lbObjetivo.getWidth())/2 );
-        lbObjetivo.setLayoutY((pane.getHeight() - lbObjetivo.getHeight())/2);
+        lbTitulo.setLayoutX( (pane.getWidth() - lbTitulo.getWidth())/2 );
+        lbTitulo.setLayoutY( 50 );
         
         btnOk.setLayoutX( (pane.getWidth() - btnOk.getWidth())/2 );
         btnOk.setLayoutY(150);
+        btnTrocar.setLayoutX( (pane.getWidth() - btnOk.getWidth())/2 );
+        btnTrocar.setLayoutY(150);
     }
     
     public static void main(String[] args) {
@@ -84,6 +90,14 @@ public class JanelaObjetivo extends Application {
             public void handle(ActionEvent event) 
             {
                 stage.close();
+            }
+        });
+        
+        btnTrocar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                //Realizar troca
             }
         });
     }

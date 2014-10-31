@@ -143,4 +143,8 @@ public class GameManager
         this.distribuiTropas = false;
     }
     
+    public String mostrarObjetivo(){
+        return this.gameLoop.getObjetivo();
+    }
+    
 }

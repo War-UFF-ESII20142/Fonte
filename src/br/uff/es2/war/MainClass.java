@@ -6,6 +6,7 @@
 package br.uff.es2.war;
 
 import br.uff.es2.war.view.JanelaJogo;
+import br.uff.es2.war.view.JanelaObjetivo;
 import br.uff.es2.war.view.JanelaPrincipal;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -85,5 +85,15 @@ public class BotPlayer implements Player{
     public int numeroDePaises(){
         return 0;
     }
+
+    @Override
+    public ArrayList<Carta> getCards() {
+        return this.cards;
+    }
+
+    @Override
+    public String getObjetivo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
