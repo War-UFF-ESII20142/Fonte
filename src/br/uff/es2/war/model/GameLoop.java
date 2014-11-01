@@ -206,7 +206,7 @@ public class GameLoop implements iObservable, IGameLoop {
     }
 
     public String getObjetivo() {
-        return this.getCurrentPlayer().getObjetivo();
+        return this.getCurrentPlayer().getObjetivo().getNome();
     }
 
     private void orgVetor(int[] num) {

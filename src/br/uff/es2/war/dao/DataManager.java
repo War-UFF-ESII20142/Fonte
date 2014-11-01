@@ -26,6 +26,7 @@ public class DataManager
     {
         paises = new ArrayList<>();
         continentes = new ArrayList<>();
+        objetivos = new ArrayList<>();
         carregaDadosBd();
     }
     
