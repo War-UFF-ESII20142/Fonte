@@ -32,7 +32,7 @@ public class Tools
         switch(cor)
         {
             case "Amarelo":
-                return "yellow";
+                return "Gold";
             case "Verde":
                 return "green";
             case "Vermelho":

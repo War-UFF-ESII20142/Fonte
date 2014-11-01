@@ -12,6 +12,7 @@ import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObserver;
 import br.uff.es2.war.model.GameLoop;
 import br.uff.es2.war.model.Pais;
+import br.uff.es2.war.model.HumanPlayer; //A
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -148,7 +149,7 @@ public class JanelaJogo extends Application implements iObserver
         btnMostrarCartas = new Button("Mostrar cartas");
         btnMostrarCartas.getStyleClass().add("button");
         
-        btnMostrarObjetivo = new Button("Mostrar objetivos");
+        btnMostrarObjetivo = new Button("Mostrar objetivo");
         btnMostrarObjetivo.getStyleClass().add("button");
                 
         ObjetivoECartasBox = new HBox(10);
@@ -364,6 +365,12 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 //Abrir janela e mostrar cartas em posse do atual jogador.
+                JanelaCartas jCartas = new JanelaCartas();
+                try {
+                    jCartas.start(pStage);
+                } catch (Exception ex) {
+                    Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -371,8 +378,8 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 //Abrir janela com o objetivo do atual jogador
-                //gameController.mostrarObjetivo();
-                JanelaObjetivo obj = new JanelaObjetivo();
+                String objetivo = gameController.mostrarObjetivo();
+                JanelaObjetivo obj = new JanelaObjetivo(objetivo);
                 try {
                     obj.start(pStage);
                 } catch (Exception ex) {
