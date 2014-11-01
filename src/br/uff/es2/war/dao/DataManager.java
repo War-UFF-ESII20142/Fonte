@@ -38,7 +38,7 @@ public class DataManager
         pais1.addAllVizinhos(pais2,pais5);
         pais2.addAllVizinhos(pais1,pais3,pais4,pais5);
         pais3.addAllVizinhos(pais2,pais4);
-        pais4.addAllVizinhos(pais2,pais3,pais4);
+        pais4.addAllVizinhos(pais2,pais3,pais4,pais5);
         pais5.addAllVizinhos(pais1,pais2,pais4);
         paises.add(pais1);
         paises.add(pais2);
