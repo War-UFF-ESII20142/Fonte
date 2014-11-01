@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.interfaces.Player;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -38,7 +39,12 @@ public class Objetivo {
         this.nome.set(nome);
     }
     
-    public void checaObjetivo(){
+    public boolean checaObjetivo(Player p){
+        if (p.numeroDePaises()  == 21 ) {
+            return true;
+        }else{
+            return false;
+        }
         
     }
     

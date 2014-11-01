@@ -5,7 +5,9 @@
  */
 package br.uff.es2.war.dao;
 
+
 import br.uff.es2.war.model.Continente;
+import br.uff.es2.war.model.Objetivo;
 import br.uff.es2.war.model.Pais;
 import br.uff.es2.war.util.types;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class DataManager
 {
     private ArrayList<Pais> paises;
     private ArrayList<Continente> continentes;
+    private ArrayList <Objetivo> objetivos;
     
     public DataManager()
     {
@@ -122,6 +125,16 @@ public class DataManager
         addvizinhos("Pedagogia","Administracao");
         addvizinhos("Reitoria","Quimica");
         
+        Objetivo objetivo1 = new Objetivo(1, "Você deve conquistar a UFF");
+        objetivos.add(objetivo1);
+        objetivos.add(objetivo1);
+        objetivos.add(objetivo1);
+        objetivos.add(objetivo1);
+        objetivos.add(objetivo1);
+        objetivos.add(objetivo1);
+        
+        
+        
         
     }
     
@@ -211,6 +224,22 @@ public class DataManager
 
 
   }
+    
+    public int getNumeroDeObjetivos(){
+        return objetivos.size();
+    }
+    
+    public Objetivo getObjetivo(int index){
+        return objetivos.get(index);
+    }
+    
+    public void excluiObjetivo(int index){
+        this.objetivos.remove(index);
+    }
+    
+    public ArrayList<Objetivo> getArrayObjetivos(){
+        return objetivos;
+    }
 
 
 }

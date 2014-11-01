@@ -43,4 +43,6 @@ public interface Player {
     
     public void setObjetivo(Objetivo objetivo);
     
+    public boolean checaObjetivo();
+    
 }

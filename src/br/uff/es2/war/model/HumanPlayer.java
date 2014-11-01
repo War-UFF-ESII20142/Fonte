@@ -152,4 +152,8 @@ public class HumanPlayer implements Player {
     public void setObjetivo(Objetivo objetivo){
         this.objetivo = objetivo;
     }
+    
+    public boolean checaObjetivo(){
+        return this.objetivo.checaObjetivo(this);
+    }
 }
