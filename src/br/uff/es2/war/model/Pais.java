@@ -84,6 +84,11 @@ public class Pais {
         return numeroDeTropas;
     }
     
+    public void setTropas(int qtd)
+    {
+        this.numeroDeTropas = qtd;
+    }
+    
     public boolean isVizinho(Pais pais){
         if (vizinhos.contains(pais)) {
             return true;
