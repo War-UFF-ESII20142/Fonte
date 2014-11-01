@@ -37,6 +37,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.WindowEvent;
 import javax.swing.JOptionPane;
 
 
@@ -341,6 +342,7 @@ public class JanelaJogo extends Application implements iObserver
             public void handle(ActionEvent event) {
                 gameController.roundTerminou();
                 btnAtaque.setVisible(false);
+                btnAtaque.setDisable(false);
                 btnTerminarRodada.setVisible(false);
             }
         });
@@ -349,6 +351,15 @@ public class JanelaJogo extends Application implements iObserver
             
             @Override
             public void handle(ActionEvent event){
+                if(!gameController.isInAttack())
+                {
+                    btnAtaque.setText("F ataq");
+                }
+                else
+                {
+                    btnAtaque.setText("Ataque");
+                    btnAtaque.setDisable(true);
+                }
                 gameController.attack();
             }
         });
@@ -532,8 +543,17 @@ public class JanelaJogo extends Application implements iObserver
         acPane.getStyleClass().add("pane");
         
         
-        int numeroTropas = ( (paisAtacante.getNumeroDeTroopas()-1)>3?3:paisAtacante.getNumeroDeTroopas()-1 );
+        int numeroTropas ;
+        if(gameController.isInAttack())
+        {
+            numeroTropas = ( (paisAtacante.getNumeroDeTroopas()-1)>3?3:paisAtacante.getNumeroDeTroopas()-1 );
+        }
+        else
+        {
+            numeroTropas = paisAtacante.getNumeroDeTroopas() -1;
+        }
         cBox.getItems().clear();
+        
         for(int i = 1;i <= numeroTropas;i++)
         {
             cBox.getItems().add(Integer.toString(i));
@@ -542,9 +562,12 @@ public class JanelaJogo extends Application implements iObserver
         Label lbNumeroTropas = new Label();
         lbNumeroTropas.setText("Selecione o numero de\ntropas para ataque");
         
-        Button btnOk = new Button("ok");
+        Button btnOk = new Button("Ok");
+        Button btnCancel = new Button("cancel");
         
-        acPane.getChildren().addAll(cBox,lbNumeroTropas,btnOk);
+        HBox hbox = new HBox(10,btnOk,btnCancel);
+        
+        acPane.getChildren().addAll(cBox,lbNumeroTropas,hbox);
         
         Scene scene = new Scene(acPane);
         
@@ -557,8 +580,9 @@ public class JanelaJogo extends Application implements iObserver
         lbNumeroTropas.setLayoutX( (acPane.getWidth() - lbNumeroTropas.getWidth())/2 );
         lbNumeroTropas.setLayoutY( 50 );
         
-        btnOk.setLayoutX( (acPane.getWidth() - btnOk.getWidth())/2 );
-        btnOk.setLayoutY(150);
+        
+        hbox.setLayoutX( (acPane.getWidth() - hbox.getWidth())/2 );
+        hbox.setLayoutY(150);
         
         btnOk.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -568,6 +592,26 @@ public class JanelaJogo extends Application implements iObserver
                 qtdExercitoAtaque = Integer.parseInt(cBox.getValue().toString());
                 gameController.informaQtdSoldadosSelec(qtdExercitoAtaque);
                 pStage.close();
+            }
+        });
+        
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                gameController.setAtaque(true);
+                pStage.close();
+            }
+        });
+        
+        pStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent event) {
+                gameController.setAtaque(true);
+                pStage.close();
+         
             }
         });
     }

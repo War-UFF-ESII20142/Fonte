@@ -25,6 +25,7 @@ public class GameManager
     private DataManager dataManager;
     private boolean ataque, distribuiTropas, remanejaTropas, auxiliarNaDistribuicao;
     private boolean inAttack;
+    private boolean inRelocation;
     private Pais paisAtacante;
     
     
@@ -34,6 +35,7 @@ public class GameManager
         auxiliarNaDistribuicao = true;
         ataque = true;
         inAttack = false;
+        inRelocation = false;
         distribuiTropas = true;
         remanejaTropas = false;
         dataManager = data;
@@ -53,6 +55,7 @@ public class GameManager
     {
         this.distribuiTropas = true;
         inAttack = false;
+        inRelocation = false;
         gameLoop.principalLoop();
     }
     
@@ -60,8 +63,15 @@ public class GameManager
        if(!inAttack)
        {
            distribuiTropas = false;
+           inAttack = true;
+           gameLoop.setInAttack(true);
        }
-       inAttack = !inAttack;
+       else
+       {
+            inAttack = false;
+            gameLoop.setInAttack(inAttack);
+            inRelocation = true;
+       }
     }
     
     
@@ -90,6 +100,12 @@ public class GameManager
             gameLoop.setAtacante(paisAtacante,qtdSoldados);
     }
     
+    public void finalizaAtaque()
+    {
+        inAttack = false;
+        inRelocation = true;
+    }
+    
     public void fazAtaque(Pais pais)
     {
         if(ataque)
@@ -98,14 +114,24 @@ public class GameManager
             {
                 //pais que vai atacar 
                 this.paisAtacante = pais;
-                janelaJogo.getQtdExercito(pais);
                 ataque = false;
+                janelaJogo.getQtdExercito(pais);
             }
         }else
         {
             //pais que será atacado
-            gameLoop.setAtacado(pais);
-            ataque = true;
+            if(inRelocation)
+            {
+                if(pais.getDono().getNome().equals(gameLoop.getCurrentPlayer().getNome()))
+                {
+                    gameLoop.setAtacado(pais);
+                    ataque = true;
+                }
+            }else
+            {
+                gameLoop.setAtacado(pais);
+                ataque = true;
+            }
             
             
         }
@@ -135,7 +161,7 @@ public class GameManager
             distribuicaoDeTropas(pais);
         }
         
-        if(inAttack)
+        if(inAttack || inRelocation)
         {
             fazAtaque(pais);
         }
@@ -149,4 +175,14 @@ public class GameManager
         return this.gameLoop.getObjetivo();
     }
     
+    public boolean isInAttack()
+    {
+        return inAttack;
+    }
+    
+    public void setAtaque(boolean ataque)
+    {
+        System.out.println(ataque + "  " + this.ataque);
+        this.ataque = ataque;
+    }
 }

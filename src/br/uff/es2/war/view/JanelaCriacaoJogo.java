@@ -246,7 +246,9 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         newPlayerStage.setX(primaryStage.getX() + 250);
         newPlayerStage.setY(primaryStage.getY() + 100);
         newPlayerStage.show();
-
+        
+        newPlayerStage.centerOnScreen();
+        
         btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

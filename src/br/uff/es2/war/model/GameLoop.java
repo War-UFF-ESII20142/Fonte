@@ -28,6 +28,7 @@ public class GameLoop implements iObservable, IGameLoop{
     private Pais atacado;
     private int numeroDeTropasAAlocarRodada;
     private int numeroTropasAtaque;
+    private boolean inAttack;
 
     public GameLoop() {
     }
@@ -38,6 +39,7 @@ public class GameLoop implements iObservable, IGameLoop{
     public GameLoop(ArrayList<Player> players,DataManager manager){
         numeroDeTropasAAlocarRodada = 0;
         numeroTropasAtaque = 0;
+        inAttack = false;
         this.players = players;
         it = players.iterator();
         observerList = new ArrayList<>();
@@ -132,7 +134,14 @@ public class GameLoop implements iObservable, IGameLoop{
         System.out.println("atacado: "+atacado.getNome());
         if (this.atacante.getDono().getNome().equals(getCurrentPlayer().getNome())) {
             if(this.atacante.getNumeroDeTroopas() > 1){
-                processaAtaque(atacante, atacado, numeroTropasAtaque);
+                if(inAttack)
+                {
+                    processaAtaque(atacante, atacado, numeroTropasAtaque);
+                }
+                else
+                {
+                    processaRemanejamento(atacante,atacado,numeroTropasAtaque);
+                }
             }else{
                 System.out.println("Você não possui tropas suficientes para atacar");
             }
@@ -147,6 +156,7 @@ public class GameLoop implements iObservable, IGameLoop{
         return  false;
     }
     
+    @Override
     public void setAtacante(Pais atacante,int qtdExercito)
     {
         this.atacante = atacante;
@@ -175,6 +185,7 @@ public class GameLoop implements iObservable, IGameLoop{
         }
     }
     
+    @Override
     public void processaAtaque(Pais atacante, Pais atacado){
         if(atacante.isVizinho(atacado)){
             processaAtaque(atacante, atacado, currentIndex);
@@ -245,7 +256,7 @@ public class GameLoop implements iObservable, IGameLoop{
         return baixas;
     }
  
-    public void processaAtaque(Pais atacante, Pais atacado, int qtdDeTropas) {
+    private void processaAtaque(Pais atacante, Pais atacado, int qtdDeTropas) {
         int baixas[], numDefensores;
         if (atacante.isVizinho(atacado)) {
             if (qtdDeTropas > 3) {
@@ -273,5 +284,16 @@ public class GameLoop implements iObservable, IGameLoop{
         } else {
             System.out.println("Esses paises não são vizinhos");
         }
+    }
+    
+    public void setInAttack(boolean inAttack)
+    {
+        this.inAttack = inAttack;
+    }
+    
+    private void processaRemanejamento(Pais paisFrom,Pais paisTo, int militarNumber)
+    {
+        paisFrom.setTropas(paisFrom.getNumeroDeTroopas() - militarNumber);
+        paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
     }
 }
