@@ -157,7 +157,7 @@ public class JanelaJogo extends Application implements iObserver
         ObjetivoECartasBox.getChildren().addAll(btnMostrarCartas, btnMostrarObjetivo);
         
         horizontalBox = new HBox(15);
-        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada,btnFinalizaDistribuicao);
+        horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada);
         
         //pane.getChildren().addAll(gameImage,info,horizontalBox);
         pane.getChildren().addAll(gameImage,info,horizontalBox,ObjetivoECartasBox);
