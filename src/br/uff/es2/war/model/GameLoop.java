@@ -205,7 +205,7 @@ public class GameLoop implements iObservable, IGameLoop {
         return this.numeroDeTropasAAlocarRodada();
     }
 
-    public String getObjetivo() {
+    public Objetivo getObjetivo() {
         return this.getCurrentPlayer().getObjetivo();
     }
 

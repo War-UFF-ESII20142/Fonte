@@ -389,7 +389,7 @@ public class JanelaJogo extends Application implements iObserver
             @Override
             public void handle(ActionEvent event) {
                 //Abrir janela com o objetivo do atual jogador
-                String objetivo = gameController.mostrarObjetivo();
+                String objetivo = gameController.mostrarObjetivo().getNome();
                 JanelaObjetivo obj = new JanelaObjetivo(objetivo);
                 try {
                     obj.start(pStage);
