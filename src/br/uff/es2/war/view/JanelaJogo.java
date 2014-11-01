@@ -342,6 +342,7 @@ public class JanelaJogo extends Application implements iObserver
             public void handle(ActionEvent event) {
                 gameController.roundTerminou();
                 btnAtaque.setVisible(false);
+                btnAtaque.setText("Ataque");
                 btnAtaque.setDisable(false);
                 btnTerminarRodada.setVisible(false);
             }
