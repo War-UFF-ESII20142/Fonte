@@ -261,7 +261,9 @@ public class GameLoop implements iObservable, IGameLoop{
                 if(numDefensores - baixas[1] > 0){
                     atacado.setTropas(atacado.getNumeroDeTroopas() - baixas[1]);
                 }else{
+                    atacado.getDono().remove(atacado);
                     atacado.setDono(atacante.getDono());
+                    atacante.getDono().addPais(atacado);
                     atacado.setTropas(qtdDeTropas - baixas[0]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - qtdDeTropas);
                     System.out.println("Digite o número de tropas para transferir.");
