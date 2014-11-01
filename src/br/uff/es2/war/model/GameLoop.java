@@ -205,8 +205,10 @@ public class GameLoop implements iObservable, IGameLoop {
         return this.numeroDeTropasAAlocarRodada();
     }
 
-    public String getObjetivo() {
-        return this.getCurrentPlayer().getObjetivo().getNome();
+
+    public Objetivo getObjetivo() {
+        return this.getCurrentPlayer().getObjetivo();
+
     }
 
     private void orgVetor(int[] num) {

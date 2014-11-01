@@ -8,6 +8,7 @@ package br.uff.es2.war;
 import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.model.GameLoop;
+import br.uff.es2.war.model.Objetivo;
 import br.uff.es2.war.model.Pais;
 import br.uff.es2.war.view.JanelaJogo;
 import java.util.ArrayList;
@@ -171,7 +172,7 @@ public class GameManager
         this.distribuiTropas = false;
     }
     
-    public String mostrarObjetivo(){
+    public Objetivo mostrarObjetivo(){
         return this.gameLoop.getObjetivo();
     }
     
