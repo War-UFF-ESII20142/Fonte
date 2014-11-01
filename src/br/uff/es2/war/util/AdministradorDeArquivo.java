@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.scene.shape.Circle;
 import br.uff.es2.war.view.TerritorioTela;
+import javafx.scene.Node;
 
 /**
  *
@@ -44,7 +45,7 @@ public class AdministradorDeArquivo
         lista.add(new TerritorioTela(new Circle(188,204,15),"Biologia","Valonguinho")); 
         lista.add(new TerritorioTela(new Circle(151,254,15),"Administracao","Valonguinho")); 
         lista.add(new TerritorioTela(new Circle(114,206,15),"STI","Valonguinho")); 
-
+        
         /*Scanner in = new Scanner(new File("paisesListaCoordenadas.txt"));
         while(in.hasNext())
         {
