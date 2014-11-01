@@ -112,6 +112,7 @@ public class DataManager
         
         addvizinhos("Historia","Fisica");
         addvizinhos("Engenharia","Historia");
+        addvizinhos("Engenharia", "Filosofia");
         addvizinhos("Bandejao","Engenharia");
         addvizinhos("Arquitetura","Bandejao");
         addvizinhos("Computacao","Veterinaria");

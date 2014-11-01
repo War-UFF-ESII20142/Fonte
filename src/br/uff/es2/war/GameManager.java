@@ -11,7 +11,6 @@ import br.uff.es2.war.model.GameLoop;
 import br.uff.es2.war.model.Pais;
 import br.uff.es2.war.view.JanelaJogo;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.collections.ObservableList;
 
 /**
@@ -95,10 +94,13 @@ public class GameManager
     {
         if(ataque)
         {
-           //pais que vai atacar 
-            this.paisAtacante = pais;
-            janelaJogo.getQtdExercito(pais);
-            ataque = false;
+            if(pais.getDono().getNome().equals(gameLoop.getCurrentPlayer().getNome()))
+            {
+                //pais que vai atacar 
+                this.paisAtacante = pais;
+                janelaJogo.getQtdExercito(pais);
+                ataque = false;
+            }
         }else
         {
             //pais que será atacado

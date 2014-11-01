@@ -237,6 +237,7 @@ public class JanelaCriacaoJogo extends Application implements iWindow{
         grid.add(btnCancelar, 1, 4);
 
         Scene newPlayerScene = new Scene(new Group(), 250, 150);
+        newPlayerScene.getStylesheets().add("/stylesheet/JanelaCriacaoJogo.css");
         Stage newPlayerStage = new Stage();
         newPlayerStage.setTitle("New Player");
         Group root = (Group) newPlayerScene.getRoot();
