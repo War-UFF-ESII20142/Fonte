@@ -38,4 +38,8 @@ public class Objetivo {
         this.nome.set(nome);
     }
     
+    public void checaObjetivo(){
+        
+    }
+    
 }
