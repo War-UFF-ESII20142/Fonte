@@ -24,13 +24,14 @@ public class HumanPlayer implements Player {
     private SimpleStringProperty tipo = new SimpleStringProperty();
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
-    private SimpleStringProperty objetivo = new SimpleStringProperty();
+    private Objetivo objetivo;
     
     public HumanPlayer(String nome, String cor, String tipo){
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
         this.meusPaises = new ArrayList<>();
+        this.objetivo = new Objetivo(0,"");
     }
 
     /**
@@ -143,7 +144,12 @@ public class HumanPlayer implements Player {
     /**
      * @return the objetivo
      */
-    public String getObjetivo() {
-        return objetivo.get();
+    @Override
+    public Objetivo getObjetivo() {
+        return objetivo;
+    }
+    
+    public void setObjetivo(Objetivo objetivo){
+        this.objetivo = objetivo;
     }
 }
