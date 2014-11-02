@@ -545,13 +545,16 @@ public class JanelaJogo extends Application implements iObserver
         
         
         int numeroTropas ;
+        Label lbNumeroTropas = new Label();
         if(gameController.isInAttack())
         {
             numeroTropas = ( (paisAtacante.getNumeroDeTroopas()-1)>3?3:paisAtacante.getNumeroDeTroopas()-1 );
+            lbNumeroTropas.setText("Selecione o numero de\ntropas para ataque");
         }
         else
         {
             numeroTropas = paisAtacante.getNumeroDeTroopas() -1;
+            lbNumeroTropas.setText("Selecione o numero de\ntropas para realocar");
         }
         cBox.getItems().clear();
         
@@ -559,9 +562,6 @@ public class JanelaJogo extends Application implements iObserver
         {
             cBox.getItems().add(Integer.toString(i));
         }
-        
-        Label lbNumeroTropas = new Label();
-        lbNumeroTropas.setText("Selecione o numero de\ntropas para ataque");
         
         Button btnOk = new Button("Ok");
         Button btnCancel = new Button("cancel");
