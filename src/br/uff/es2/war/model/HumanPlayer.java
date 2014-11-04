@@ -7,6 +7,7 @@
 package br.uff.es2.war.model;
 
 import br.uff.es2.war.interfaces.Player;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -159,22 +160,24 @@ public class HumanPlayer implements Player {
 
     @Override
     public ArrayList<Continente> getMeusContinentes() {
-        ArrayList<Continente> conts = new ArrayList<>();
+        ArrayList<Continente> conts = new ArrayList<>(), aux = new ArrayList<>();
         System.out.println("meusPaises.size(): " + meusPaises.size());
         for(Pais mP : meusPaises){
             if(!conts.contains(mP.getContinente()))
-                conts.add(mP.getContinente());
+                conts.add(mP.getContinente()); //add continentes onde tenho países, sem repetir
         }
-        System.out.println("Listei " + conts.size() + " continentes.");
         boolean isAll;
         for(Continente c : conts){
             isAll = true;
             for(Pais p : c.getPaises()){
-                if(!p.getDono().getNome().equals(nome.get()))
+                if(!p.getDono().getNome().equals(nome.get())/*!getMeusPaises.contains(p)*/)
                     isAll = false;
             }
             if(!isAll)
-                conts.remove(c);
+                aux.add(c); //continentes os quais possuo algum país, mas não todos
+        }
+        for (Continente c : aux) {
+            conts.remove(c);
         }
         return conts;
     }

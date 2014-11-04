@@ -184,7 +184,6 @@ public class GameLoop implements iObservable, IGameLoop {
         if(numeroDeTropasValonguinho>0 && pais.getContinente().getNome().equals(types.sVALONGUINHO)){ //Alternativa pra forçar a ordem: colocar if's separados, de modo que só possa ir pra um continente depois de fechar o outro.
             pais.incrementaNumeroDeTropas();
             numeroDeTropasValonguinho--;
-            System.out.println("Dominei o Valonguinho!");
         }else if(numeroDeTropasGragoata>0 && pais.getContinente().getNome().equals(types.sGRAGOATA)){
             pais.incrementaNumeroDeTropas();
             numeroDeTropasGragoata--;
@@ -194,8 +193,7 @@ public class GameLoop implements iObservable, IGameLoop {
         }else if(numeroDeTropasUI>0 && pais.getContinente().getNome().equals(types.sUNIDADEISOLADAS)){
             pais.incrementaNumeroDeTropas();
             numeroDeTropasUI--;
-        }
-        else if (numeroDeTropasAAlocarRodada > 0) {
+        }else if (numeroDeTropasAAlocarRodada > 0) {
             if (pais.getDono().getNome().equals(currentPlayer.getNome())) {
                 pais.incrementaNumeroDeTropas();
                 numeroDeTropasAAlocarRodada--;
@@ -218,15 +216,12 @@ public class GameLoop implements iObservable, IGameLoop {
             numeroDeTropasAAlocarRodada = 3; //min = 3, following the rules
         
         //Tropas por continente (definidas pelas constantes do código para o WAR UFF):
-        System.out.println("getMeusContinentes for " + currentPlayer.getNome() + ": " + currentPlayer.getMeusContinentes().size());
         for(Continente c : currentPlayer.getMeusContinentes()){
-            System.out.println("Entrou no for each!");
             if(c.getNome().equals(types.sVALONGUINHO)) numeroDeTropasValonguinho = 2;
             else if(c.getNome().equals(types.sGRAGOATA)) numeroDeTropasGragoata = 3;
             else if(c.getNome().equals(types.sPRAIAVERMELHA)) numeroDeTropasPV = 4;
             else if(c.getNome().equals(types.sUNIDADEISOLADAS)) numeroDeTropasUI = 5;
         }
-        System.out.println("Numero de tropas do Valonguinho p/ " + currentPlayer.getNome() + ": " + numeroDeTropasValonguinho);
     }
 
     public int numeroDeTropasAAlocarRodada() {
