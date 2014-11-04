@@ -156,4 +156,27 @@ public class HumanPlayer implements Player {
     public boolean checaObjetivo(){
         return this.objetivo.checaObjetivo(this);
     }
+
+    @Override
+    public ArrayList<Continente> getMeusContinentes() {
+        ArrayList<Continente> conts = new ArrayList<>();
+        System.out.println("meusPaises.size(): " + meusPaises.size());
+        for(Pais mP : meusPaises){
+            if(!conts.contains(mP.getContinente()))
+                conts.add(mP.getContinente());
+        }
+        System.out.println("Listei " + conts.size() + " continentes.");
+        boolean isAll;
+        for(Continente c : conts){
+            isAll = true;
+            for(Pais p : c.getPaises()){
+                if(!p.getDono().getNome().equals(nome.get()))
+                    isAll = false;
+            }
+            if(!isAll)
+                conts.remove(c);
+        }
+        return conts;
+    }
+    
 }
