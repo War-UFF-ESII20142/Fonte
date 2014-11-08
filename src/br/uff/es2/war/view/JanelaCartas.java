@@ -4,6 +4,8 @@ import br.uff.es2.war.WindowManager;
 import br.uff.es2.war.model.Carta;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,11 +14,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -85,10 +90,33 @@ public class JanelaCartas extends Application {
                 //windowController.startMainWindow(JanelaJogo.this);
             }
         });
+
+        //Desmarcar linhas ja selecionadas
+        tbCarta.setRowFactory(new Callback<TableView<Carta>, TableRow<Carta>>() {
+            @Override
+            public TableRow<Carta> call(TableView<Carta> tableView2) {
+                final TableRow<Carta> row = new TableRow<>();
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        final int index = row.getIndex();
+                        if (index >= 0 && index < tbCarta.getItems().size() && tbCarta.getSelectionModel().isSelected(index)) {
+                            tbCarta.getSelectionModel().clearSelection();
+                            event.consume();
+                        }
+                    }
+                });
+                return row;
+            }
+        });
     }
 
     private void initComponenets() {
         olCarta = FXCollections.observableArrayList();
+        olCarta.add(new Carta("A","B","C"));
+        olCarta.add(new Carta("Z","E","C"));
+        olCarta.add(new Carta("X","F","C"));
+        olCarta.add(new Carta("C","G","C"));
 
         pane = new AnchorPane();
         pane.setPrefSize(800, 600);
@@ -99,6 +127,7 @@ public class JanelaCartas extends Application {
         tbCarta.setMinWidth(500);
         tbCarta.setItems(olCarta);
         tbCarta.setEditable(true);
+        tbCarta.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         btnVoltar = new Button("Voltar");
         btnVoltar.getStyleClass().add("button");
@@ -106,13 +135,15 @@ public class JanelaCartas extends Application {
         btnTrocar = new Button("Trocar");
         btnTrocar.getStyleClass().add("button");
 
+        Button mostrar = new Button("Mostrar");
+
         horizontalButtonBox = new HBox(15);
         horizontalButtonBox.getChildren().addAll(btnVoltar, btnTrocar);
 
         tcContinente = new TableColumn<>("Continente");
         tcPais = new TableColumn<>("Pais");
         tcForma = new TableColumn("Forma");
-        tcEscolhida = new TableColumn<>("Escolhido");
+//        tcEscolhida = new TableColumn<>("Escolhido");
 
         tcContinente.setCellValueFactory(new PropertyValueFactory<Carta, String>("continente"));
         tcContinente.setPrefWidth(tbCarta.getMinWidth() / 3);
@@ -123,17 +154,18 @@ public class JanelaCartas extends Application {
         tcForma.setCellValueFactory(new PropertyValueFactory<Carta, String>("forma"));
         tcForma.setPrefWidth(tbCarta.getMinWidth() / 3);
 
-        tcEscolhida.setCellValueFactory(new PropertyValueFactory<Carta, Boolean>("escolhido"));
-        tcEscolhida.setPrefWidth(tbCarta.getMinWidth() / 3);
+//        tcEscolhida.setCellValueFactory(new PropertyValueFactory<Carta, Boolean>("escolhido"));
+//        tcEscolhida.setPrefWidth(tbCarta.getMinWidth() / 3);
+//
+//        tcEscolhida.setCellFactory(
+//                new Callback<TableColumn<Carta, Boolean>, TableCell<Carta, Boolean>>() {
+//                    public TableCell<Carta, Boolean> call(TableColumn<Carta, Boolean> p) {
+//                        return new CheckBoxTableCell<Carta, Boolean>();
+//                    }
+//                });
 
-        tcEscolhida.setCellFactory(
-                new Callback<TableColumn<Carta, Boolean>, TableCell<Carta, Boolean>>() {
-                    public TableCell<Carta, Boolean> call(TableColumn<Carta, Boolean> p) {
-                        return new CheckBoxTableCell<Carta, Boolean>();
-                    }
-                });
-
-        tbCarta.getColumns().addAll(tcEscolhida, tcContinente, tcPais, tcForma);
+        //tbCarta.getColumns().addAll(tcEscolhida, tcContinente, tcPais, tcForma);
+        tbCarta.getColumns().addAll(tcContinente, tcPais, tcForma);
 
         //imgLogo = new ImageView(new Image("resources/war-uff.png"));
         //pane.getChildren().addAll(imgLogo,tbCarta,horizontalButtonBox);
@@ -144,39 +176,36 @@ public class JanelaCartas extends Application {
         launch(args);
     }
 
-    public class CheckBoxTableCell<S, T> extends TableCell<S, T> {
-
-        private final CheckBox checkBox;
-
-        //private ObservableValue<T> ov;
-
-        public CheckBoxTableCell() {
-            this.checkBox = new CheckBox();
-            this.checkBox.setAlignment(Pos.CENTER);
-            setAlignment(Pos.CENTER);
-            setGraphic(checkBox);
-        }
-
-        @Override
-        public void updateItem(T item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                setGraphic(checkBox);
-            }
-        }
-    }
+//    public class CheckBoxTableCell<S, T> extends TableCell<S, T> {
+//
+//        private final CheckBox checkBox;
+//
+//        //private ObservableValue<T> ov;
+//        public CheckBoxTableCell() {
+//            this.checkBox = new CheckBox();
+//            this.checkBox.setAlignment(Pos.CENTER);
+//            setAlignment(Pos.CENTER);
+//            setGraphic(checkBox);
+//        }
+//
+//        @Override
+//        public void updateItem(T item, boolean empty) {
+//            super.updateItem(item, empty);
+//            if (empty) {
+//                setText(null);
+//                setGraphic(null);
+//            } else {
+//                setGraphic(checkBox);
+//            }
+//        }
+//    }
 
     private void trocarCartas() {
         //Se uma linha da tabela esta marcada, add a lista
-        ObservableList<Carta> data = tbCarta.getItems();
-        ObservableList<Carta> cartasATrocar = FXCollections.observableArrayList();
-        for (Carta item : data) {
-            if (item.getEscolhida() == true) {
-                cartasATrocar.add(item);
-            }
-        }
+        ObservableList<Carta> temp;
+                temp = tbCarta.getSelectionModel().getSelectedItems();
+                for (Carta c : temp) {
+                    System.out.println(c.getPais());
+                }
     }
 }

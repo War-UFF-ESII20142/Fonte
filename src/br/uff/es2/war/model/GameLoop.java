@@ -10,6 +10,7 @@ import br.uff.es2.war.interfaces.IGameLoop;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObservable;
 import br.uff.es2.war.interfaces.iObserver;
+import br.uff.es2.war.util.types;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -25,7 +26,7 @@ public class GameLoop implements iObservable, IGameLoop {
     private DataManager dataManager;
     private Pais atacante;
     private Pais atacado;
-    private int numeroDeTropasAAlocarRodada;
+    private int numeroDeTropasAAlocarRodada, numeroDeTropasValonguinho, numeroDeTropasPV, numeroDeTropasGragoata, numeroDeTropasUI;
     private int numeroTropasAtaque;
     private boolean inAttack;
 
@@ -35,7 +36,7 @@ public class GameLoop implements iObservable, IGameLoop {
     ArrayList<iObserver> observerList;
 
     public GameLoop(ArrayList<Player> players, DataManager manager) {
-        numeroDeTropasAAlocarRodada = 0;
+        numeroDeTropasAAlocarRodada = numeroDeTropasGragoata = numeroDeTropasPV = numeroDeTropasUI = numeroDeTropasValonguinho = 0;
         numeroTropasAtaque = 0;
         inAttack = false;
         this.players = players;
@@ -92,7 +93,7 @@ public class GameLoop implements iObservable, IGameLoop {
     }
 
     public boolean temTropa() {
-        return numeroDeTropasAAlocarRodada > 0;
+        return numeroDeTropasAAlocarRodada + (numeroDeTropasGragoata + numeroDeTropasPV + numeroDeTropasUI + numeroDeTropasValonguinho) > 0;
     }
 
     public void principalLoop() {
@@ -180,7 +181,19 @@ public class GameLoop implements iObservable, IGameLoop {
     @Override
     public void distribuiTropas(Pais pais) {
         Player currentPlayer = getCurrentPlayer();
-        if (numeroDeTropasAAlocarRodada > 0) {
+        if(numeroDeTropasValonguinho>0 && pais.getContinente().getNome().equals(types.sVALONGUINHO)){ //Alternativa pra forçar a ordem: colocar if's separados, de modo que só possa ir pra um continente depois de fechar o outro.
+            pais.incrementaNumeroDeTropas();
+            numeroDeTropasValonguinho--;
+        }else if(numeroDeTropasGragoata>0 && pais.getContinente().getNome().equals(types.sGRAGOATA)){
+            pais.incrementaNumeroDeTropas();
+            numeroDeTropasGragoata--;
+        }else if(numeroDeTropasPV>0 && pais.getContinente().getNome().equals(types.sPRAIAVERMELHA)){
+            pais.incrementaNumeroDeTropas();
+            numeroDeTropasPV--;
+        }else if(numeroDeTropasUI>0 && pais.getContinente().getNome().equals(types.sUNIDADEISOLADAS)){
+            pais.incrementaNumeroDeTropas();
+            numeroDeTropasUI--;
+        }else if (numeroDeTropasAAlocarRodada > 0) {
             if (pais.getDono().getNome().equals(currentPlayer.getNome())) {
                 pais.incrementaNumeroDeTropas();
                 numeroDeTropasAAlocarRodada--;
@@ -198,7 +211,17 @@ public class GameLoop implements iObservable, IGameLoop {
     @Override
     public void calculaTropasASeremAlocadas() {
         Player currentPlayer = getCurrentPlayer();
-        numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises() / 2;
+        numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises()/2;
+        if (numeroDeTropasAAlocarRodada < 3)
+            numeroDeTropasAAlocarRodada = 3; //min = 3, following the rules
+        
+        //Tropas por continente (definidas pelas constantes do código para o WAR UFF):
+        for(Continente c : currentPlayer.getMeusContinentes()){
+            if(c.getNome().equals(types.sVALONGUINHO)) numeroDeTropasValonguinho = 2;
+            else if(c.getNome().equals(types.sGRAGOATA)) numeroDeTropasGragoata = 3;
+            else if(c.getNome().equals(types.sPRAIAVERMELHA)) numeroDeTropasPV = 4;
+            else if(c.getNome().equals(types.sUNIDADEISOLADAS)) numeroDeTropasUI = 5;
+        }
     }
 
     public int numeroDeTropasAAlocarRodada() {
@@ -303,4 +326,5 @@ public class GameLoop implements iObservable, IGameLoop {
         paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
         this.avisaMudancas();
     }
+    
 }

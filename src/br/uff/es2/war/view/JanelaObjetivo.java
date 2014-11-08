@@ -57,7 +57,8 @@ public class JanelaObjetivo extends Application {
         pane.getStyleClass().add("pane");
         
         lbObjetivo = new Label();
-        lbObjetivo.setText(this.objetivo);
+        
+        lbObjetivo.setText("Conquistar 21 territórios");
         
         btnOk = new Button("ok");
         

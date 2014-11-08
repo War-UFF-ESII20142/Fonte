@@ -48,14 +48,14 @@ public class Carta {
 //        this.descricao.set(descricao);
 //    }
 
-    private BooleanProperty escolhida;
+    //private BooleanProperty escolhida;
     private StringProperty continente;
     private StringProperty pais;
     private StringProperty forma;
 
-    Carta(boolean escolhida, String continente, String pais, String forma) {
+    public Carta(String continente, String pais, String forma) {
 
-        this.escolhida = new SimpleBooleanProperty(escolhida);
+        //this.escolhida = new SimpleBooleanProperty(escolhida);
 
         this.continente = new SimpleStringProperty(continente);
 
@@ -63,27 +63,27 @@ public class Carta {
 
         this.forma = new SimpleStringProperty(forma);
 
-        this.escolhida.addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-                //System.out.println("Marcou");
-            }
-        });
+//        this.escolhida.addListener(new ChangeListener<Boolean>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+//                //System.out.println("Marcou");
+//            }
+//        });
     }
-
-    /**
-     * @return the escolhida
-     */
-    public boolean getEscolhida() {
-        return escolhida.get();
-    }
-
-    /**
-     * @param escolhida the escolhida to set
-     */
-    public void setEscolhida(boolean escolhida) {
-        this.escolhida.set(escolhida);
-    }
+//
+//    /**
+//     * @return the escolhida
+//     */
+//    public boolean getEscolhida() {
+//        return escolhida.get();
+//    }
+//
+//    /**
+//     * @param escolhida the escolhida to set
+//     */
+//    public void setEscolhida(boolean escolhida) {
+//        this.escolhida.set(escolhida);
+//    }
 
     /**
      * @return the continente
