@@ -66,7 +66,7 @@ public class GameLoop implements iObservable, IGameLoop {
             aux.addPais(paises.get(0));
             paises.remove(paises.get(0));
         }
-
+        
         avisaMudancas();
 
     }
@@ -87,6 +87,10 @@ public class GameLoop implements iObservable, IGameLoop {
         currentIndex++;
         if (currentIndex > players.size() - 1) {
             currentIndex = 0;
+        }
+        if(getCurrentPlayer().getTipo().equals("Bot"))
+        {
+            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
         }
         avisaMudancas();
         return currentIndex;

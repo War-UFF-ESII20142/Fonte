@@ -66,6 +66,7 @@ public class HumanPlayer implements Player {
     /**
      * @return the tipo
      */
+    @Override
     public String getTipo() {
         return tipo.get();
     }

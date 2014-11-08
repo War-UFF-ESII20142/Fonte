@@ -22,6 +22,8 @@ public interface Player {
     public void finalize();
     public void buyCard();
     public void tradeCards();
+    
+    public String getTipo();
 
     public String getNome();
     public String getCor();
