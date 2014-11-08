@@ -176,33 +176,33 @@ public class JanelaCartas extends Application {
         launch(args);
     }
 
-    public class CheckBoxTableCell<S, T> extends TableCell<S, T> {
-
-        private final CheckBox checkBox;
-
-        //private ObservableValue<T> ov;
-        public CheckBoxTableCell() {
-            this.checkBox = new CheckBox();
-            this.checkBox.setAlignment(Pos.CENTER);
-            setAlignment(Pos.CENTER);
-            setGraphic(checkBox);
-        }
-
-        @Override
-        public void updateItem(T item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                setGraphic(checkBox);
-            }
-        }
-    }
+//    public class CheckBoxTableCell<S, T> extends TableCell<S, T> {
+//
+//        private final CheckBox checkBox;
+//
+//        //private ObservableValue<T> ov;
+//        public CheckBoxTableCell() {
+//            this.checkBox = new CheckBox();
+//            this.checkBox.setAlignment(Pos.CENTER);
+//            setAlignment(Pos.CENTER);
+//            setGraphic(checkBox);
+//        }
+//
+//        @Override
+//        public void updateItem(T item, boolean empty) {
+//            super.updateItem(item, empty);
+//            if (empty) {
+//                setText(null);
+//                setGraphic(null);
+//            } else {
+//                setGraphic(checkBox);
+//            }
+//        }
+//    }
 
     private void trocarCartas() {
         //Se uma linha da tabela esta marcada, add a lista
-        ObservableList<Carta> temp = FXCollections.observableArrayList();
+        ObservableList<Carta> temp;
                 temp = tbCarta.getSelectionModel().getSelectedItems();
                 for (Carta c : temp) {
                     System.out.println(c.getPais());
