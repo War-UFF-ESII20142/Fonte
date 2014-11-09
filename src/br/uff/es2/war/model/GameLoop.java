@@ -88,22 +88,24 @@ public class GameLoop implements iObservable, IGameLoop {
         if (currentIndex > players.size() - 1) {
             currentIndex = 0;
         }
-        if(getCurrentPlayer().getTipo().equals("Bot"))
-        {
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
-        }
+        
         avisaMudancas();
         return currentIndex;
     }
 
     public boolean temTropa() {
-        return numeroDeTropasAAlocarRodada + (numeroDeTropasGragoata + numeroDeTropasPV + numeroDeTropasUI + numeroDeTropasValonguinho) > 0;
+        int valor = numeroDeTropasAAlocarRodada + (numeroDeTropasGragoata + numeroDeTropasPV + numeroDeTropasUI + numeroDeTropasValonguinho);
+        return  valor > 0;
     }
 
     public void principalLoop() {
 
         increaseIndex();
         calculaTropasASeremAlocadas();
+        if(getCurrentPlayer().getTipo().equals("Bot"))
+        {
+            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+        }
         /**
          * while(true){ //enquanto ninguem ganhou. Implementar as checagens de
          * vitoria){ Player currentPlayer = it.next();

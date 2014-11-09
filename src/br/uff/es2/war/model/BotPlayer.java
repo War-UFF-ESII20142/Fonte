@@ -156,7 +156,54 @@ public class BotPlayer implements Player{
     
     public void processaRodada(GameLoop gameLoop)
     {
+        //faz troca de cartas
         
+        //Adiciona exercitos
+        addExercitos(gameLoop);
+        //faz ataque
+        
+        //redistribui exercitos
+        
+        gameLoop.principalLoop();
+    }
+    
+    private void addExercitos(GameLoop gameLoop)
+    {
+        System.out.println("To aquii!!!");
+        while(gameLoop.temTropa())
+        {
+            //pega pais com menos exercito
+            Pais p = paisMaisFraco();
+            
+            gameLoop.distribuiTropas(p);
+        }
+    }
+    
+    private void fazAtaque(GameLoop gameLoop)
+    {
+        
+    }
+    
+    private void espalhaExercito(GameLoop gameLoop)
+    {
+        
+    }
+
+    private Pais paisMaisFraco() {
+        Pais pTemp = new Pais("","",null);
+        
+        int min = 10000;
+        
+        for(Pais p : meusPaises)
+        {
+            if(p.getNumeroDeTroopas() < min)
+            {
+                min = p.getNumeroDeTroopas();
+                pTemp = p;
+            }
+        }
+        
+        return pTemp;
     }
     
 }
