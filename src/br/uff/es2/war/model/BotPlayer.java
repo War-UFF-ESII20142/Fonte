@@ -160,7 +160,9 @@ public class BotPlayer implements Player{
         
         //Adiciona exercitos
         addExercitos(gameLoop);
+        
         //faz ataque
+        fazAtaque(gameLoop);
         
         //redistribui exercitos
         
@@ -170,6 +172,18 @@ public class BotPlayer implements Player{
     private void addExercitos(GameLoop gameLoop)
     {
         System.out.println("To aquii!!!");
+        
+        ArrayList<Continente> continentes = getMeusContinentes();
+        
+        if( continentes.size() != 0 )
+        {
+            for(Continente c : continentes)
+            {
+                Pais p = paisMaisFracoPorContinente(c);
+                gameLoop.distribuiTropas(p);
+            }
+        }
+        
         while(gameLoop.temTropa())
         {
             //pega pais com menos exercito
@@ -181,7 +195,32 @@ public class BotPlayer implements Player{
     
     private void fazAtaque(GameLoop gameLoop)
     {
-        
+        while(temPaisParaAtaque())
+        {
+            Pais atacante = new Pais("","",null);
+            Pais atacado = new Pais("","",null);
+            int max = 1;
+
+            for(Pais p : meusPaises)
+            {
+                for(Pais vizinho :p.getVizinhos())
+                {
+                    if(p.getNumeroDeTroopas() >= vizinho.getNumeroDeTroopas() &&
+                       p.getNumeroDeTroopas() > max && 
+                      !vizinho.getDono().getNome().equals(this.nome.get()) && 
+                       p.getNumeroDeTroopas() > 1)
+                    {
+                        System.out.println("Entrei");
+                        atacante = p;
+                        atacado = vizinho;
+                        max = p.getNumeroDeTroopas();
+                        int qtdSoldado = (p.getNumeroDeTroopas() > 3)?3:p.getNumeroDeTroopas();
+                        gameLoop.setAtacante(atacante, qtdSoldado-1);
+                        gameLoop.setAtacado(atacado);
+                    }
+                }
+            }
+        }
     }
     
     private void espalhaExercito(GameLoop gameLoop)
@@ -204,6 +243,44 @@ public class BotPlayer implements Player{
         }
         
         return pTemp;
+    }
+    
+    private Pais paisMaisFracoPorContinente(Continente continente) {
+        Pais pTemp = new Pais("","",null);
+        
+        int min = 10000;
+        
+        for(Pais p : meusPaises)
+        {
+            if(p.getContinente().getNome().equals(continente.getNome()))
+            {
+                if(p.getNumeroDeTroopas() < min)
+                {
+                    min = p.getNumeroDeTroopas();
+                    pTemp = p;
+                }
+            }
+        }
+        
+        return pTemp;
+    }
+
+    private boolean temPaisParaAtaque() 
+    {
+        for(Pais p : meusPaises)
+        {
+            for(Pais vizinho : p.getVizinhos())
+            {
+                if(!vizinho.getDono().getNome().equals(p.getDono().getNome()))
+                {
+                    if(p.getNumeroDeTroopas() > 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     
 }

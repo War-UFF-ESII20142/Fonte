@@ -67,6 +67,12 @@ public class GameLoop implements iObservable, IGameLoop {
             paises.remove(paises.get(0));
         }
         
+        if(getCurrentPlayer().getTipo().equals("Bot"))
+        {
+            calculaTropasASeremAlocadas();
+            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+        }
+        
         avisaMudancas();
 
     }
