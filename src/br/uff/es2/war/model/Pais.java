@@ -51,6 +51,11 @@ public class Pais {
     public void setNome(String nome) {
         this.nome.set(nome);
     }
+    
+    public ArrayList<Pais>  getVizinhos()
+    {
+        return vizinhos;
+    }
 
     public String getCodigo() {
         return codigoArquivo.get();
