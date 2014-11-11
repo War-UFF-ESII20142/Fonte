@@ -29,7 +29,8 @@ public class GameLoop implements iObservable, IGameLoop {
     private int numeroDeTropasAAlocarRodada, numeroDeTropasValonguinho, numeroDeTropasPV, numeroDeTropasGragoata, numeroDeTropasUI;
     private int numeroTropasAtaque;
     private boolean inAttack;
-
+    private Deck deck;
+    
     public GameLoop() {
     }
 
@@ -46,7 +47,8 @@ public class GameLoop implements iObservable, IGameLoop {
         this.dataManager = manager;
         atacante = new Pais("", "", null);
         atacado = new Pais("", "", null);
-    }
+        //deck = createCards();
+    }   
 
     public void carregaRodadaInicial() {
         ArrayList<Pais> paises = new ArrayList<>(dataManager.getPaises());
