@@ -50,6 +50,8 @@ public class JanelaFimJogo extends Application implements iWindow
         scene.getStylesheets().add("/stylesheet/JanelaFimJogo.css");
         this.stage = primaryStage;
         this.stage.setScene(scene);
+        this.stage.show();
+        
         
         initLayout();
         initListeners();

@@ -642,7 +642,7 @@ public class JanelaJogo extends Application implements iObserver,iWindow
     
     public void finalizaJogo()
     {
-        this.windowController.startMainWindow(JanelaJogo.this);
+        this.windowController.mostraJanelaFimJogo(JanelaJogo.this,gameLoop.getCurrentPlayer());
     }
 
     @Override
