@@ -84,9 +84,10 @@ public class WindowManager
         window.getStage().close();
     }
     
-    public void mostraJanelaFimJogo(iWindow window, Player winner)
+    public void mostraJanelaFimJogo(iWindow window, Player winner) throws Exception
     {
         windowWinner = new JanelaFimJogo(winner,this);
+        windowWinner.start(new Stage());
         window.getStage().close();
     }
     

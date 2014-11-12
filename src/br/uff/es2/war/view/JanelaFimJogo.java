@@ -63,7 +63,7 @@ public class JanelaFimJogo extends Application implements iWindow
         aPane.setPrefSize(1000, 600);
         aPane.setStyle("-fx-background-color:"+Tools.convertCorToColor(winner.getCor()));
         
-        imgWar = new ImageView(new Image("resources/gamePlus1.png"));
+        imgWar = new ImageView(new Image("resources/war-uff.png"));
         imgWar.getStyleClass().add("imgWar");
         
         btnInicio = new Button("Menu Iniciar");
