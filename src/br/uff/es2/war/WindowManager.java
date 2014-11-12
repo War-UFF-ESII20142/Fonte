@@ -75,7 +75,7 @@ public class WindowManager
         windowGame.setGameControler(gameManager);
         windowGame.setGameLoop(gameManager.getGameLoop());
         windowGame.start(new Stage());
-        windowGame.updateGameImage();
+        //windowGame.updateGameImage();
         
         gameManager.getGameLoop().carregaRodadaInicial();
         

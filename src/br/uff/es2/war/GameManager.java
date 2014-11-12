@@ -28,6 +28,7 @@ public class GameManager
     private boolean inAttack;
     private boolean inRelocation;
     private Pais paisAtacante;
+    private boolean isBot;
     
     
     public GameManager(ArrayList<Player> players,DataManager data, JanelaJogo janelaJogo)
@@ -35,15 +36,21 @@ public class GameManager
     {
         auxiliarNaDistribuicao = true;
         ataque = true;
+        isBot = false;
         inAttack = false;
         inRelocation = false;
         distribuiTropas = true;
         remanejaTropas = false;
         dataManager = data;
-        gameLoop = new GameLoop(players,dataManager);
+        gameLoop = new GameLoop(players,dataManager,this);
         this.janelaJogo = janelaJogo;
     }
 
+    public void setIsBot(boolean isBot)
+    {
+        this.isBot = isBot;
+    }
+    
     public ObservableList<Player> getOlPlayers() {
         return olPlayers;
     }
@@ -98,7 +105,7 @@ public class GameManager
     */
     public void informaQtdSoldadosSelec(int qtdSoldados)
     {
-            gameLoop.setAtacante(paisAtacante,qtdSoldados);
+        gameLoop.setAtacante(paisAtacante,qtdSoldados);
     }
     
     public void finalizaAtaque()
@@ -116,7 +123,7 @@ public class GameManager
                 //pais que vai atacar 
                 this.paisAtacante = pais;
                 ataque = false;
-                janelaJogo.getQtdExercito(pais);
+                if(!isBot) janelaJogo.getQtdExercito(pais);
             }
         }else
         {
@@ -147,7 +154,7 @@ public class GameManager
         else
         {
             janelaJogo.avisaAcabouTropas();
-            //terminaDistruibuicao();
+            terminaDistruibuicao();
         }
     }   
     

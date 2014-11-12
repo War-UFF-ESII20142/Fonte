@@ -5,8 +5,12 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.GameManager;
 import br.uff.es2.war.interfaces.Player;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -154,24 +158,26 @@ public class BotPlayer implements Player{
         return conts;
     }
     
-    public void processaRodada(GameLoop gameLoop)
+    public void processaRodada(GameLoop gameLoop,GameManager controller)
     {
+        controller.setIsBot(true);
         //faz troca de cartas
         
         //Adiciona exercitos
         addExercitos(gameLoop);
         
         //faz ataque
-        fazAtaque(gameLoop);
+        //gameLoop.setInAttack(true);
+        fazAtaque(gameLoop,controller);
         
         //redistribui exercitos
-        
-        gameLoop.principalLoop();
+        controller.roundTerminou();
+        controller.setIsBot(false);
     }
     
     private void addExercitos(GameLoop gameLoop)
     {
-        System.out.println("To aquii!!!");
+        
         
         ArrayList<Continente> continentes = getMeusContinentes();
         
@@ -180,6 +186,7 @@ public class BotPlayer implements Player{
             for(Continente c : continentes)
             {
                 Pais p = paisMaisFracoPorContinente(c);
+                System.out.println("To aquii!!!");
                 gameLoop.distribuiTropas(p);
             }
         }
@@ -188,25 +195,29 @@ public class BotPlayer implements Player{
         {
             //pega pais com menos exercito
             Pais p = paisMaisFraco();
-            
+            System.out.println(p.getNome());
             gameLoop.distribuiTropas(p);
         }
     }
     
-    private void fazAtaque(GameLoop gameLoop)
+    private void fazAtaque(GameLoop gameLoop,GameManager controller)
     {
+        gameLoop.setInAttack(true);
         while(temPaisParaAtaque())
         {
             Pais atacante = new Pais("","",null);
             Pais atacado = new Pais("","",null);
             int max = 1;
-
-            for(Pais p : meusPaises)
+            
+            List<Pais> list = new CopyOnWriteArrayList<Pais>(meusPaises);
+            System.out.println(list.size());
+            
+            for(Pais p : list)
             {
                 for(Pais vizinho :p.getVizinhos())
                 {
                     if(p.getNumeroDeTroopas() >= vizinho.getNumeroDeTroopas() &&
-                       p.getNumeroDeTroopas() > max && 
+                       p.getNumeroDeTroopas() > max &&
                       !vizinho.getDono().getNome().equals(this.nome.get()) && 
                        p.getNumeroDeTroopas() > 1)
                     {
@@ -214,12 +225,16 @@ public class BotPlayer implements Player{
                         atacante = p;
                         atacado = vizinho;
                         max = p.getNumeroDeTroopas();
-                        int qtdSoldado = (p.getNumeroDeTroopas() > 3)?3:p.getNumeroDeTroopas();
-                        gameLoop.setAtacante(atacante, qtdSoldado-1);
-                        gameLoop.setAtacado(atacado);
+                        int qtdSoldado = (p.getNumeroDeTroopas() > 3)?3:p.getNumeroDeTroopas()-1;
+                        controller.fazAtaque(atacante);
+                        controller.informaQtdSoldadosSelec(qtdSoldado);
+                        controller.fazAtaque(atacado);
+                        /*gameLoop.setAtacante(atacante, qtdSoldado);
+                        gameLoop.setAtacado(atacado);*/
                     }
                 }
             }
+            
         }
     }
     

@@ -51,6 +51,7 @@ public class JanelaJogo extends Application implements iObserver
     private ImageView gameImage;
     private Stage stage;
     private Label info;
+    private Label infoQtdSoldados;
     private ObservableList<Player> olPlayers;//essa lista será incluida na tabela que executará para informar qual jogador está na jogada
     private GameManager gameController;
     private GameLoop gameLoop;
@@ -61,6 +62,7 @@ public class JanelaJogo extends Application implements iObserver
     private Button btnMostrarObjetivo; //A
     private HBox horizontalBox;
     private HBox ObjetivoECartasBox; //A
+    private HBox hLabels;
     private ArrayList<TerritorioTela> listaTerritorioTela;
     private DataManager dataManager;
     private String paisAtacante, paisAtacado;
@@ -134,6 +136,9 @@ public class JanelaJogo extends Application implements iObserver
         gameImage.setFitWidth(564);
         
         info = new Label();
+        infoQtdSoldados = new Label();
+        hLabels = new HBox(10);
+        hLabels.getChildren().addAll(info,infoQtdSoldados);
         
         btnTerminarRodada = new Button("Terminar");
         btnTerminarRodada.getStyleClass().add("button");
@@ -161,7 +166,7 @@ public class JanelaJogo extends Application implements iObserver
         horizontalBox.getChildren().addAll(btnAtaque,btnTerminarRodada);
         
         //pane.getChildren().addAll(gameImage,info,horizontalBox);
-        pane.getChildren().addAll(gameImage,info,horizontalBox,ObjetivoECartasBox);
+        pane.getChildren().addAll(gameImage,hLabels,horizontalBox,ObjetivoECartasBox);
         //constroiCirculos();
         
         gameLoop.addObserver(this);
@@ -175,6 +180,8 @@ public class JanelaJogo extends Application implements iObserver
         
         horizontalBox.setLayoutX( pane.getWidth() - 10 - horizontalBox.getWidth() );
         horizontalBox.setLayoutY( pane.getHeight() - 10 - horizontalBox.getHeight() );
+        
+        hLabels.setLayoutX(10);
         
         ObjetivoECartasBox.setLayoutX( pane.getWidth() - 30 - ObjetivoECartasBox.getWidth() );
         ObjetivoECartasBox.setLayoutY( 20 );
@@ -216,6 +223,8 @@ public class JanelaJogo extends Application implements iObserver
         stage.setTitle(aux.getNome());
         pane.setStyle("-fx-background-color:"+Tools.convertCorToColor(aux.getCor()));
         updateCircles();
+        infoQtdSoldados.setText("Você tem "+gameLoop.getQtdTropa()+" para alocar");
+        //if( gameLoop.getQtdTropa() == 0 ) this.avisaAcabouTropas();
         /*int value = (int)(Math.random()*21);
         System.out.println(value);
         Label temp = listaTerritorioTela.get(value).getLabel();
@@ -345,6 +354,7 @@ public class JanelaJogo extends Application implements iObserver
                 btnAtaque.setText("Ataque");
                 btnAtaque.setDisable(false);
                 btnTerminarRodada.setVisible(false);
+                infoQtdSoldados.setVisible(true);
             }
         });
         
@@ -362,6 +372,7 @@ public class JanelaJogo extends Application implements iObserver
                     btnAtaque.setDisable(true);
                 }
                 gameController.attack();
+                infoQtdSoldados.setVisible(false);
             }
         });
         

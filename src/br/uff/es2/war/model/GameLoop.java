@@ -5,6 +5,7 @@
  */
 package br.uff.es2.war.model;
 
+import br.uff.es2.war.GameManager;
 import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.IGameLoop;
 import br.uff.es2.war.interfaces.Player;
@@ -29,16 +30,17 @@ public class GameLoop implements iObservable, IGameLoop {
     private int numeroDeTropasAAlocarRodada, numeroDeTropasValonguinho, numeroDeTropasPV, numeroDeTropasGragoata, numeroDeTropasUI;
     private int numeroTropasAtaque;
     private boolean inAttack;
+    private GameManager gameController;
 
     public GameLoop() {
     }
 
     ArrayList<iObserver> observerList;
 
-    public GameLoop(ArrayList<Player> players, DataManager manager) {
+    public GameLoop(ArrayList<Player> players, DataManager manager,GameManager controller) {
         numeroDeTropasAAlocarRodada = numeroDeTropasGragoata = numeroDeTropasPV = numeroDeTropasUI = numeroDeTropasValonguinho = 0;
         numeroTropasAtaque = 0;
-        inAttack = false;
+        inAttack = true;
         this.players = players;
         it = players.iterator();
         observerList = new ArrayList<>();
@@ -46,6 +48,7 @@ public class GameLoop implements iObservable, IGameLoop {
         this.dataManager = manager;
         atacante = new Pais("", "", null);
         atacado = new Pais("", "", null);
+        this.gameController = controller;
     }
 
     public void carregaRodadaInicial() {
@@ -70,7 +73,7 @@ public class GameLoop implements iObservable, IGameLoop {
         if(getCurrentPlayer().getTipo().equals("Bot"))
         {
             calculaTropasASeremAlocadas();
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+            ((BotPlayer)(getCurrentPlayer())).processaRodada(this,gameController);
         }
         
         avisaMudancas();
@@ -110,7 +113,7 @@ public class GameLoop implements iObservable, IGameLoop {
         calculaTropasASeremAlocadas();
         if(getCurrentPlayer().getTipo().equals("Bot"))
         {
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+            ((BotPlayer)(getCurrentPlayer())).processaRodada(this,gameController);
         }
         /**
          * while(true){ //enquanto ninguem ganhou. Implementar as checagens de
@@ -313,6 +316,7 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacado.setTropas(atacado.getNumeroDeTroopas() - baixas[0]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - baixas[1]);
                 } else {
+                    if(atacado.getDono().getMeusPaises().size() -1 == 0) players.remove(atacado.getDono());
                     atacado.getDono().remove(atacado);
                     atacado.setDono(atacante.getDono());
                     atacante.getDono().addPais(atacado);
@@ -337,6 +341,11 @@ public class GameLoop implements iObservable, IGameLoop {
         paisFrom.setTropas(paisFrom.getNumeroDeTroopas() - militarNumber);
         paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
         this.avisaMudancas();
+    }
+    
+    public int getQtdTropa()
+    {
+        return numeroDeTropasAAlocarRodada;
     }
     
 }
