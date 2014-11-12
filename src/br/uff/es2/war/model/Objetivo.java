@@ -40,12 +40,7 @@ public class Objetivo {
     }
     
     public boolean checaObjetivo(Player p){
-        if (p.numeroDePaises()  == 21 ) {
-            return true;
-        }else{
-            return false;
-        }
-        
+        return p.numeroDePaises()  == 21; 
     }
     
 }

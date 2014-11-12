@@ -6,6 +6,7 @@
 package br.uff.es2.war.model;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
@@ -13,17 +14,36 @@ import java.util.ArrayList;
  */
 public class Deck {
     private final int NTERRITORIOS = 21;
-    private ArrayList<Carta> cartas;
+    private Stack<Carta> cartas;
     private final String formas[] = {"Triângulo", "Quadrado", "Círculo"};
+    private ArrayList<Pais> paises;
 
-    public Deck() {
-        cartas = new ArrayList<Carta>(NTERRITORIOS);
+    public Deck(ArrayList<Pais> countries) {
+        cartas = new Stack<>();
+        paises = countries;
+        generateCards();
     }
     
-    public void generateCards(){
+    private void generateCards(){
+        for (int i = 0; i < paises.size(); i++)
+            cartas.push(new Carta(paises.get(i).getNome(), formas[i % 3])); //Alternando formas para distribuir
+        embaralhar();
+    }
+
+    private void embaralhar() {
+        int rand1, rand2;
+        Carta aux;
         for (int i = 0; i < cartas.size(); i++) {
-            cartas[i] = new Carta(null, null, formas[i%3]);
+            rand1 = (int) (Math.random() * cartas.size());
+            rand2 = (int) (Math.random() * cartas.size());
+            aux = cartas.get(rand1);
+            cartas.add(rand1, cartas.get(rand2));
+            cartas.add(rand2, aux);
         }
+    }
+    
+    public Carta getCarta(){
+        return cartas.pop();
     }
     
 }

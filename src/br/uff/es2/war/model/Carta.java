@@ -49,15 +49,15 @@ public class Carta {
 //    }
 
     //private BooleanProperty escolhida;
-    private StringProperty continente;
+    //private StringProperty continente;
     private StringProperty pais;
     private StringProperty forma;
 
-    public Carta(String continente, String pais, String forma) {
+    public Carta(/*String continente,*/ String pais, String forma) {
 
         //this.escolhida = new SimpleBooleanProperty(escolhida);
 
-        this.continente = new SimpleStringProperty(continente);
+        //this.continente = new SimpleStringProperty(continente);
 
         this.pais = new SimpleStringProperty(pais);
 
@@ -88,16 +88,16 @@ public class Carta {
     /**
      * @return the continente
      */
-    public String getContinente() {
-        return continente.get();
-    }
+    //public String getContinente() {
+    //    return continente.get();
+    //}
 
     /**
      * @param continente the continente to set
      */
-    public void setContinente(String continente) {
-        this.continente.set(continente);
-    }
+    //public void setContinente(String continente) {
+    //    this.continente.set(continente);
+    //}
 
     /**
      * @return the pais
@@ -110,7 +110,7 @@ public class Carta {
      * @param pais the pais to set
      */
     public void setPais(String pais) {
-        this.continente.set(pais);
+        this.pais.set(pais);
     }
 
     /**

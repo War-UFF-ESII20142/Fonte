@@ -47,13 +47,12 @@ public class GameLoop implements iObservable, IGameLoop {
         this.dataManager = manager;
         atacante = new Pais("", "", null);
         atacado = new Pais("", "", null);
-        //deck = createCards();
     }   
 
     public void carregaRodadaInicial() {
         ArrayList<Pais> paises = new ArrayList<>(dataManager.getPaises());
         int valor = paises.size() / players.size();
-
+        deck = new Deck(paises);
         for (Player p : players) {
             for (int i = 0; i < valor; i++) {
                 int pos = (int) (Math.random() * paises.size());
@@ -213,7 +212,7 @@ public class GameLoop implements iObservable, IGameLoop {
                 numeroDeTropasAAlocarRodada--;
                 avisaMudancas();
             } else {
-                System.out.println("Este pais não lhe pertence");
+                System.out.println("Este pais não te pertence");
             }
         } else {
 

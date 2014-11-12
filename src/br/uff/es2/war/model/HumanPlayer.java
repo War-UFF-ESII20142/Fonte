@@ -38,6 +38,7 @@ public class HumanPlayer implements Player {
     /**
      * @return the nome
      */
+    @Override
     public String getNome() {
         return nome.get();
     }
@@ -52,6 +53,7 @@ public class HumanPlayer implements Player {
     /**
      * @return the cor
      */
+    @Override
     public String getCor() {
         return cor.get();
     }
@@ -132,6 +134,7 @@ public class HumanPlayer implements Player {
         meusPaises.remove(pais);
     }
     
+    @Override
     public int numeroDePaises(){
        return this.meusPaises.size();
     }
@@ -139,6 +142,7 @@ public class HumanPlayer implements Player {
     /**
      * @return the cards
      */
+    @Override
     public ArrayList<Carta> getCards() {
         return cards;
     }
@@ -151,10 +155,12 @@ public class HumanPlayer implements Player {
         return objetivo;
     }
     
+    @Override
     public void setObjetivo(Objetivo objetivo){
         this.objetivo = objetivo;
     }
     
+    @Override
     public boolean checaObjetivo(){
         return this.objetivo.checaObjetivo(this);
     }
