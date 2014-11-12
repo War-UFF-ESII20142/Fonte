@@ -193,4 +193,9 @@ public class GameManager
         System.out.println(ataque + "  " + this.ataque);
         this.ataque = ataque;
     }
+    
+    public void finalizaJogo()
+    {
+        janelaJogo.finalizaJogo();
+    }
 }

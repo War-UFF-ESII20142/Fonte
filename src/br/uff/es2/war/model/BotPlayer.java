@@ -25,6 +25,7 @@ public class BotPlayer implements Player{
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
     private Objetivo objetivo;
+    private int numJogadas;
     
     public BotPlayer(String nome, String cor, String tipo)
     {
@@ -33,6 +34,7 @@ public class BotPlayer implements Player{
         this.tipo.set(tipo);
         this.meusPaises = new ArrayList<>();
         this.objetivo = new Objetivo(0,"");
+        this.numJogadas = 0;
     }
     
     /**
@@ -168,7 +170,9 @@ public class BotPlayer implements Player{
         
         //faz ataque
         //gameLoop.setInAttack(true);
+        numJogadas = 0;
         fazAtaque(gameLoop,controller);
+        numJogadas = 0;
         
         //redistribui exercitos
         controller.roundTerminou();
@@ -203,7 +207,8 @@ public class BotPlayer implements Player{
     private void fazAtaque(GameLoop gameLoop,GameManager controller)
     {
         gameLoop.setInAttack(true);
-        while(temPaisParaAtaque())
+        Pais pa = temPaisParaAtaque();
+        while(pa != null && numJogadas < 5)
         {
             Pais atacante = new Pais("","",null);
             Pais atacado = new Pais("","",null);
@@ -212,29 +217,38 @@ public class BotPlayer implements Player{
             List<Pais> list = new CopyOnWriteArrayList<Pais>(meusPaises);
             System.out.println(list.size());
             
-            for(Pais p : list)
-            {
-                for(Pais vizinho :p.getVizinhos())
-                {
-                    if(p.getNumeroDeTroopas() >= vizinho.getNumeroDeTroopas() &&
-                       p.getNumeroDeTroopas() > max &&
-                      !vizinho.getDono().getNome().equals(this.nome.get()) && 
-                       p.getNumeroDeTroopas() > 1)
-                    {
-                        System.out.println("Entrei");
-                        atacante = p;
-                        atacado = vizinho;
-                        max = p.getNumeroDeTroopas();
-                        int qtdSoldado = (p.getNumeroDeTroopas() > 3)?3:p.getNumeroDeTroopas()-1;
-                        controller.fazAtaque(atacante);
-                        controller.informaQtdSoldadosSelec(qtdSoldado);
-                        controller.fazAtaque(atacado);
-                        /*gameLoop.setAtacante(atacante, qtdSoldado);
-                        gameLoop.setAtacado(atacado);*/
-                    }
-                }
-            }
             
+            for(Pais vizinho :pa.getVizinhos())
+            {
+                if(pa.getNumeroDeTroopas() >= vizinho.getNumeroDeTroopas() &&
+                   pa.getNumeroDeTroopas() > max &&
+                  !vizinho.getDono().getNome().equals(this.nome.get()) && 
+                   pa.getNumeroDeTroopas() > 1)
+                {
+                    atacante = pa;
+                    atacado = vizinho;
+                    max = pa.getNumeroDeTroopas();
+                    int qtdSoldado = (pa.getNumeroDeTroopas() > 3)?3:pa.getNumeroDeTroopas()-1;
+                    controller.fazAtaque(atacante);
+                    controller.informaQtdSoldadosSelec(qtdSoldado);
+                    controller.fazAtaque(atacado);
+                    /*gameLoop.setAtacante(atacante, qtdSoldado);
+                    gameLoop.setAtacado(atacado);*/
+                }else if(!vizinho.getDono().getNome().equals(this.nome.get()) && 
+                          pa.getNumeroDeTroopas() > 1)
+                {
+                    atacante = pa;
+                    atacado = vizinho;
+                    max = pa.getNumeroDeTroopas();
+                    int qtdSoldado = (pa.getNumeroDeTroopas() > 3)?3:pa.getNumeroDeTroopas()-1;
+                    controller.fazAtaque(atacante);
+                    controller.informaQtdSoldadosSelec(qtdSoldado);
+                    controller.fazAtaque(atacado);
+                }
+                
+            }
+            numJogadas++;
+            pa = temPaisParaAtaque();
         }
     }
     
@@ -280,7 +294,7 @@ public class BotPlayer implements Player{
         return pTemp;
     }
 
-    private boolean temPaisParaAtaque() 
+    private Pais temPaisParaAtaque() 
     {
         for(Pais p : meusPaises)
         {
@@ -290,12 +304,12 @@ public class BotPlayer implements Player{
                 {
                     if(p.getNumeroDeTroopas() > 1)
                     {
-                        return true;
+                        return p;
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
     
 }

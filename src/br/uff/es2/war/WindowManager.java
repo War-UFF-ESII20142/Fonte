@@ -12,6 +12,7 @@ import br.uff.es2.war.interfaces.iWindow;
 import br.uff.es2.war.util.Tools;
 import br.uff.es2.war.view.JanelaCarregarJogo;
 import br.uff.es2.war.view.JanelaCriacaoJogo;
+import br.uff.es2.war.view.JanelaFimJogo;
 import br.uff.es2.war.view.JanelaJogo;
 import br.uff.es2.war.view.JanelaPrincipal;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class WindowManager
     private JanelaCriacaoJogo windowCreateGame;
     private JanelaCarregarJogo windowLoadGame;
     private JanelaJogo windowGame;
+    private JanelaFimJogo windowWinner;
     
     public WindowManager()
     {
@@ -68,7 +70,7 @@ public class WindowManager
         
         DataManager dataManager = new DataManager();
         
-        windowGame = new JanelaJogo(dataManager);
+        windowGame = new JanelaJogo(dataManager,this);
         windowGame.setDataManager(dataManager);
         GameManager gameManager = new GameManager(arrayPlayer,dataManager, windowGame);
         
@@ -79,6 +81,12 @@ public class WindowManager
         
         gameManager.getGameLoop().carregaRodadaInicial();
         
+        window.getStage().close();
+    }
+    
+    public void mostraJanelaFimJogo(iWindow window, Player winner)
+    {
+        windowWinner = new JanelaFimJogo(winner,this);
         window.getStage().close();
     }
     

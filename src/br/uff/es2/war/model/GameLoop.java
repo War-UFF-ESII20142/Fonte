@@ -322,6 +322,7 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacante.getDono().addPais(atacado);
                     atacado.setTropas(qtdDeTropas - baixas[1]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - qtdDeTropas);
+                    if(getCurrentPlayer().checaObjetivo()) gameController.finalizaJogo();
                     System.out.println(qtdDeTropas + " Bravos soldados dominaram um novo país\n\n");
                 }
                 this.avisaMudancas();

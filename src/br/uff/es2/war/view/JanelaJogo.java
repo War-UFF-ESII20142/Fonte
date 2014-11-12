@@ -7,9 +7,11 @@ package br.uff.es2.war.view;
 
 import br.uff.es2.war.GameManager;
 import br.uff.es2.war.JogoSalvo;
+import br.uff.es2.war.WindowManager;
 import br.uff.es2.war.dao.DataManager;
 import br.uff.es2.war.interfaces.Player;
 import br.uff.es2.war.interfaces.iObserver;
+import br.uff.es2.war.interfaces.iWindow;
 import br.uff.es2.war.model.GameLoop;
 import br.uff.es2.war.model.Pais;
 import br.uff.es2.war.model.HumanPlayer; //A
@@ -45,7 +47,7 @@ import javax.swing.JOptionPane;
  *
  * @author AleGomes
  */
-public class JanelaJogo extends Application implements iObserver
+public class JanelaJogo extends Application implements iObserver,iWindow
 {
     private AnchorPane pane;
     private ImageView gameImage;
@@ -70,11 +72,13 @@ public class JanelaJogo extends Application implements iObserver
     private int qtdExercitoAtaque;
     private ComboBox cBox;
     private Stage pStage = new Stage();
+    private WindowManager windowController;
     
-    public JanelaJogo(DataManager data)
+    public JanelaJogo(DataManager data,WindowManager controller)
     {
         super();
         this.dataManager = data;
+        this.windowController = controller;
     }
     
     @Override
@@ -187,6 +191,7 @@ public class JanelaJogo extends Application implements iObserver
         ObjetivoECartasBox.setLayoutY( 20 );
     }
     
+    @Override
     public Stage getStage()
     {
         return stage;
@@ -633,6 +638,16 @@ public class JanelaJogo extends Application implements iObserver
         btnAtaque.setVisible(true);
         btnTerminarRodada.setVisible(true);
         JOptionPane.showConfirmDialog(null, "Você não tem mais tropas para distribuir.\nCom isso, sua rodada de distribuição acabou", "Alerta", JOptionPane.OK_CANCEL_OPTION);
+    }
+    
+    public void finalizaJogo()
+    {
+        this.windowController.startMainWindow(JanelaJogo.this);
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
     
 }
