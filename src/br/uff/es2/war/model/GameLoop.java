@@ -13,6 +13,7 @@ import br.uff.es2.war.interfaces.iObserver;
 import br.uff.es2.war.util.types;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -347,18 +348,18 @@ public class GameLoop implements iObservable, IGameLoop {
         this.avisaMudancas();
     }
 
-    public int trocaCarta(ArrayList<Carta> cartas) {
+    public int trocaCarta(List<Carta> cartas) {
         int n = 3; // Tipos de Formas diferentes
         int[] troca = new int[n];
         final String formas[] = {"Triângulo", "Quadrado", "Círculo"};
         int acm = 0;
-        for (int i = 0; i < cartas.size(); i++) {
+        cartas.stream().forEach((carta) -> {
             for (int j = 0; j < n; j++) {
-                if (cartas.get(i).getForma().equals(formas[j])) {
+                if (carta.getForma().equals(formas[j])) {
                     troca[j]++;
                 }
             }
-        }
+        });
         for (int i = 0; i < n; i++) {
             if (troca[i] == 3) {
                 acm = 3;
