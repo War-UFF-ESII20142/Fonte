@@ -31,7 +31,7 @@ public class GameLoop implements iObservable, IGameLoop {
     private int numeroTropasAtaque;
     private boolean inAttack;
     private Deck deck;
-    
+
     public GameLoop() {
     }
 
@@ -48,7 +48,7 @@ public class GameLoop implements iObservable, IGameLoop {
         this.dataManager = manager;
         atacante = new Pais("", "", null);
         atacado = new Pais("", "", null);
-    }   
+    }
 
     public void carregaRodadaInicial() {
         ArrayList<Pais> paises = new ArrayList<>(dataManager.getPaises());
@@ -68,13 +68,12 @@ public class GameLoop implements iObservable, IGameLoop {
             aux.addPais(paises.get(0));
             paises.remove(paises.get(0));
         }
-        
-        if(getCurrentPlayer().getTipo().equals("Bot"))
-        {
+
+        if (getCurrentPlayer().getTipo().equals("Bot")) {
             calculaTropasASeremAlocadas();
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+            ((BotPlayer) (getCurrentPlayer())).processaRodada(this);
         }
-        
+
         avisaMudancas();
 
     }
@@ -96,23 +95,22 @@ public class GameLoop implements iObservable, IGameLoop {
         if (currentIndex > players.size() - 1) {
             currentIndex = 0;
         }
-        
+
         avisaMudancas();
         return currentIndex;
     }
 
     public boolean temTropa() {
         int valor = numeroDeTropasAAlocarRodada + (numeroDeTropasGragoata + numeroDeTropasPV + numeroDeTropasUI + numeroDeTropasValonguinho);
-        return  valor > 0;
+        return valor > 0;
     }
 
     public void principalLoop() {
 
         increaseIndex();
         calculaTropasASeremAlocadas();
-        if(getCurrentPlayer().getTipo().equals("Bot"))
-        {
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this);
+        if (getCurrentPlayer().getTipo().equals("Bot")) {
+            ((BotPlayer) (getCurrentPlayer())).processaRodada(this);
         }
         /**
          * while(true){ //enquanto ninguem ganhou. Implementar as checagens de
@@ -134,16 +132,13 @@ public class GameLoop implements iObservable, IGameLoop {
         this.atacado = atacado;
         System.out.println("atacado: " + atacado.getNome());
         if (this.atacante.getDono().getNome().equals(getCurrentPlayer().getNome())) {
-            if(this.atacante.getNumeroDeTroopas() > 1){
-                if(inAttack)
-                {
+            if (this.atacante.getNumeroDeTroopas() > 1) {
+                if (inAttack) {
                     processaAtaque(atacante, atacado, numeroTropasAtaque);
+                } else {
+                    processaRemanejamento(atacante, atacado, numeroTropasAtaque);
                 }
-                else
-                {
-                    processaRemanejamento(atacante,atacado,numeroTropasAtaque);
-                }
-            }else{
+            } else {
                 System.out.println("Você não possui tropas suficientes para atacar");
             }
         } else {
@@ -156,10 +151,9 @@ public class GameLoop implements iObservable, IGameLoop {
     public boolean processaVencedorAtaque() {
         return false;
     }
-    
+
     @Override
-    public void setAtacante(Pais atacante,int qtdExercito)
-    {
+    public void setAtacante(Pais atacante, int qtdExercito) {
         this.atacante = atacante;
         this.numeroTropasAtaque = qtdExercito;
         System.out.println("atacante: " + atacante.getNome() + " Exercito: " + qtdExercito);
@@ -182,10 +176,10 @@ public class GameLoop implements iObservable, IGameLoop {
             o.updateGameImage();
         }
     }
-    
+
     @Override
-    public void processaAtaque(Pais atacante, Pais atacado){
-        if(atacante.isVizinho(atacado)){
+    public void processaAtaque(Pais atacante, Pais atacado) {
+        if (atacante.isVizinho(atacado)) {
             processaAtaque(atacante, atacado, currentIndex);
         } else {
             System.out.println("Esses paises não são vizinhos");
@@ -195,19 +189,19 @@ public class GameLoop implements iObservable, IGameLoop {
     @Override
     public void distribuiTropas(Pais pais) {
         Player currentPlayer = getCurrentPlayer();
-        if(numeroDeTropasValonguinho>0 && pais.getContinente().getNome().equals(types.sVALONGUINHO)){ //Alternativa pra forçar a ordem: colocar if's separados, de modo que só possa ir pra um continente depois de fechar o outro.
+        if (numeroDeTropasValonguinho > 0 && pais.getContinente().getNome().equals(types.sVALONGUINHO)) { //Alternativa pra forçar a ordem: colocar if's separados, de modo que só possa ir pra um continente depois de fechar o outro.
             pais.incrementaNumeroDeTropas();
             numeroDeTropasValonguinho--;
-        }else if(numeroDeTropasGragoata>0 && pais.getContinente().getNome().equals(types.sGRAGOATA)){
+        } else if (numeroDeTropasGragoata > 0 && pais.getContinente().getNome().equals(types.sGRAGOATA)) {
             pais.incrementaNumeroDeTropas();
             numeroDeTropasGragoata--;
-        }else if(numeroDeTropasPV>0 && pais.getContinente().getNome().equals(types.sPRAIAVERMELHA)){
+        } else if (numeroDeTropasPV > 0 && pais.getContinente().getNome().equals(types.sPRAIAVERMELHA)) {
             pais.incrementaNumeroDeTropas();
             numeroDeTropasPV--;
-        }else if(numeroDeTropasUI>0 && pais.getContinente().getNome().equals(types.sUNIDADEISOLADAS)){
+        } else if (numeroDeTropasUI > 0 && pais.getContinente().getNome().equals(types.sUNIDADEISOLADAS)) {
             pais.incrementaNumeroDeTropas();
             numeroDeTropasUI--;
-        }else if (numeroDeTropasAAlocarRodada > 0) {
+        } else if (numeroDeTropasAAlocarRodada > 0) {
             if (pais.getDono().getNome().equals(currentPlayer.getNome())) {
                 pais.incrementaNumeroDeTropas();
                 numeroDeTropasAAlocarRodada--;
@@ -225,23 +219,27 @@ public class GameLoop implements iObservable, IGameLoop {
     @Override
     public void calculaTropasASeremAlocadas() {
         Player currentPlayer = getCurrentPlayer();
-        numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises()/2;
-        if (numeroDeTropasAAlocarRodada < 3)
+        numeroDeTropasAAlocarRodada = currentPlayer.numeroDePaises() / 2;
+        if (numeroDeTropasAAlocarRodada < 3) {
             numeroDeTropasAAlocarRodada = 3; //min = 3, following the rules
-        
+        }
         //Tropas por continente (definidas pelas constantes do código para o WAR UFF):
-        for(Continente c : currentPlayer.getMeusContinentes()){
-            if(c.getNome().equals(types.sVALONGUINHO)) numeroDeTropasValonguinho = 2;
-            else if(c.getNome().equals(types.sGRAGOATA)) numeroDeTropasGragoata = 3;
-            else if(c.getNome().equals(types.sPRAIAVERMELHA)) numeroDeTropasPV = 4;
-            else if(c.getNome().equals(types.sUNIDADEISOLADAS)) numeroDeTropasUI = 5;
+        for (Continente c : currentPlayer.getMeusContinentes()) {
+            if (c.getNome().equals(types.sVALONGUINHO)) {
+                numeroDeTropasValonguinho = 2;
+            } else if (c.getNome().equals(types.sGRAGOATA)) {
+                numeroDeTropasGragoata = 3;
+            } else if (c.getNome().equals(types.sPRAIAVERMELHA)) {
+                numeroDeTropasPV = 4;
+            } else if (c.getNome().equals(types.sUNIDADEISOLADAS)) {
+                numeroDeTropasUI = 5;
+            }
         }
     }
 
     public int numeroDeTropasAAlocarRodada() {
         return this.numeroDeTropasAAlocarRodada();
     }
-
 
     public Objetivo getObjetivo() {
         return this.getCurrentPlayer().getObjetivo();
@@ -293,7 +291,6 @@ public class GameLoop implements iObservable, IGameLoop {
         return baixas;
     }
 
- 
     private void processaAtaque(Pais atacante, Pais atacado, int qtdDeTropas) {
         System.out.println(atacante.getNome() + " atacou " + atacado.getNome() + " com " + qtdDeTropas + " execitos");
         int baixas[], numDefensores;
@@ -323,7 +320,7 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacado.setTropas(qtdDeTropas - baixas[1]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - qtdDeTropas);
                     //Alterado
-                    if(perdedor.getMeusPaises() == null){
+                    if (perdedor.getMeusPaises() == null) {
                         for (int i = 0; i < perdedor.getCards().size(); i++) {
                             atacante.getDono().getCards().add(perdedor.getCards().get(i));
                         }
@@ -332,26 +329,24 @@ public class GameLoop implements iObservable, IGameLoop {
                     //Fim Alteração
                     System.out.println(qtdDeTropas + " Bravos soldados dominaram um novo país\n\n");
                 }
-                
+
                 this.avisaMudancas();
             }
         } else {
             System.out.println("Esses paises não são vizinhos, ou é seu país");
         }
     }
-    
-    public void setInAttack(boolean inAttack)
-    {
+
+    public void setInAttack(boolean inAttack) {
         this.inAttack = inAttack;
     }
-    
-    private void processaRemanejamento(Pais paisFrom,Pais paisTo, int militarNumber)
-    {
+
+    private void processaRemanejamento(Pais paisFrom, Pais paisTo, int militarNumber) {
         paisFrom.setTropas(paisFrom.getNumeroDeTroopas() - militarNumber);
         paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
         this.avisaMudancas();
     }
-    
+
     public int trocaCarta(ArrayList<Carta> cartas) {
         int n = 3; // Tipos de Formas diferentes
         int[] troca = new int[n];
@@ -374,6 +369,13 @@ public class GameLoop implements iObservable, IGameLoop {
         }
         if (acm == 3) {
             numExercitos += 2;
+            cartas.stream().forEach((carta) -> {
+                for (int j = 0; j < players.get(currentIndex).getMeusPaises().size(); j++) {
+                    if (players.get(currentIndex).getMeusPaises().get(j).getNome().equals(carta.getPais())) {
+                        players.get(currentIndex).getMeusPaises().get(j).setTropas(players.get(currentIndex).getMeusPaises().get(j).getNumeroDeTroopas() + 2);
+                    }
+                }
+            });
             return numExercitos;
         } else {
             return -1; //ERROR
@@ -382,5 +384,5 @@ public class GameLoop implements iObservable, IGameLoop {
 
     public Deck getDeck() {
         return deck;
-    }    
+    }
 }
