@@ -52,4 +52,8 @@ public interface Player {
     
     public boolean checaObjetivo();
     
+    public boolean getNewTroopa();
+    
+    public void setNewTroopa(boolean novaTropa);
+    
 }

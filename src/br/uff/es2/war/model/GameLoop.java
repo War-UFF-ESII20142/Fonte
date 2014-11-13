@@ -315,6 +315,7 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacado.setTropas(atacado.getNumeroDeTroopas() - baixas[0]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - baixas[1]);
                 } else {
+                    atacante.getDono().setNewTroopa(true);
                     Player perdedor = atacado.getDono();
                     atacado.getDono().remove(atacado);
                     atacado.setDono(atacante.getDono());
@@ -378,5 +379,8 @@ public class GameLoop implements iObservable, IGameLoop {
             return -1; //ERROR
         }
     }
-    
+
+    public Deck getDeck() {
+        return deck;
+    }    
 }

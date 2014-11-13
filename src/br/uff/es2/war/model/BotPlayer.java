@@ -21,8 +21,10 @@ public class BotPlayer implements Player {
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
     private Objetivo objetivo;
+    private boolean newTroopa;
 
     public BotPlayer(String nome, String cor, String tipo) {
+        newTroopa = false;
         this.nome.set(nome);
         this.cor.set(cor);
         this.tipo.set(tipo);
@@ -44,6 +46,8 @@ public class BotPlayer implements Player {
     public void setTipo(String tipo) {
         this.tipo.set(tipo);
     }
+    
+    
 
     @Override
     public void attack(Player player) {
@@ -261,5 +265,15 @@ public class BotPlayer implements Player {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean getNewTroopa() {
+        return newTroopa; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNewTroopa(boolean novaTropa) {
+        newTroopa = novaTropa; //To change body of generated methods, choose Tools | Templates.
     }
 }

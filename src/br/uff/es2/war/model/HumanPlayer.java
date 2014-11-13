@@ -25,8 +25,10 @@ public class HumanPlayer implements Player {
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
     private Objetivo objetivo;
+    private boolean newTroopa;
 
     public HumanPlayer(String nome, String cor, String tipo) {
+        newTroopa = false;
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
@@ -186,5 +188,15 @@ public class HumanPlayer implements Player {
             conts.remove(c);
         }
         return conts;
+    }
+
+    @Override
+    public boolean getNewTroopa() {
+        return newTroopa; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNewTroopa(boolean novaTropa) {
+        newTroopa = novaTropa; //To change body of generated methods, choose Tools | Templates.
     }
 }

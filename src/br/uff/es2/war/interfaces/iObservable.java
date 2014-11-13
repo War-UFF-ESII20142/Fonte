@@ -8,8 +8,10 @@ package br.uff.es2.war.interfaces;
 /**
  *
  * @author claudio
+ * @param <T>
  */
 public interface iObservable<T> {
+    
     public void addObserver( iObserver observer );
     public void removeObserver( iObserver observer );
     public void avisaMudancas();

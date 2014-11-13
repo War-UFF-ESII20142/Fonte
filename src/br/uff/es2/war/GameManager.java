@@ -57,6 +57,8 @@ public class GameManager
         this.distribuiTropas = true;
         inAttack = false;
         inRelocation = false;
+        gameLoop.getCurrentPlayer().getCards().add(gameLoop.getDeck().getCarta());
+        gameLoop.getCurrentPlayer().setNewTroopa(false);
         gameLoop.principalLoop();
     }
     
