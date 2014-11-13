@@ -354,11 +354,11 @@ public class GameLoop implements iObservable, IGameLoop {
     public int trocaCarta(ArrayList<Carta> cartas) {
         int n = 3; // Tipos de Formas diferentes
         int[] troca = new int[n];
-        int[] idFormas = new int[n];
+        final String formas[] = {"Triângulo", "Quadrado", "Círculo"};
         int acm = 0;
         for (int i = 0; i < cartas.size(); i++) {
             for (int j = 0; j < n; j++) {
-                if (cartas.get(i).getIdForma() == idFormas[j]) {
+                if (cartas.get(i).getForma().equals(formas[j])) {
                     troca[j]++;
                 }
             }
