@@ -111,6 +111,13 @@ public class GameLoop implements iObservable, IGameLoop {
 
         increaseIndex();
         calculaTropasASeremAlocadas();
+        
+         //Se tiver 5 cartas, tem que realizar uma troca de cartas
+        if(getCurrentPlayer().getCards().size() == 5){
+            gameController.avisaTrocaDeCarta();
+        }
+            
+        
         if(getCurrentPlayer().getTipo().equals("Bot"))
         {
             ((BotPlayer)(getCurrentPlayer())).processaRodada(this,gameController);

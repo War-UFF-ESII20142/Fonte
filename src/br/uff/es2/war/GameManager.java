@@ -156,7 +156,11 @@ public class GameManager
             janelaJogo.avisaAcabouTropas();
             terminaDistruibuicao();
         }
-    }   
+    }
+    
+    public void avisaTrocaDeCarta(){
+        janelaJogo.avisaTrocaDeCartas();
+    }
     
     
     public void fazCoisa(Pais pais)

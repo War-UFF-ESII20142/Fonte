@@ -640,9 +640,19 @@ public class JanelaJogo extends Application implements iObserver,iWindow
         JOptionPane.showConfirmDialog(null, "Você não tem mais tropas para distribuir.\nCom isso, sua rodada de distribuição acabou", "Alerta", JOptionPane.OK_CANCEL_OPTION);
     }
     
+    public void avisaTrocaDeCartas() 
+    {
+        //Caso se tenha 5 cartas é necessário fazer uma troca.
+        JOptionPane.showConfirmDialog(null, "Você possui 5 cartas. Precisa trocá-las.", "Alerta", JOptionPane.OK_CANCEL_OPTION);
+    }
+    
     public void finalizaJogo()
     {
-        this.windowController.mostraJanelaFimJogo(JanelaJogo.this,gameLoop.getCurrentPlayer());
+        try {
+            this.windowController.mostraJanelaFimJogo(JanelaJogo.this,gameLoop.getCurrentPlayer());
+        } catch (Exception ex) {
+            Logger.getLogger(JanelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
