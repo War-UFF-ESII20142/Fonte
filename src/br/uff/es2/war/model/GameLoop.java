@@ -20,6 +20,7 @@ import java.util.Iterator;
  */
 public class GameLoop implements iObservable, IGameLoop {
 
+    private int numExercitos = 2;
     private ArrayList<Player> players;
     private Iterator<Player> it;
     private int currentIndex;
@@ -314,13 +315,23 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacado.setTropas(atacado.getNumeroDeTroopas() - baixas[0]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - baixas[1]);
                 } else {
+                    Player perdedor = atacado.getDono();
                     atacado.getDono().remove(atacado);
                     atacado.setDono(atacante.getDono());
                     atacante.getDono().addPais(atacado);
                     atacado.setTropas(qtdDeTropas - baixas[1]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - qtdDeTropas);
+                    //Alterado
+                    if(perdedor.getMeusPaises() == null){
+                        for (int i = 0; i < perdedor.getCards().size(); i++) {
+                            atacante.getDono().getCards().add(perdedor.getCards().get(i));
+                        }
+                        perdedor.setCards(null);
+                    }
+                    //Fim Alteração
                     System.out.println(qtdDeTropas + " Bravos soldados dominaram um novo país\n\n");
                 }
+                
                 this.avisaMudancas();
             }
         } else {
@@ -338,6 +349,34 @@ public class GameLoop implements iObservable, IGameLoop {
         paisFrom.setTropas(paisFrom.getNumeroDeTroopas() - militarNumber);
         paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
         this.avisaMudancas();
+    }
+    
+    public int trocaCarta(ArrayList<Carta> cartas) {
+        int n = 3; // Tipos de Formas diferentes
+        int[] troca = new int[n];
+        int[] idFormas = new int[n];
+        int acm = 0;
+        for (int i = 0; i < cartas.size(); i++) {
+            for (int j = 0; j < n; j++) {
+                if (cartas.get(i).getIdForma() == idFormas[j]) {
+                    troca[j]++;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (troca[i] == 3) {
+                acm = 3;
+                break;
+            } else if (troca[i] == 1) {
+                acm++;
+            }
+        }
+        if (acm == 3) {
+            numExercitos += 2;
+            return numExercitos;
+        } else {
+            return -1; //ERROR
+        }
     }
     
 }

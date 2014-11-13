@@ -48,6 +48,8 @@ public interface Player {
     
     public void setObjetivo(Objetivo objetivo);
     
+    public void setCards(ArrayList<Carta> meusPaises);
+    
     public boolean checaObjetivo();
     
 }

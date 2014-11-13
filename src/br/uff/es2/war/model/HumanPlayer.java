@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.uff.es2.war.model;
 
 import br.uff.es2.war.interfaces.Player;
@@ -19,20 +18,20 @@ public class HumanPlayer implements Player {
 //    String tipo;
 //    String cor;
 //    String nome;
-     
+
     private SimpleStringProperty nome = new SimpleStringProperty();
     private SimpleStringProperty cor = new SimpleStringProperty();
     private SimpleStringProperty tipo = new SimpleStringProperty();
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
     private Objetivo objetivo;
-    
-    public HumanPlayer(String nome, String cor, String tipo){
+
+    public HumanPlayer(String nome, String cor, String tipo) {
         this.tipo = new SimpleStringProperty(tipo);
         this.cor = new SimpleStringProperty(cor);
         this.nome = new SimpleStringProperty(nome);
         this.meusPaises = new ArrayList<>();
-        this.objetivo = new Objetivo(0,"");
+        this.objetivo = new Objetivo(0, "");
     }
 
     /**
@@ -79,26 +78,22 @@ public class HumanPlayer implements Player {
     public void setTipo(String tipo) {
         this.tipo.set(tipo);
     }
-    
+
     @Override
-    public void attack(Player player){
+    public void attack(Player player) {
         //param: Another Player to be attacked
-        
     }
-    
+
     @Override
-    public void buyCard(){
-        
+    public void buyCard() {
     }
-    
+
     @Override
-    public void tradeCards(){
-        
+    public void tradeCards() {
     }
-    
+
     @Override
-    public void finalize(){
-        
+    public void finalize() {
     }
 
     @Override
@@ -110,33 +105,29 @@ public class HumanPlayer implements Player {
     public void setMeusPaises(ArrayList<Pais> meusPaises) {
         this.meusPaises = meusPaises;
     }
-    
+
     @Override
-    public void addPais(Pais pais)
-    {
+    public void addPais(Pais pais) {
         meusPaises.add(pais);
         pais.setDono(this);
     }
-    
+
     @Override
-    public void addAllPaises(Pais... paises)
-    {
-        for(Pais p:paises)
-        {
+    public void addAllPaises(Pais... paises) {
+        for (Pais p : paises) {
             meusPaises.add(p);
             p.setDono(this);
         }
     }
-    
+
     @Override
-    public void remove(Pais pais)
-    {
+    public void remove(Pais pais) {
         meusPaises.remove(pais);
     }
-    
+
     @Override
-    public int numeroDePaises(){
-       return this.meusPaises.size();
+    public int numeroDePaises() {
+        return this.meusPaises.size();
     }
 
     /**
@@ -147,6 +138,11 @@ public class HumanPlayer implements Player {
         return cards;
     }
 
+    @Override
+    public void setCards(ArrayList<Carta> cards) {
+        this.cards = cards;
+    }
+
     /**
      * @return the objetivo
      */
@@ -154,14 +150,14 @@ public class HumanPlayer implements Player {
     public Objetivo getObjetivo() {
         return objetivo;
     }
-    
+
     @Override
-    public void setObjetivo(Objetivo objetivo){
+    public void setObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
     }
-    
+
     @Override
-    public boolean checaObjetivo(){
+    public boolean checaObjetivo() {
         return this.objetivo.checaObjetivo(this);
     }
 
@@ -169,24 +165,26 @@ public class HumanPlayer implements Player {
     public ArrayList<Continente> getMeusContinentes() {
         ArrayList<Continente> conts = new ArrayList<>(), aux = new ArrayList<>();
         System.out.println("meusPaises.size(): " + meusPaises.size());
-        for(Pais mP : meusPaises){
-            if(!conts.contains(mP.getContinente()))
+        for (Pais mP : meusPaises) {
+            if (!conts.contains(mP.getContinente())) {
                 conts.add(mP.getContinente()); //add continentes onde tenho países, sem repetir
+            }
         }
         boolean isAll;
-        for(Continente c : conts){
+        for (Continente c : conts) {
             isAll = true;
-            for(Pais p : c.getPaises()){
-                if(!p.getDono().getNome().equals(nome.get())/*!getMeusPaises.contains(p)*/)
+            for (Pais p : c.getPaises()) {
+                if (!p.getDono().getNome().equals(nome.get())/*!getMeusPaises.contains(p)*/) {
                     isAll = false;
+                }
             }
-            if(!isAll)
+            if (!isAll) {
                 aux.add(c); //continentes os quais possuo algum país, mas não todos
+            }
         }
         for (Continente c : aux) {
             conts.remove(c);
         }
         return conts;
     }
-    
 }
