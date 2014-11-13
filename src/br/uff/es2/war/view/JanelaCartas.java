@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.swing.JOptionPane;
 
 public class JanelaCartas extends Application {
 
@@ -35,10 +36,9 @@ public class JanelaCartas extends Application {
     private Button btnVoltar;
     private HBox horizontalButtonBox;
     private TableView<Carta> tbCarta;
-    private TableColumn<Carta, String> tcContinente;
+    //private TableColumn<Carta, String> tcContinente;
     private TableColumn<Carta, String> tcPais;
     private TableColumn<Carta, String> tcForma;
-    private TableColumn<Carta, Boolean> tcEscolhida;
     private Stage stage;
     private WindowManager windowController;
     private ImageView imgLogo;
@@ -76,10 +76,15 @@ public class JanelaCartas extends Application {
         btnTrocar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                trocarCartas();
-                //Pegar as cartas marcadas
-                //TrocarCartas();
-                //Aumentar o numero de tropas para o jogador atual
+                ObservableList<Carta> temp = tbCarta.getSelectionModel().getSelectedItems();
+                if(temp.size() == 3){
+                    //---> Chamar o método de troca de carta aqui. <-----
+                    
+                    //trocaCarta(temp);
+                }
+                else{
+                    JOptionPane.showConfirmDialog(null, "Voce tem que selecionar 3 cartas", "Alerta", JOptionPane.OK_CANCEL_OPTION);
+                }
             }
         });
 
@@ -87,7 +92,6 @@ public class JanelaCartas extends Application {
             @Override
             public void handle(ActionEvent e) {
                 stage.close();
-                //windowController.startMainWindow(JanelaJogo.this);
             }
         });
 
@@ -140,13 +144,12 @@ public class JanelaCartas extends Application {
         horizontalButtonBox = new HBox(15);
         horizontalButtonBox.getChildren().addAll(btnVoltar, btnTrocar);
 
-        tcContinente = new TableColumn<>("Continente");
+//        tcContinente = new TableColumn<>("Continente");
         tcPais = new TableColumn<>("Pais");
         tcForma = new TableColumn("Forma");
-//        tcEscolhida = new TableColumn<>("Escolhido");
 
-        tcContinente.setCellValueFactory(new PropertyValueFactory<Carta, String>("continente"));
-        tcContinente.setPrefWidth(tbCarta.getMinWidth() / 3);
+//        tcContinente.setCellValueFactory(new PropertyValueFactory<Carta, String>("continente"));
+//        tcContinente.setPrefWidth(tbCarta.getMinWidth() / 3);
 
         tcPais.setCellValueFactory(new PropertyValueFactory<Carta, String>("pais"));
         tcPais.setPrefWidth(tbCarta.getMinWidth() / 3);
@@ -154,58 +157,12 @@ public class JanelaCartas extends Application {
         tcForma.setCellValueFactory(new PropertyValueFactory<Carta, String>("forma"));
         tcForma.setPrefWidth(tbCarta.getMinWidth() / 3);
 
-//        tcEscolhida.setCellValueFactory(new PropertyValueFactory<Carta, Boolean>("escolhido"));
-//        tcEscolhida.setPrefWidth(tbCarta.getMinWidth() / 3);
-//
-//        tcEscolhida.setCellFactory(
-//                new Callback<TableColumn<Carta, Boolean>, TableCell<Carta, Boolean>>() {
-//                    public TableCell<Carta, Boolean> call(TableColumn<Carta, Boolean> p) {
-//                        return new CheckBoxTableCell<Carta, Boolean>();
-//                    }
-//                });
-
-        //tbCarta.getColumns().addAll(tcEscolhida, tcContinente, tcPais, tcForma);
-        tbCarta.getColumns().addAll(tcContinente, tcPais, tcForma);
-
-        //imgLogo = new ImageView(new Image("resources/war-uff.png"));
-        //pane.getChildren().addAll(imgLogo,tbCarta,horizontalButtonBox);
+        tbCarta.getColumns().addAll(tcPais, tcForma);
+        
         pane.getChildren().addAll(tbCarta, horizontalButtonBox);
     }
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-//    public class CheckBoxTableCell<S, T> extends TableCell<S, T> {
-//
-//        private final CheckBox checkBox;
-//
-//        //private ObservableValue<T> ov;
-//        public CheckBoxTableCell() {
-//            this.checkBox = new CheckBox();
-//            this.checkBox.setAlignment(Pos.CENTER);
-//            setAlignment(Pos.CENTER);
-//            setGraphic(checkBox);
-//        }
-//
-//        @Override
-//        public void updateItem(T item, boolean empty) {
-//            super.updateItem(item, empty);
-//            if (empty) {
-//                setText(null);
-//                setGraphic(null);
-//            } else {
-//                setGraphic(checkBox);
-//            }
-//        }
-//    }
-
-    private void trocarCartas() {
-        //Se uma linha da tabela esta marcada, add a lista
-        ObservableList<Carta> temp;
-                temp = tbCarta.getSelectionModel().getSelectedItems();
-                for (Carta c : temp) {
-                    System.out.println(c.getPais());
-                }
     }
 }
