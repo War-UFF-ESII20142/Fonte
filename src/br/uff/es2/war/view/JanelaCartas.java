@@ -80,7 +80,7 @@ public class JanelaCartas extends Application {
                 if(temp.size() == 3){
                     //---> Chamar o método de troca de carta aqui. <-----
                     
-                    //trocaCarta(temp);
+                //    trocaCarta(temp);
                 }
                 else{
                     JOptionPane.showConfirmDialog(null, "Voce tem que selecionar 3 cartas", "Alerta", JOptionPane.OK_CANCEL_OPTION);
@@ -117,10 +117,10 @@ public class JanelaCartas extends Application {
 
     private void initComponenets() {
         olCarta = FXCollections.observableArrayList();
-        olCarta.add(new Carta("B","C"));
-        olCarta.add(new Carta("E","C"));
-        olCarta.add(new Carta("F","C"));
-        olCarta.add(new Carta("G","C"));
+//        olCarta.add(new Carta("B","C"));
+//        olCarta.add(new Carta("E","C"));
+//        olCarta.add(new Carta("F","C"));
+//        olCarta.add(new Carta("G","C"));
 
         pane = new AnchorPane();
         pane.setPrefSize(800, 600);
