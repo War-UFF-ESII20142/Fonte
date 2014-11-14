@@ -117,10 +117,10 @@ public class JanelaCartas extends Application {
 
     private void initComponenets() {
         olCarta = FXCollections.observableArrayList();
-        olCarta.add(new Carta("A","B","C"));
-        olCarta.add(new Carta("Z","E","C"));
-        olCarta.add(new Carta("X","F","C"));
-        olCarta.add(new Carta("C","G","C"));
+        olCarta.add(new Carta("B","C"));
+        olCarta.add(new Carta("E","C"));
+        olCarta.add(new Carta("F","C"));
+        olCarta.add(new Carta("G","C"));
 
         pane = new AnchorPane();
         pane.setPrefSize(800, 600);

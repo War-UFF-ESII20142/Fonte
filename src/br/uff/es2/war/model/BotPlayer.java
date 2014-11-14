@@ -17,7 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author claudio
  */
-public class BotPlayer implements Player{
+public class BotPlayer implements Player {
 
     private SimpleStringProperty nome = new SimpleStringProperty();
     private SimpleStringProperty cor = new SimpleStringProperty();
@@ -25,10 +25,11 @@ public class BotPlayer implements Player{
     private ArrayList<Carta> cards = new ArrayList<>();
     private ArrayList<Pais> meusPaises;
     private Objetivo objetivo;
+    private boolean newTroopa;
     private int numJogadas;
-    
-    public BotPlayer(String nome, String cor, String tipo)
-    {
+
+    public BotPlayer(String nome, String cor, String tipo) {
+        newTroopa = false;
         this.nome.set(nome);
         this.cor.set(cor);
         this.tipo.set(tipo);
@@ -36,7 +37,7 @@ public class BotPlayer implements Player{
         this.objetivo = new Objetivo(0,"");
         this.numJogadas = 0;
     }
-    
+
     /**
      * @return the tipo
      */
@@ -52,19 +53,18 @@ public class BotPlayer implements Player{
         this.tipo.set(tipo);
     }
     
+    
+
     @Override
     public void attack(Player player) {
-        
     }
 
     @Override
     public void buyCard() {
-        
     }
 
     @Override
     public void tradeCards() {
-        
     }
 
     @Override
@@ -76,10 +76,9 @@ public class BotPlayer implements Player{
     public String getCor() {
         return cor.get();
     }
-    
+
     @Override
-    public void finalize(){
-        
+    public void finalize() {
     }
 
     @Override
@@ -100,8 +99,7 @@ public class BotPlayer implements Player{
 
     @Override
     public void addAllPaises(Pais... paises) {
-        for(Pais p:paises)
-        {
+        for (Pais p : paises) {
             meusPaises.add(p);
             p.setDono(this);
         }
@@ -111,14 +109,19 @@ public class BotPlayer implements Player{
     public void remove(Pais pais) {
         meusPaises.remove(pais);
     }
-    
-    public int numeroDePaises(){
+
+    public int numeroDePaises() {
         return meusPaises.size();
     }
 
     @Override
     public ArrayList<Carta> getCards() {
         return this.cards;
+    }
+
+    @Override
+    public void setCards(ArrayList<Carta> cards) {
+        this.cards = cards;
     }
 
     @Override
@@ -140,19 +143,22 @@ public class BotPlayer implements Player{
     public ArrayList<Continente> getMeusContinentes() {
         ArrayList<Continente> conts = new ArrayList<>(), aux = new ArrayList<>();
         System.out.println("meusPaises.size(): " + meusPaises.size());
-        for(Pais mP : meusPaises){
-            if(!conts.contains(mP.getContinente()))
+        for (Pais mP : meusPaises) {
+            if (!conts.contains(mP.getContinente())) {
                 conts.add(mP.getContinente()); //add continentes onde tenho países, sem repetir
+            }
         }
         boolean isAll;
-        for(Continente c : conts){
+        for (Continente c : conts) {
             isAll = true;
-            for(Pais p : c.getPaises()){
-                if(!p.getDono().getNome().equals(nome.get())/*!getMeusPaises.contains(p)*/)
+            for (Pais p : c.getPaises()) {
+                if (!p.getDono().getNome().equals(nome.get())/*!getMeusPaises.contains(p)*/) {
                     isAll = false;
+                }
             }
-            if(!isAll)
+            if (!isAll) {
                 aux.add(c); //continentes os quais possuo algum país, mas não todos
+            }
         }
         for (Continente c : aux) {
             conts.remove(c);
@@ -164,10 +170,10 @@ public class BotPlayer implements Player{
     {
         controller.setIsBot(true);
         //faz troca de cartas
-        
+
         //Adiciona exercitos
         addExercitos(gameLoop);
-        
+
         //faz ataque
         //gameLoop.setInAttack(true);
         numJogadas = 0;
@@ -179,24 +185,18 @@ public class BotPlayer implements Player{
         controller.setIsBot(false);
     }
     
-    private void addExercitos(GameLoop gameLoop)
-    {
-        
-        
+    private void addExercitos(GameLoop gameLoop) {
         ArrayList<Continente> continentes = getMeusContinentes();
-        
-        if( continentes.size() != 0 )
-        {
-            for(Continente c : continentes)
-            {
+
+        if (continentes.size() != 0) {
+            for (Continente c : continentes) {
                 Pais p = paisMaisFracoPorContinente(c);
                 System.out.println("To aquii!!!");
                 gameLoop.distribuiTropas(p);
             }
         }
-        
-        while(gameLoop.temTropa())
-        {
+
+        while (gameLoop.temTropa()) {
             //pega pais com menos exercito
             Pais p = paisMaisFraco();
             System.out.println(p.getNome());
@@ -251,59 +251,47 @@ public class BotPlayer implements Player{
             pa = temPaisParaAtaque();
         }
     }
-    
-    private void espalhaExercito(GameLoop gameLoop)
-    {
-        
+
+    private void espalhaExercito(GameLoop gameLoop) {
     }
 
     private Pais paisMaisFraco() {
-        Pais pTemp = new Pais("","",null);
-        
+        Pais pTemp = new Pais("", "", null);
+
         int min = 10000;
-        
-        for(Pais p : meusPaises)
-        {
-            if(p.getNumeroDeTroopas() < min)
-            {
+
+        for (Pais p : meusPaises) {
+            if (p.getNumeroDeTroopas() < min) {
                 min = p.getNumeroDeTroopas();
                 pTemp = p;
             }
         }
-        
+
         return pTemp;
     }
-    
+
     private Pais paisMaisFracoPorContinente(Continente continente) {
-        Pais pTemp = new Pais("","",null);
-        
+        Pais pTemp = new Pais("", "", null);
+
         int min = 10000;
-        
-        for(Pais p : meusPaises)
-        {
-            if(p.getContinente().getNome().equals(continente.getNome()))
-            {
-                if(p.getNumeroDeTroopas() < min)
-                {
+
+        for (Pais p : meusPaises) {
+            if (p.getContinente().getNome().equals(continente.getNome())) {
+                if (p.getNumeroDeTroopas() < min) {
                     min = p.getNumeroDeTroopas();
                     pTemp = p;
                 }
             }
         }
-        
+
         return pTemp;
     }
 
-    private Pais temPaisParaAtaque() 
-    {
-        for(Pais p : meusPaises)
-        {
-            for(Pais vizinho : p.getVizinhos())
-            {
-                if(!vizinho.getDono().getNome().equals(p.getDono().getNome()))
-                {
-                    if(p.getNumeroDeTroopas() > 1)
-                    {
+    private Pais temPaisParaAtaque() {
+        for(Pais p : meusPaises) {
+            for(Pais vizinho : p.getVizinhos()) {
+                if(!vizinho.getDono().getNome().equals(p.getDono().getNome())) {
+                    if(p.getNumeroDeTroopas() > 1) {
                         return p;
                     }
                 }
@@ -311,5 +299,14 @@ public class BotPlayer implements Player{
         }
         return null;
     }
-    
+
+    @Override
+    public boolean getNewTroopa() {
+        return newTroopa; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNewTroopa(boolean novaTropa) {
+        newTroopa = novaTropa; //To change body of generated methods, choose Tools | Templates.
+    }
 }
