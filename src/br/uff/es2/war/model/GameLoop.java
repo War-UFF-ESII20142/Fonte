@@ -40,7 +40,7 @@ public class GameLoop implements iObservable, IGameLoop {
 
     ArrayList<iObserver> observerList;
 
-    public GameLoop(ArrayList<Player> players, DataManager manager,GameManager controller) {
+    public GameLoop(ArrayList<Player> players, DataManager manager, GameManager controller) {
         numeroDeTropasAAlocarRodada = numeroDeTropasGragoata = numeroDeTropasPV = numeroDeTropasUI = numeroDeTropasValonguinho = 0;
         numeroTropasAtaque = 0;
         inAttack = true;
@@ -75,7 +75,7 @@ public class GameLoop implements iObservable, IGameLoop {
 
         if (getCurrentPlayer().getTipo().equals("Bot")) {
             calculaTropasASeremAlocadas();
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this,gameController);
+            ((BotPlayer) (getCurrentPlayer())).processaRodada(this, gameController);
         }
 
         avisaMudancas();
@@ -113,16 +113,14 @@ public class GameLoop implements iObservable, IGameLoop {
 
         increaseIndex();
         calculaTropasASeremAlocadas();
-        
-         //Se tiver 5 cartas, tem que realizar uma troca de cartas
-        if(getCurrentPlayer().getCards().size() == 5){
+
+        //Se tiver 5 cartas, tem que realizar uma troca de cartas
+        if (getCurrentPlayer().getCards().size() == 5) {
             gameController.avisaTrocaDeCarta();
         }
-            
-        
-        if(getCurrentPlayer().getTipo().equals("Bot"))
-        {
-            ((BotPlayer)(getCurrentPlayer())).processaRodada(this,gameController);
+
+        if (getCurrentPlayer().getTipo().equals("Bot")) {
+            ((BotPlayer) (getCurrentPlayer())).processaRodada(this, gameController);
         }
         /**
          * while(true){ //enquanto ninguem ganhou. Implementar as checagens de
@@ -331,14 +329,14 @@ public class GameLoop implements iObservable, IGameLoop {
                     atacante.getDono().addPais(atacado);
                     atacado.setTropas(qtdDeTropas - baixas[1]);
                     atacante.setTropas(atacante.getNumeroDeTroopas() - qtdDeTropas);
-                    if(getCurrentPlayer().checaObjetivo())
+                    if (getCurrentPlayer().checaObjetivo()) {
                         gameController.finalizaJogo();
-                    else{
+                    } else {
                         if (perdedor.getMeusPaises() == null) {
-                          for (int i = 0; i < perdedor.getCards().size(); i++) {
-                            atacante.getDono().getCards().add(perdedor.getCards().get(i));
-                        }
-                        perdedor.setCards(null);
+                            for (int i = 0; i < perdedor.getCards().size(); i++) {
+                                atacante.getDono().getCards().add(perdedor.getCards().get(i));
+                            }
+                            perdedor.setCards(null);
                         }
                     }
                     System.out.println(qtdDeTropas + " Bravos soldados dominaram um novo país\n\n");
@@ -359,11 +357,48 @@ public class GameLoop implements iObservable, IGameLoop {
         paisFrom.setTropas(paisFrom.getNumeroDeTroopas() - militarNumber);
         paisTo.setTropas(paisTo.getNumeroDeTroopas() + militarNumber);
         this.avisaMudancas();
-        if(getCurrentPlayer().checaObjetivo()) gameController.finalizaJogo();
+        if (getCurrentPlayer().checaObjetivo()) {
+            gameController.finalizaJogo();
+        }
     }
-    
+
     public int getQtdTropa() {
         return numeroDeTropasAAlocarRodada;
+    }
+
+    public int trocaCarta(ArrayList<Carta> cartas) {
+        int n = 3; // Tipos de Formas diferentes
+        int[] troca = new int[n];
+        final String formas[] = {"Triângulo", "Quadrado", "Círculo"};
+        int acm = 0;
+        for (int i = 0; i < cartas.size(); i++) {
+            for (int j = 0; j < n; j++) {
+                if (cartas.get(i).getForma().equals(formas[j])) {
+                    troca[j]++;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (troca[i] == 3) {
+                acm = 3;
+                break;
+            } else if (troca[i] == 1) {
+                acm++;
+            }
+        }
+        if (acm == 3) {
+            numExercitos += 2;
+            cartas.stream().forEach((carta) -> {
+                for (int j = 0; j < players.get(currentIndex).getMeusPaises().size(); j++) {
+                    if (players.get(currentIndex).getMeusPaises().get(j).getNome().equals(carta.getPais())) {
+                        players.get(currentIndex).getMeusPaises().get(j).setTropas(players.get(currentIndex).getMeusPaises().get(j).getNumeroDeTroopas() + 2);
+                    }
+                }
+            });
+            return numExercitos;
+        } else {
+            return -1; //ERROR
+        }
     }
 
     public Deck getDeck() {
